@@ -4,7 +4,6 @@ namespace AppBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
@@ -62,7 +61,6 @@ class Web
 
     /**
      * @param int $id
-     * @return Web
      */
     public function setId($id)
     {
@@ -80,7 +78,6 @@ class Web
 
     /**
      * @param string $nombre
-     * @return Web
      */
     public function setNombre($nombre)
     {
@@ -98,7 +95,6 @@ class Web
 
     /**
      * @param string $imagen
-     * @return Web
      */
     public function setImagen($imagen)
     {
@@ -116,7 +112,6 @@ class Web
 
     /**
      * @param string $footer
-     * @return Web
      */
     public function setFooter($footer)
     {
@@ -134,7 +129,6 @@ class Web
 
     /**
      * @param string $imageninicial
-     * @return Web
      */
     public function setImageninicial($imageninicial)
     {
@@ -152,7 +146,6 @@ class Web
 
     /**
      * @param string $textoinicial
-     * @return Web
      */
     public function setTextoinicial($textoinicial)
     {

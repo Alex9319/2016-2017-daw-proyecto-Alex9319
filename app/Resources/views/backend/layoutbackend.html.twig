@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('backend.css') }}">
+{% endblock %}
+{% block body %}
+    {% set ruta = app.request.get('_route') %}
+    {% block navbar %}
+        <nav class="navbar navbar-default navbar-fixed-top barra">
+            <div class="container">
+                <div class="navbar-top">
+                    {% if app.user %}
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Desplegar barra de navegación</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    {% endif %}
+                    <a class="navbar-brand" href="{{ path('homepage') }}">Ver Web</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                    {% if app.user %}
+                        <li{% if ruta == 'web' %} class="active"{% endif %}><a href="#"><i class="fa fa-gear"></i> Web</a></li>
+                        <li{% if ruta == 'usuarios' %} class="active"{% endif %}><a href="#"><i class="fa fa-users"></i> Usuarios</a></li>
+                        <li{% if ruta == 'categorias' %} class="active"{% endif %}><a href="#"><i class="fa fa-child"></i> Categorias</a></li>
+                    {% endif %}
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if app.user %}
+                            <li><a href="{{ path('perfil') }}"><i class="fa fa-user"></i> Mi perfil</a></li>
+                            <li><a href="{{ path('salir') }}">{{ app.user.dni }} - Salir</a></li>
+                        {% endif %}
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+    {% endblock %}
+    <div class="container">
+        {% if app.session.flashBag.has('estado') %}
+            {% set mensajes = app.session.flashBag.get('estado') %}
+            {% for mensaje in mensajes %}
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+                    {{ mensaje }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% if app.session.flashBag.has('error') %}
+            {% set mensajes = app.session.flashBag.get('error') %}
+            {% for mensaje in mensajes %}
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+                    {{ mensaje }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% block content %}{% endblock %}
+    </div>
+{% endblock %}

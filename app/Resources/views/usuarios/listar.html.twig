@@ -1,0 +1,30 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>Listado de Usuarios</h1>
+    <a href="{{ path("nusuario") }}" class="btn btn-success"><i class="fa fa-plus"></i> Añadir usuario</a>
+    <p></p>
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th class="col-sm-4">Nombre</th>
+            <th class="col-sm-4">Apellidos</th>
+            <th class="col-sm-3">Usuario</th>
+            <th class="col-sm-1"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario.nombre }}</td>
+                <td>{{ usuario.apellidos }}</td>
+                <td>{{ usuario.usuario }}</td>
+                <td>
+                    <a href="{{ path('musuarios', {'id': usuario.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
+                    {# <a href="{{ path('#', {'id': material.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>#}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

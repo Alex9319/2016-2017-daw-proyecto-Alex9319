@@ -4,8 +4,17 @@ security:
 
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory: ~
+        entidad:
+            entity:
+              class: AppBundle\Entity\Usuario
+              property: usuario
+
+    encoders:
+        AppBundle\Entity\Usuario: bcrypt
+
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_DOCUMENTADOR]
+        ROLE_EDITOR: [ROLE_USER]
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -20,5 +29,13 @@ security:
             # http_basic: ~
             # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
 
-            # form_login: ~
+            form_login:
+              login_path: login
+              check_path: comprobar
+
+            logout:
+              path: salir
+              target: homepage
+
+
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html

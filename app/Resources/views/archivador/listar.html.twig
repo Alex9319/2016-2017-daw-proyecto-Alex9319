@@ -1,0 +1,28 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>Listado de Archivadores</h1>
+    <a href="{{ path("nuevo_arch") }}" class="btn btn-success"><i class="fa fa-plus"></i> Añadir archivador</a>
+    <p></p>
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th class="col-sm-1">Numero</th>
+            <th class="col-sm-5">Color</th>
+            <th class="col-sm-1"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for archivador in archivadores %}
+            <tr>
+                <td>{{ archivador.numero }}</td>
+                <td>{{ archivador.color }}</td>
+                <td>
+                    <a href="{{ path('modificar_arch', {'id': archivador.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
+                   {# <a href="{{ path('#', {'id': material.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>#}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

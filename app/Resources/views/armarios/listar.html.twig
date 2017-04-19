@@ -1,0 +1,28 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>Listado de Armarios</h1>
+    <a href="{{ path("nuevo_arm") }}" class="btn btn-success"><i class="fa fa-plus"></i> Añadir armario</a>
+    <p></p>
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th class="col-sm-1">Numero</th>
+            <th class="col-sm-5">Puerta</th>
+            <th class="col-sm-1"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for armario in armarios %}
+            <tr>
+                <td>{{ armario.numero }}</td>
+                <td>{{ armario.puerta }}</td>
+                <td>
+                    <a href="{{ path('modificar_arm', {'id': armario.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
+                   {# <a href="{{ path('#', {'id': material.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>#}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,4 +1,25 @@
 body {
     padding-top: 70px;
     padding-bottom: 30px;
+    background-color: #FFF0A5;
+}
+.barra{
+    background-color: #468966;
+}
+.barra li:hover{
+    background-color: #FFB03B;
+}
+.barra li a{
+    color: white!important;
+}
+.navbar-brand{
+    color:white!important;
+}
+.navbar-brand:hover{
+    color:#FFB03B!important;
+}
+.cuadro{
+    border: solid 1px black;
+    padding: 1em;
+    border-radius: 15px;
 }

@@ -19,7 +19,7 @@ class Usuario implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", unique=true)
      * @var string
      */
     private $usuario;
@@ -43,24 +43,100 @@ class Usuario implements UserInterface
     private $apellidos;
 
     /**
-     * @ORM\Column(type="boolean")
-     * @var bool
+     * @ORM\Column(type="integer")
+     * @var int
      */
-    private $editor;
+    private $NivelDeAcceso;
+
 
     /**
-     * @ORM\Column(type="boolean")
-     * @var bool
-     */
-    private $administrador;
-
-    /**
-     * Convierte el profesor en una cadena de texto
+     * Convierte el usuario en una cadena de texto
      */
     public function __toString()
     {
-        return $this->getApellidos() . ', ' . $this->getNombre();
+        return $this->getNombre() . ', ' . $this->getApellidos();
     }
+
+
+    /**
+     * Returns the roles granted to the user.
+     *
+     * <code>
+     * public function getRoles()
+     * {
+     *     return array('ROLE_USER');
+     * }
+     * </code>
+     *
+     * Alternatively, the roles might be stored on a ``roles`` property,
+     * and populated in any number of different ways when the user object
+     * is created.
+     *
+     * @return (Role|string)[] The user roles
+     */
+    public function getRoles()
+    {
+        $roles = ['ROLE_USER'];
+
+        if ($this->getNivelDeAcceso()=='2000') {
+            $roles[] = 'ROLE_ADMIN';
+        }
+        if ($this->getNivelDeAcceso()>='1500') {
+            $roles[] = 'ROLE_DOCUMENTADOR';
+        }
+        if ($this->getNivelDeAcceso()<'1500') {
+            $roles[] = 'ROLE_USER';
+        }
+
+        return $roles;
+    }
+
+    /**
+     * Returns the password used to authenticate the user.
+     *
+     * This should be the encoded password. On authentication, a plain-text
+     * password will be salted, encoded, and then compared to this value.
+     *
+     * @return string The password
+     */
+    public function getPassword()
+    {
+        return $this->getClave();
+    }
+
+    /**
+     * Returns the salt that was originally used to encode the password.
+     *
+     * This can return null if the password was not encoded using a salt.
+     *
+     * @return string|null The salt
+     */
+    public function getSalt()
+    {
+        return null;
+    }
+
+    /**
+     * Returns the username used to authenticate the user.
+     *
+     * @return string The username
+     */
+    public function getUsername()
+    {
+        return $this->getUsuario();
+    }
+
+    /**
+     * Removes sensitive data from the user.
+     *
+     * This is important if, at any given point, sensitive information like
+     * the plain-text password is stored on this object.
+     */
+    public function eraseCredentials()
+    {
+    }
+
+
 
     /**
      * Get id
@@ -72,7 +148,53 @@ class Usuario implements UserInterface
         return $this->id;
     }
 
+    /**
+     * Set usuario
+     *
+     * @param string $usuario
+     *
+     * @return Usuario
+     */
+    public function setUsuario($usuario)
+    {
+        $this->usuario = $usuario;
 
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return string
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
+
+    /**
+     * Set clave
+     *
+     * @param string $clave
+     *
+     * @return Usuario
+     */
+    public function setClave($clave)
+    {
+        $this->clave = $clave;
+
+        return $this;
+    }
+
+    /**
+     * Get clave
+     *
+     * @return string
+     */
+    public function getClave()
+    {
+        return $this->clave;
+    }
 
     /**
      * Set nombre
@@ -123,164 +245,26 @@ class Usuario implements UserInterface
     }
 
     /**
-     * @return string
-     */
-    public function getUsuario()
-    {
-        return $this->usuario;
-    }
-
-    /**
-     * @param string $usuario
-     * @return Usuario
-     */
-    public function setUsuario($usuario)
-    {
-        $this->usuario = $usuario;
-        return $this;
-    }
-
-    /**
-     * Set clave
+     * Set nivelDeAcceso
      *
-     * @param string $clave
+     * @param integer $nivelDeAcceso
      *
      * @return Usuario
      */
-    public function setClave($clave)
+    public function setNivelDeAcceso($nivelDeAcceso)
     {
-        $this->clave = $clave;
+        $this->NivelDeAcceso = $nivelDeAcceso;
 
         return $this;
     }
 
     /**
-     * Get clave
+     * Get nivelDeAcceso
      *
-     * @return string
+     * @return integer
      */
-    public function getClave()
+    public function getNivelDeAcceso()
     {
-        return $this->clave;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isEditor()
-    {
-        return $this->editor;
-    }
-
-    /**
-     * @param bool $editor
-     * @return Usuario
-     */
-    public function setEditor($editor)
-    {
-        $this->editor = $editor;
-        return $this;
-    }
-
-
-
-    /**
-     * Set administrador
-     *
-     * @param boolean $administrador
-     *
-     * @return Usuario
-     */
-    public function setAdministrador($administrador)
-    {
-        $this->administrador = $administrador;
-
-        return $this;
-    }
-
-    /**
-     * Get administrador
-     *
-     * @return boolean
-     */
-    public function isAdministrador()
-    {
-        return $this->administrador;
-    }
-
-    /**
-     * Returns the roles granted to the user.
-     *
-     * <code>
-     * public function getRoles()
-     * {
-     *     return array('ROLE_USER');
-     * }
-     * </code>
-     *
-     * Alternatively, the roles might be stored on a ``roles`` property,
-     * and populated in any number of different ways when the user object
-     * is created.
-     *
-     * @return (Role|string)[] The user roles
-     */
-    public function getRoles()
-    {
-        $roles = ['ROLE_USER'];
-
-        if ($this->isAdministrador()) {
-            $roles[] = 'ROLE_ADMIN';
-        }
-
-        if ($this->isEditor()) {
-            $roles[] = 'ROLE_EDITOR';
-        }
-
-        return $roles;
-    }
-
-    /**
-     * Returns the password used to authenticate the user.
-     *
-     * This should be the encoded password. On authentication, a plain-text
-     * password will be salted, encoded, and then compared to this value.
-     *
-     * @return string The password
-     */
-    public function getPassword()
-    {
-        return $this->getClave();
-    }
-
-    /**
-     * Returns the salt that was originally used to encode the password.
-     *
-     * This can return null if the password was not encoded using a salt.
-     *
-     * @return string|null The salt
-     */
-    public function getSalt()
-    {
-        return null;
-    }
-
-    /**
-     * Returns the username used to authenticate the user.
-     *
-     * @return string The username
-     */
-    public function getUsername()
-    {
-        return $this->getUsuario();
-    }
-
-    /**
-     * Removes sensitive data from the user.
-     *
-     * This is important if, at any given point, sensitive information like
-     * the plain-text password is stored on this object.
-     */
-    public function eraseCredentials()
-    {
+        return $this->NivelDeAcceso;
     }
 }

@@ -26,12 +26,14 @@
                         {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'aplicacion' %} class="active"{% endif %}><a href="#"><i class="fa fa-gear"></i> Web</a></li>{% endif %}
                         {% if is_granted('ROLE_ADMIN') %}<li{% if ruta == 'usuarios' %} class="active"{% endif %}><a href="{{ path('listadoUsuarios') }}"><i class="fa fa-users"></i> Usuarios</a></li>{% endif %}
                         {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'categorias' %} class="active"{% endif %}><a href="{{ path('listadoCategorias') }}"><i class="fa fa-child"></i> Categorias</a></li>{% endif %}
+                        {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'armarios' %} class="active"{% endif %}><a href="{{ path('listadoArmarios') }}"><i class="fa fa-briefcase"></i> Armarios</a></li>{% endif %}
+                        {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'archivador' %} class="active"{% endif %}><a href="{{ path('listadoArchivadores') }}"><i class="fa fa-book"></i> Archivadores</a></li>{% endif %}
                     {% endif %}
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if app.user %}
                             <li><a href="{{ path('perfil') }}"><i class="fa fa-user"></i> Mi perfil</a></li>
-                            <li><a href="{{ path('salir') }}">{{ app.user }} - Salir</a></li>
+                            <li><a href="{{ path('salir') }}">{{ app.user.usuario }} - Salir</a></li>
                         {% else %}
                             <li><a href="{{ path('login') }}">Acceder</a></li>
                         {% endif %}

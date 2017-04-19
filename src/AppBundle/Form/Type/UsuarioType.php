@@ -1,0 +1,64 @@
+<?php
+
+namespace AppBundle\Form\Type;
+
+use AppBundle\Entity\Usuario;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
+
+class UsuarioType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('nombre', null, [
+                'label' => 'Nombre'
+            ])
+            ->add('apellidos', null, [
+                'label' => 'Apellidos'
+            ])
+            ->add('usuario', null, [
+                'label' => 'Nombre de Usuario'
+            ])
+            ->add('nivelDeAcceso', null, [
+                'label' => 'Nivel de Acceso',
+                'disabled' => ($options['es_admin'] === false)
+            ]);
+
+        if (false === $options['es_admin']) {
+            $builder
+                ->add('antigua', PasswordType::class, [
+                    'label' => 'Clave Antigua',
+                    'mapped' => false,
+                    'constraints' => [
+                        new UserPassword()
+                    ]
+            ]);
+        }
+
+        $builder
+            ->add('nueva', RepeatedType::class, [
+                'mapped' => false,
+                'type' => PasswordType::class,
+                'first_options' => [
+                    'label' => 'Clave Nueva',
+                ],
+                'second_options' => [
+                    'label' => 'Repetir Clave Nueva'
+                ]
+            ]);
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => Usuario::class,
+            'es_admin' => false,
+            'el_mismo' => false
+        ]);
+    }
+}

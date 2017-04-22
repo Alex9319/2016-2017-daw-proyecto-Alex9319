@@ -3,7 +3,6 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @ORM\Entity
@@ -25,8 +24,8 @@ class Elementos
     private $nombre;
 
     /**
-     * @ORM\Column(type="integer")
-     * @var int
+     * @ORM\Column(type="string")
+     * @var string
      */
     private $observaciones;
 
@@ -37,13 +36,13 @@ class Elementos
     private $NivelDeAcceso;
 
     /**
-     * @var Date
+     * @var \DateTime
      * @ORM\Column(name="fecha_alta", type="date",nullable=true)
      */
     private $fechaAlta;
 
     /**
-     * @var Date
+     * @var \DateTime
      * @ORM\Column(name="fecha_baja", type="date",nullable=true)
      */
     private $fechaBaja;
@@ -91,6 +90,7 @@ class Elementos
         return $this->getNombre().'.....'.$this->getObservaciones();
     }
 
+
     /**
      * Get id
      *
@@ -128,7 +128,7 @@ class Elementos
     /**
      * Set observaciones
      *
-     * @param integer $observaciones
+     * @param string $observaciones
      *
      * @return Elementos
      */
@@ -142,7 +142,7 @@ class Elementos
     /**
      * Get observaciones
      *
-     * @return integer
+     * @return string
      */
     public function getObservaciones()
     {
@@ -222,156 +222,6 @@ class Elementos
     }
 
     /**
-     * Add armario
-     *
-     * @param \AppBundle\Entity\Armario $armario
-     *
-     * @return Elementos
-     */
-    public function addArmario(\AppBundle\Entity\Armario $armario)
-    {
-        $this->armario[] = $armario;
-
-        return $this;
-    }
-
-    /**
-     * Remove armario
-     *
-     * @param \AppBundle\Entity\Armario $armario
-     */
-    public function removeArmario(\AppBundle\Entity\Armario $armario)
-    {
-        $this->armario->removeElement($armario);
-    }
-
-    /**
-     * Get armario
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getArmario()
-    {
-        return $this->armario;
-    }
-
-    /**
-     * Add archivador
-     *
-     * @param \AppBundle\Entity\Archivador $archivador
-     *
-     * @return Elementos
-     */
-    public function addArchivador(\AppBundle\Entity\Archivador $archivador)
-    {
-        $this->archivador[] = $archivador;
-
-        return $this;
-    }
-
-    /**
-     * Remove archivador
-     *
-     * @param \AppBundle\Entity\Archivador $archivador
-     */
-    public function removeArchivador(\AppBundle\Entity\Archivador $archivador)
-    {
-        $this->archivador->removeElement($archivador);
-    }
-
-    /**
-     * Get archivador
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getArchivador()
-    {
-        return $this->archivador;
-    }
-
-    /**
-     * Add categorium
-     *
-     * @param \AppBundle\Entity\Categoria $categorium
-     *
-     * @return Elementos
-     */
-    public function addCategorium(\AppBundle\Entity\Categoria $categorium)
-    {
-        $this->categoria[] = $categorium;
-
-        return $this;
-    }
-
-    /**
-     * Remove categorium
-     *
-     * @param \AppBundle\Entity\Categoria $categorium
-     */
-    public function removeCategorium(\AppBundle\Entity\Categoria $categorium)
-    {
-        $this->categoria->removeElement($categorium);
-    }
-
-    /**
-     * Get categoria
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCategoria()
-    {
-        return $this->categoria;
-    }
-
-    /**
-     * Set archivador
-     *
-     * @param \AppBundle\Entity\Categoria $archivador
-     *
-     * @return Elementos
-     */
-    public function setArchivador(\AppBundle\Entity\Categoria $archivador = null)
-    {
-        $this->archivador = $archivador;
-
-        return $this;
-    }
-
-    /**
-     * Add multimedia
-     *
-     * @param \AppBundle\Entity\Multimedia $multimedia
-     *
-     * @return Elementos
-     */
-    public function addMultimedia(\AppBundle\Entity\Multimedia $multimedia)
-    {
-        $this->multimedia[] = $multimedia;
-
-        return $this;
-    }
-
-    /**
-     * Remove multimedia
-     *
-     * @param \AppBundle\Entity\Multimedia $multimedia
-     */
-    public function removeMultimedia(\AppBundle\Entity\Multimedia $multimedia)
-    {
-        $this->multimedia->removeElement($multimedia);
-    }
-
-    /**
-     * Get multimedia
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getMultimedia()
-    {
-        return $this->multimedia;
-    }
-
-    /**
      * Set armario
      *
      * @param \AppBundle\Entity\Armario $armario
@@ -383,6 +233,40 @@ class Elementos
         $this->armario = $armario;
 
         return $this;
+    }
+
+    /**
+     * Get armario
+     *
+     * @return \AppBundle\Entity\Armario
+     */
+    public function getArmario()
+    {
+        return $this->armario;
+    }
+
+    /**
+     * Set archivador
+     *
+     * @param \AppBundle\Entity\Archivador $archivador
+     *
+     * @return Elementos
+     */
+    public function setArchivador(\AppBundle\Entity\Archivador $archivador = null)
+    {
+        $this->archivador = $archivador;
+
+        return $this;
+    }
+
+    /**
+     * Get archivador
+     *
+     * @return \AppBundle\Entity\Archivador
+     */
+    public function getArchivador()
+    {
+        return $this->archivador;
     }
 
     /**
@@ -400,6 +284,16 @@ class Elementos
     }
 
     /**
+     * Get categoria
+     *
+     * @return \AppBundle\Entity\Categoria
+     */
+    public function getCategoria()
+    {
+        return $this->categoria;
+    }
+
+    /**
      * Set multimedia
      *
      * @param \AppBundle\Entity\Multimedia $multimedia
@@ -411,5 +305,15 @@ class Elementos
         $this->multimedia = $multimedia;
 
         return $this;
+    }
+
+    /**
+     * Get multimedia
+     *
+     * @return \AppBundle\Entity\Multimedia
+     */
+    public function getMultimedia()
+    {
+        return $this->multimedia;
     }
 }

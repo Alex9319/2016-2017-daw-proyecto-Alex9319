@@ -37,6 +37,13 @@ class Archivador
     private $elementos;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Armario", inversedBy="archivadores")
+     * @var Armario
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $armario;
+
+    /**
      * Convierte el archivador en una cadena de texto
      */
     public function __toString()
@@ -156,5 +163,29 @@ class Archivador
     public function removeElemento(\AppBundle\Entity\Elementos $elemento)
     {
         $this->elementos->removeElement($elemento);
+    }
+
+    /**
+     * Set armario
+     *
+     * @param \AppBundle\Entity\Armario $armario
+     *
+     * @return Archivador
+     */
+    public function setArmario(\AppBundle\Entity\Armario $armario)
+    {
+        $this->armario = $armario;
+
+        return $this;
+    }
+
+    /**
+     * Get armario
+     *
+     * @return \AppBundle\Entity\Armario
+     */
+    public function getArmario()
+    {
+        return $this->armario;
     }
 }

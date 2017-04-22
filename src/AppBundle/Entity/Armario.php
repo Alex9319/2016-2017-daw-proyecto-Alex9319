@@ -34,6 +34,12 @@ class Armario
      * @ORM\JoinColumn(nullable=false)
      */
     private $elementos;
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Archivador", mappedBy="armario")
+     * @var Archivador
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $archivadores;
 
     /**
      * Convierte el armario en una cadena de texto
@@ -41,6 +47,15 @@ class Armario
     public function __toString()
     {
         return $this->getNumero() . ', ' . $this->getPuerta();
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->elementos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->archivadores = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -102,37 +117,6 @@ class Armario
     }
 
     /**
-     * Set elementos
-     *
-     * @param \AppBundle\Entity\Elementos $elementos
-     *
-     * @return Armario
-     */
-    public function setElementos(\AppBundle\Entity\Elementos $elementos)
-    {
-        $this->elementos = $elementos;
-
-        return $this;
-    }
-
-    /**
-     * Get elementos
-     *
-     * @return \AppBundle\Entity\Elementos
-     */
-    public function getElementos()
-    {
-        return $this->elementos;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->elementos = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
      * Add elemento
      *
      * @param \AppBundle\Entity\Elementos $elemento
@@ -154,5 +138,49 @@ class Armario
     public function removeElemento(\AppBundle\Entity\Elementos $elemento)
     {
         $this->elementos->removeElement($elemento);
+    }
+
+    /**
+     * Get elementos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getElementos()
+    {
+        return $this->elementos;
+    }
+
+    /**
+     * Add archivadore
+     *
+     * @param \AppBundle\Entity\Archivador $archivadore
+     *
+     * @return Armario
+     */
+    public function addArchivadore(\AppBundle\Entity\Archivador $archivadore)
+    {
+        $this->archivadores[] = $archivadore;
+
+        return $this;
+    }
+
+    /**
+     * Remove archivadore
+     *
+     * @param \AppBundle\Entity\Archivador $archivadore
+     */
+    public function removeArchivadore(\AppBundle\Entity\Archivador $archivadore)
+    {
+        $this->archivadores->removeElement($archivadore);
+    }
+
+    /**
+     * Get archivadores
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArchivadores()
+    {
+        return $this->archivadores;
     }
 }

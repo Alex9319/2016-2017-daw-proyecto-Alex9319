@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {#{{ dweb.nombre }}#}
+    Museo Andres Segovia
 {% endblock %}
 
 {% block body %}
@@ -23,6 +23,7 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                     {% if app.user %}
+                        {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'categorias' %} class="active"{% endif %}><a href="{{ path('listadoArticulos') }}"><i class="fa fa-child"></i> Articulos</a></li>{% endif %}
                         {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'aplicacion' %} class="active"{% endif %}><a href="#"><i class="fa fa-gear"></i> Web</a></li>{% endif %}
                         {% if is_granted('ROLE_ADMIN') %}<li{% if ruta == 'usuarios' %} class="active"{% endif %}><a href="{{ path('listadoUsuarios') }}"><i class="fa fa-users"></i> Usuarios</a></li>{% endif %}
                         {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'categorias' %} class="active"{% endif %}><a href="{{ path('listadoCategorias') }}"><i class="fa fa-child"></i> Categorias</a></li>{% endif %}
@@ -32,8 +33,17 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if app.user %}
-                            <li><a href="{{ path('perfil') }}"><i class="fa fa-user"></i> Mi perfil</a></li>
-                            <li><a href="{{ path('salir') }}">{{ app.user.usuario }} - Salir</a></li>
+                        <div class="btn-group">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li id="usuario"><a>{{ app.user }}</a></li>
+                            </ul>
+
+                            <ul class="dropdown-menu barra" role="menu" id="desplegable">
+                                <li><a href="{{ path('perfil') }}"><i class="fa fa-user"></i> Mi perfil</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{{ path('salir') }}"><i class="fa fa-power-off"></i> Salir</a></li>
+                            </ul>
+                        </div>
                         {% else %}
                             <li><a href="{{ path('login') }}">Acceder</a></li>
                         {% endif %}

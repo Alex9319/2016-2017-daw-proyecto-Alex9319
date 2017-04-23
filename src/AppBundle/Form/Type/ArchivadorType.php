@@ -13,7 +13,8 @@ class ArchivadorType extends AbstractType
     {
         $builder
             ->add('numero')
-            ->add('color');
+            ->add('color')
+            ->add('armario');
     }
 
     public function configureOptions(OptionsResolver $resolver)

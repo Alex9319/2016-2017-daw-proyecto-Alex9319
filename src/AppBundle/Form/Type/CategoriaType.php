@@ -12,9 +12,15 @@ class CategoriaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('numero')
-            ->add('nombre')
-            ->add('padre');
+            ->add('numero', null, [
+                'label' => 'Numero de la Categoria'
+            ])
+            ->add('nombre', null, [
+                'label' => 'Nombre de la Categoria'
+            ])
+            ->add('padre', null, [
+                'label' => 'Categoria superior'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

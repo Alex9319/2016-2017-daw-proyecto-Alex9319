@@ -9,6 +9,7 @@
         <tr>
             <th class="col-sm-1">Numero</th>
             <th class="col-sm-5">Color</th>
+            <th class="col-sm-5">Armario</th>
             <th class="col-sm-1"></th>
         </tr>
         </thead>
@@ -17,6 +18,7 @@
             <tr>
                 <td>{{ archivador.numero }}</td>
                 <td>{{ archivador.color }}</td>
+                <td>{{ archivador.armario }}</td>
                 <td>
                     <a href="{{ path('modificar_arch', {'id': archivador.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
                    {# <a href="{{ path('#', {'id': material.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>#}

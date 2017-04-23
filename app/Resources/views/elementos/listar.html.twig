@@ -1,0 +1,38 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>Listado de Elementos</h1>
+    <a href="{{ path("nuevo_articulo") }}" class="btn btn-success"><i class="fa fa-plus"></i> Añadir articulo</a>
+    <p></p>
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th class="col-sm-1">Multimedia</th>
+            <th class="col-sm-2">Nombre</th>
+            <th class="col-sm-2">Observaciones</th>
+            <th class="col-sm-1">Fecha alta</th>
+            <th class="col-sm-1">Armario</th>
+            <th class="col-sm-2">Archivador</th>
+            <th class="col-sm-2">Categoria</th>
+            <th class="col-sm-1"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for elemento in elementos %}
+            <tr>
+                <td>{{ elemento.multimedia }}</td>
+                <td>{{ elemento.nombre }}</td>
+                <td>{{ elemento.observaciones }}</td>
+                <td>{{ elemento.fecha_alta|date('d/m/Y') }}</td>
+                <td>{{ elemento.armario }}</td>
+                <td>{{ elemento.archivador }}</td>
+                <td>{{ elemento.categoria }}</td>
+                <td>
+                    <a href="{{ path('modificar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
+                   {# <a href="{{ path('#', {'id': elemento.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>#}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

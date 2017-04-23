@@ -3,10 +3,10 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Archivador;
-use AppBundle\Entity\Armario;
 use AppBundle\Form\Type\ArchivadorType;
 use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -21,8 +21,8 @@ class ArchivadorController extends Controller
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $archivadores = $em->createQueryBuilder()
-            ->select('c')
-            ->from('AppBundle:Archivador', 'c')
+            ->select('a')
+            ->from('AppBundle:Archivador', 'a')
             ->getQuery()
             ->getResult();
 
@@ -32,6 +32,7 @@ class ArchivadorController extends Controller
     }
 
     /**
+     * @Security("is_granted('ROLE_DOCUMENTADOR')")
      * @Route("/archivador/modificar/{id}", name="modificar_arch")
      * @Route("/archivador/nuevo", name="nuevo_arch")
      */
@@ -41,7 +42,7 @@ class ArchivadorController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         if (null == $archivadores) {
-            $archivadores = new Armario();
+            $archivadores = new Archivador();
             $em->persist($archivadores);
         }
 

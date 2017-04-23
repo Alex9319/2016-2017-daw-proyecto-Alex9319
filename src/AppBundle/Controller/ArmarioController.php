@@ -6,6 +6,7 @@ use AppBundle\Entity\Armario;
 use AppBundle\Form\Type\ArmarioType;
 use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -20,8 +21,8 @@ class ArmarioController extends Controller
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $armarios = $em->createQueryBuilder()
-            ->select('c')
-            ->from('AppBundle:Armario', 'c')
+            ->select('a')
+            ->from('AppBundle:Armario', 'a')
             ->getQuery()
             ->getResult();
 
@@ -31,6 +32,7 @@ class ArmarioController extends Controller
     }
 
     /**
+     * @Security("is_granted('ROLE_DOCUMENTADOR')")
      * @Route("/armario/modificar/{id}", name="modificar_arm")
      * @Route("/armario/nuevo", name="nuevo_arm")
      */

@@ -6,6 +6,7 @@ use AppBundle\Entity\Categoria;
 use AppBundle\Form\Type\CategoriaType;
 use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -31,6 +32,7 @@ class CategoriaController extends Controller
     }
 
     /**
+     * @Security("is_granted('ROLE_DOCUMENTADOR')")
      * @Route("/categoria/modificar/{id}", name="modificar_cat")
      * @Route("/categoria/nueva", name="nueva_cat")
      */

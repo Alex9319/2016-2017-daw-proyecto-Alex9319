@@ -58,19 +58,23 @@ class UsuarioController extends Controller
      * @Route("/usuarios", name="listadoUsuarios")
      * @Security("is_granted('ROLE_ADMIN')")
      */
-    public function usuariosAction()
+    public function usuariosAction(Request $request)
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        $usuarios = $em->createQueryBuilder()
+        $query = $em->createQueryBuilder()
             ->select('c')
             ->from('AppBundle:Usuario', 'c')
             ->getQuery()
             ->getResult();
 
-        return $this->render('usuarios/listar.html.twig', [
-            'usuarios' => $usuarios,
-        ]);
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*numero de pagina*/
+        );
+
+        return $this->render('usuarios/listar.html.twig', array('pagination' => $pagination));
     }
 
     /**

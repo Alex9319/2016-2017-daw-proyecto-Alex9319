@@ -88,7 +88,7 @@ class CategoriaController extends Controller
         try {
             $em->remove($categoria);
             $em->flush();
-            $this->addFlash('estado', 'Armario eliminado con éxito');
+            $this->addFlash('estado', 'Categoria eliminado con éxito');
         }
         catch(Exception $e) {
             $this->addFlash('error', 'No se han podido eliminar');

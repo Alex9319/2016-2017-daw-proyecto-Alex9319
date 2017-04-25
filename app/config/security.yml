@@ -14,7 +14,7 @@ security:
 
     role_hierarchy:
         ROLE_ADMIN: [ROLE_DOCUMENTADOR]
-        ROLE_EDITOR: [ROLE_USER]
+        ROLE_DOCUMENTADOR: [ROLE_USER]
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs

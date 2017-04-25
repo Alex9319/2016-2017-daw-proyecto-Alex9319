@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 
 class UsuarioController extends Controller
@@ -105,5 +106,34 @@ class UsuarioController extends Controller
             'usuario' => $usuario,
             'form' => $form->createView()
         ]);
+    }
+    /**
+     * @Route("/usuarios/eliminar/{id}", name="borrar_usuario", methods={"GET"})
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function borrarAction(Usuario $usuario)
+    {
+        /** @var EntityManager $em */
+        return $this->render('usuarios/borrar.html.twig', [
+            'usuario' => $usuario
+        ]);
+    }
+    /**
+     * @Route("/usuarios/eliminar/{id}", name="confirmar_borrar_usuario", methods={"POST"})
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function borrarDeVerdadAction(Usuario $usuario)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        try {
+            $em->remove($usuario);
+            $em->flush();
+            $this->addFlash('estado', 'Usuario eliminado con éxito');
+        }
+        catch(Exception $e) {
+            $this->addFlash('error', 'No se han podido eliminar');
+        }
+        return $this->redirectToRoute('listadoUsuarios');
     }
 }

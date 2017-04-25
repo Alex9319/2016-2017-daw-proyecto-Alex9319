@@ -16,19 +16,23 @@ class CategoriaController extends Controller
     /**
      * @Route("/categorias", name="listadoCategorias")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        $categorias = $em->createQueryBuilder()
+        $query = $em->createQueryBuilder()
             ->select('c')
             ->from('AppBundle:Categoria', 'c')
             ->getQuery()
             ->getResult();
 
-        return $this->render('categorias/listar.html.twig', [
-            'categorias' => $categorias,
-        ]);
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*numero de pagina*/
+        );
+
+        return $this->render('categorias/listar.html.twig', array('pagination' => $pagination));
     }
 
     /**

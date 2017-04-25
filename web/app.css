@@ -39,6 +39,13 @@ body {
 .alert{
     margin-top: 40px;
 }
+table a{
+    color: black;
+}
+table a:hover{
+    color: white;
+    text-decoration:none;
+}
 @media (max-width: 992px) {
     .desplegable{
         margin-top: -7px;

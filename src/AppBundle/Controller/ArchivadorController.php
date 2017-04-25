@@ -16,19 +16,23 @@ class ArchivadorController extends Controller
     /**
      * @Route("/archivador", name="listadoArchivadores")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        $archivadores = $em->createQueryBuilder()
+        $query = $em->createQueryBuilder()
             ->select('a')
             ->from('AppBundle:Archivador', 'a')
             ->getQuery()
             ->getResult();
 
-        return $this->render('archivador/listar.html.twig', [
-            'archivadores' => $archivadores,
-        ]);
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*numero de pagina*/
+        );
+
+        return $this->render('archivador/listar.html.twig', array('pagination' => $pagination));
     }
 
     /**

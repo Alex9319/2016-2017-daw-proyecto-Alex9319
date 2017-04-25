@@ -73,7 +73,6 @@ class ArchivadorController extends Controller
     public function borrarAction(Archivador $archivador)
     {
         /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
         return $this->render('archivador/borrar.html.twig', [
             'archivador' => $archivador
         ]);

@@ -3,17 +3,19 @@
 {% block content %}
     <h1>Listado de Armarios</h1>
     <a href="{{ path("nuevo_arm") }}" class="btn btn-success"><i class="fa fa-plus"></i> Añadir armario</a>
+    {# total items count #}
+    <h5>Total de Armarios: {{ pagination.getTotalItemCount }}</h5>
     <p></p>
     <table class="table table-bordered table-hover">
         <thead>
         <tr>
-            <th class="col-sm-1">Numero</th>
-            <th class="col-sm-5">Puerta</th>
+            <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Numero', 'a.Numero') }}</th>
+            <th class="col-sm-5">{{ knp_pagination_sortable(pagination, 'Puerta', 'a.Puerta') }}</th>
             <th class="col-sm-1"></th>
         </tr>
         </thead>
         <tbody>
-        {% for armario in armarios %}
+        {% for armario in pagination %}
             <tr>
                 <td>{{ armario.numero }}</td>
                 <td>{{ armario.puerta }}</td>
@@ -25,4 +27,9 @@
         {% endfor %}
         </tbody>
     </table>
+    <div class="container">
+        <div class="col-md-6 col-md-offset-3">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
 {% endblock %}

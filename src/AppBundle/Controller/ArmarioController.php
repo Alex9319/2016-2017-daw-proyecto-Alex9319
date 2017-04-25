@@ -16,19 +16,22 @@ class ArmarioController extends Controller
     /**
      * @Route("/armarios", name="listadoArmarios")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        $armarios = $em->createQueryBuilder()
+        $query = $em->createQueryBuilder()
             ->select('a')
             ->from('AppBundle:Armario', 'a')
             ->getQuery()
             ->getResult();
 
-        return $this->render('armarios/listar.html.twig', [
-            'armarios' => $armarios,
-        ]);
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*numero de pagina*/
+        );
+        return $this->render('armarios/listar.html.twig', array('pagination' => $pagination));
     }
 
     /**

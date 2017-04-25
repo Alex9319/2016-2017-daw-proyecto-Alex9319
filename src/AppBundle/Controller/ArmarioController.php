@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 
 class ArmarioController extends Controller
@@ -63,5 +64,34 @@ class ArmarioController extends Controller
             'armario' => $armario,
             'form' => $form->createView()
         ]);
+    }
+    /**
+     * @Route("/armario/eliminar/{id}", name="borrar_armario", methods={"GET"})
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function borrarAction(Armario $armario)
+    {
+        /** @var EntityManager $em */
+        return $this->render('armarios/borrar.html.twig', [
+            'armario' => $armario
+        ]);
+    }
+    /**
+     * @Route("/armario/eliminar/{id}", name="confirmar_borrar_armario", methods={"POST"})
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function borrarDeVerdadAction(Armario $armario)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        try {
+            $em->remove($armario);
+            $em->flush();
+            $this->addFlash('estado', 'Armario eliminado con éxito');
+        }
+        catch(Exception $e) {
+            $this->addFlash('error', 'No se han podido eliminar');
+        }
+        return $this->redirectToRoute('listadoArmarios');
     }
 }

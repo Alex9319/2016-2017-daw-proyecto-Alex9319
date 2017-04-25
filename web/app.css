@@ -1,5 +1,5 @@
 body {
-    padding-top: 70px;
+    margin-top: 90px;
     padding-bottom: 30px;
     background-color: #FFF0A5;
 }
@@ -22,10 +22,28 @@ body {
     border: solid 1px black;
     padding: 1em;
     border-radius: 15px;
+    margin-top: 90px;
 }
 .table{
     background-color: #FFB03B;
 }
 .usuario{
     color:white;
+}
+.desplegable{
+    margin-top: -3px;
+}
+#navbar{
+    margin-left: 25%;
+}
+.alert{
+
+}
+@media (max-width: 992px) {
+    .desplegable{
+        margin-top: -7px;
+    }
+    .navbar-brand{
+        margin-right: 25px;
+    }
 }

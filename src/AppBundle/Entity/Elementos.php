@@ -37,7 +37,7 @@ class Elementos
 
     /**
      * @var \DateTime
-     * @ORM\Column(name="fecha_alta", type="date",nullable=true)
+     * @ORM\Column(name="fecha_alta", type="date",nullable=false)
      */
     private $fechaAlta;
 

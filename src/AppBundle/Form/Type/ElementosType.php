@@ -30,6 +30,9 @@ class ElementosType extends AbstractType
             ->add('archivador', null, [
                 'label' => 'Archivador donde se encuentra el Articulo'
             ])
+            ->add('armario', null, [
+                'label' => 'Armario donde se encuentra el Articulo'
+            ])
             ->add('categoria', null, [
                 'label' => 'Categoria del Articulo'
             ])

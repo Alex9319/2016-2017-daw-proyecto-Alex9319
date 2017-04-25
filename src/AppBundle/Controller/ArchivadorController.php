@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 
 class ArchivadorController extends Controller
@@ -64,5 +65,35 @@ class ArchivadorController extends Controller
             'archivadores' => $archivadores,
             'form' => $form->createView()
         ]);
+    }
+    /**
+     * @Route("/archivador/eliminar/{id}", name="borrar_archivador", methods={"GET"})
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function borrarAction(Archivador $archivador)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        return $this->render('archivador/borrar.html.twig', [
+            'archivador' => $archivador
+        ]);
+    }
+    /**
+     * @Route("/archivador/eliminar/{id}", name="confirmar_borrar_archivador", methods={"POST"})
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function borrarDeVerdadAction(Archivador $archivador)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        try {
+            $em->remove($archivador);
+            $em->flush();
+            $this->addFlash('estado', 'Archivador eliminado con éxito');
+        }
+        catch(Exception $e) {
+            $this->addFlash('error', 'No se han podido eliminar');
+        }
+        return $this->redirectToRoute('listadoArchivadores');
     }
 }

@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 
 class CategoriaController extends Controller
@@ -64,5 +65,34 @@ class CategoriaController extends Controller
             'categoria' => $categoria,
             'form' => $form->createView()
         ]);
+    }
+    /**
+     * @Route("/categoria/eliminar/{id}", name="borrar_categoria", methods={"GET"})
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function borrarAction(Categoria $categoria)
+    {
+        /** @var EntityManager $em */
+        return $this->render('categorias/borrar.html.twig', [
+        'categoria' => $categoria
+        ]);
+    }
+    /**
+     * @Route("/categoria/eliminar/{id}", name="confirmar_borrar_categoria", methods={"POST"})
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function borrarDeVerdadAction(Categoria $categoria)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        try {
+            $em->remove($categoria);
+            $em->flush();
+            $this->addFlash('estado', 'Armario eliminado con éxito');
+        }
+        catch(Exception $e) {
+            $this->addFlash('error', 'No se han podido eliminar');
+        }
+        return $this->redirectToRoute('listadoCategorias');
     }
 }

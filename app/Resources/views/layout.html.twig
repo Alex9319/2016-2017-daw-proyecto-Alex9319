@@ -18,7 +18,11 @@
                             <span class="icon-bar"></span>
                         </button>
                     {% endif %}
-                    <a class="navbar-brand" href="{{ path('homepage') }}">Museo Andres Segovia</a>
+                    {% if app.user %}
+                        <a class="navbar-brand" href="{{ path('listadoArticulos') }}">Museo Andres Segovia</a>
+                    {% else %}
+                        <a class="navbar-brand" href="{{ path('homepage') }}">Museo Andres Segovia</a>
+                    {% endif %}
                      <ul class="nav navbar-nav navbar-right">
                         {% if app.user %}
                         <div class="btn-group">

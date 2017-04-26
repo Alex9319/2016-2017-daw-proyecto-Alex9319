@@ -20,7 +20,7 @@
         </thead>
         <tbody>
         {% for elemento in pagination %}
-            <tr>
+            <tr{% if(elemento.fechaBaja) %} class="danger" {% endif %}>
                 <td>{{ elemento.multimedia }}</td>
                 <td>{{ elemento.nombre }}</td>
                 <td>{{ elemento.observaciones }}</td>

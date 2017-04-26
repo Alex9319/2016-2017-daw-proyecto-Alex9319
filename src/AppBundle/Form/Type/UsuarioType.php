@@ -6,6 +6,7 @@ use AppBundle\Entity\Usuario;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
@@ -26,10 +27,11 @@ class UsuarioType extends AbstractType
             ])
             ->add('nivelDeAcceso', null, [
                 'label' => 'Nivel de Acceso',
-                'disabled' => ($options['es_admin'] === false)
-            ]);
+                'disabled' => !$options['es_admin']
+            ])
+            ->add('save', SubmitType::class, array('label' => 'Guardar Usuario', 'attr' => array('class'=> 'btn btn-success')));
 
-        if (false === $options['es_admin']) {
+        if (!$options['es_admin']) {
             $builder
                 ->add('antigua', PasswordType::class, [
                     'label' => 'Clave Antigua',
@@ -37,7 +39,7 @@ class UsuarioType extends AbstractType
                     'constraints' => [
                         new UserPassword()
                     ]
-            ]);
+                 ]);
         }
 
         $builder
@@ -50,15 +52,15 @@ class UsuarioType extends AbstractType
                 'second_options' => [
                     'label' => 'Repetir Clave Nueva'
                 ]
-            ]);
+            ])
+            ->add('save', SubmitType::class, array('label' => 'Guardar Usuario y Contraseña', 'attr' => array('class'=> 'btn btn-success')));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => Usuario::class,
-            'es_admin' => false,
-            'el_mismo' => false
+            'es_admin' => false
         ]);
     }
 }

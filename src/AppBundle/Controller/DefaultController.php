@@ -52,4 +52,12 @@ class DefaultController extends Controller
      */
     public function comprobarAction() {
     }
+
+    /**
+     * @Route("/contacto", name="contacto")
+     */
+    public function contactoAction()
+    {
+        return $this->render('aplicacion/contacto.html.twig');
+    }
 }

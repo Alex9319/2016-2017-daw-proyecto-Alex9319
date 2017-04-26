@@ -18,13 +18,13 @@ class ElementosType extends AbstractType
             ->add('observaciones', null, [
                 'label' => 'Observaciones del Articulo'
             ])
-            ->add('nivel_de_acceso', null, [
+            ->add('nivelDeAcceso', null, [
                 'label' => 'Nivel de acceso del Articulo'
             ])
-            ->add('fecha_alta', null, [
+            ->add('fechaAlta', null, [
                 'label' => 'Fecha de alta del Articulo'
             ])
-            ->add('fecha_baja', null, [
+            ->add('fechaBaja', null, [
                 'label' => 'Fecha de Baja del Articulo'
             ])
             ->add('archivador', null, [

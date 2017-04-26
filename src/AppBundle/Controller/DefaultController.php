@@ -15,7 +15,23 @@ class DefaultController extends Controller
     public function inicioAction(Request $request)
     {
 
-        return $this->render('layout.html.twig');
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQueryBuilder()
+            ->select('e')
+            ->from('AppBundle:Elementos', 'e')
+            ->Where('e.NivelDeAcceso <= 1500')
+            ->orderBy('e.nombre')
+            ->getQuery()
+            ->getResult();
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*numero de pagina*/
+        );
+
+        return $this->render('layout.html.twig', array('pagination' => $pagination));
     }
     /**
      * @Route("/login", name="login")

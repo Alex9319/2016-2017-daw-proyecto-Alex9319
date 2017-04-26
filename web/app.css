@@ -11,6 +11,9 @@ body > .container{
 .barra li:hover{
     background-color: #FFB03B;
 }
+.navbar-default .navbar-nav > .active > a{
+    background-color: #FFB03B;
+}
 .barra li a{
     color: white!important;
 }

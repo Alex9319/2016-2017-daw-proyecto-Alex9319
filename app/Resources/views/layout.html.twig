@@ -46,15 +46,15 @@
                     <div class="container">
                         <ul class="nav navbar-nav">
                         {% if app.user %}
-                            {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'articulos' %} class="active"{% endif %}><a href="{{ path('listadoArticulos') }}"><i class="fa fa-gift"></i> Articulos</a></li>{% endif %}
-                            {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'multimedia' %} class="active"{% endif %}><a href="{{ path('listadoMultimedia') }}"><i class="fa fa-upload"></i> Multimedia</a></li>{% endif %}
+                            {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'listadoArticulos' %} class="active"{% endif %}><a href="{{ path('listadoArticulos') }}"><i class="fa fa-gift"></i> Articulos</a></li>{% endif %}
+                            {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'listadoMultimedia' %} class="active"{% endif %}><a href="{{ path('listadoMultimedia') }}"><i class="fa fa-upload"></i> Multimedia</a></li>{% endif %}
                             {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'aplicacion' %} class="active"{% endif %}><a href="#"><i class="fa fa-gear"></i> Web</a></li>{% endif %}
-                            {% if is_granted('ROLE_ADMIN') %}<li{% if ruta == 'usuarios' %} class="active"{% endif %}><a href="{{ path('listadoUsuarios') }}"><i class="fa fa-users"></i> Usuarios</a></li>{% endif %}
-                            {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'categorias' %} class="active"{% endif %}><a href="{{ path('listadoCategorias') }}"><i class="fa fa-cubes"></i> Categorias</a></li>{% endif %}
-                            {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'armarios' %} class="active"{% endif %}><a href="{{ path('listadoArmarios') }}"><i class="fa fa-briefcase"></i> Armarios</a></li>{% endif %}
-                            {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'archivador' %} class="active"{% endif %}><a href="{{ path('listadoArchivadores') }}"><i class="fa fa-book"></i> Archivadores</a></li>{% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}<li{% if ruta == 'listadoUsuarios' %} class="active"{% endif %}><a href="{{ path('listadoUsuarios') }}"><i class="fa fa-users"></i> Usuarios</a></li>{% endif %}
+                            {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'listadoCategorias' %} class="active"{% endif %}><a href="{{ path('listadoCategorias') }}"><i class="fa fa-cubes"></i> Categorias</a></li>{% endif %}
+                            {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'listadoArmarios' %} class="active"{% endif %}><a href="{{ path('listadoArmarios') }}"><i class="fa fa-briefcase"></i> Armarios</a></li>{% endif %}
+                            {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'listadoArchivadores' %} class="active"{% endif %}><a href="{{ path('listadoArchivadores') }}"><i class="fa fa-book"></i> Archivadores</a></li>{% endif %}
                         {% else %}
-                            <li{% if ruta == 'articulos' %} class="active"{% endif %}><a href="{{ path('homepage') }}"><i class="fa fa-gift"></i> Articulos</a></li>
+                            <li{% if ruta == 'homepage' %} class="active"{% endif %}><a href="{{ path('homepage') }}"><i class="fa fa-gift"></i> Articulos</a></li>
                             <li{% if ruta == 'contacto' %} class="active"{% endif %}><a href="{{ path('contacto') }}"><i class="fa fa-child"></i> Contacto</a></li>
                         {% endif %}
                         </ul>
@@ -82,7 +82,6 @@
             {% endfor %}
         {% endif %}
         {% block content %}
-            <h5>Total de Articulos: {{ pagination.getTotalItemCount }}</h5>
             {% for articulos in pagination %}
                 {% if  articulos.id %}
                     <div class="col-md-4">

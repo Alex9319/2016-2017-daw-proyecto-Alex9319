@@ -38,7 +38,7 @@ class Multimedia
 
     public function __toString()
     {
-        return $this->getNombre();
+        return $this->getMultimedia();
     }
     /**
      * Constructor

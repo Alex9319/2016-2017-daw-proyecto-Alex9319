@@ -8,16 +8,10 @@ body > .container{
 .barra{
     background-color: #468966;
 }
-.barra li:hover{
+.barra li:hover, .navbar-default .navbar-nav > .active > a{
     background-color: #FFB03B;
 }
-.navbar-default .navbar-nav > .active > a{
-    background-color: #FFB03B;
-}
-.barra li a{
-    color: white!important;
-}
-.navbar-brand{
+.navbar-brand, .barra li a{
     color:white!important;
 }
 .navbar-brand:hover{
@@ -27,7 +21,6 @@ body > .container{
     border: solid 1px black;
     padding: 1em;
     border-radius: 15px;
-    margin-top: 90px;
 }
 .table{
     background-color: #FFB03B;

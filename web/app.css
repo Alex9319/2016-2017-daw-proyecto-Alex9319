@@ -41,7 +41,7 @@ body > .container{
 #navbar{
     margin-left: 25%;
 }
-table a{
+table a, table th{
     color: black;
 }
 table a:hover{

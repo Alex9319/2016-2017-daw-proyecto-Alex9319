@@ -18,11 +18,14 @@ class ElementosController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $rol = $this->getUser()->getNiveldeacceso();
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQueryBuilder()
             ->select('e')
             ->from('AppBundle:Elementos', 'e')
+            ->where('e.NivelDeAcceso <= :roles')
+            ->setParameter('roles', $rol)
             ->getQuery()
             ->getResult();
 

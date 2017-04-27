@@ -18,7 +18,7 @@ class Archivador
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", unique=true)
      * @var int
      */
     private $numero;

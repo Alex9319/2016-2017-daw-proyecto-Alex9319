@@ -103,10 +103,11 @@ class UsuarioController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
             $this->addFlash('estado', 'Cambios guardados con éxito');
-            return $this->redirectToRoute('listadoUsuarios',['usuario'=>$usuario->getId()]);
+            return $this->redirectToRoute('listadoUsuarios',['pagination'=>$usuario->getId()]);
         }
         elseif($form->isSubmitted() && !$form->isValid()){
             $this->addFlash('estado', 'Los cambios no se han podido actualizar');
+            return $this->redirectToRoute('listadoUsuarios',['usuario'=>$usuario->getId()]);
         }
 
         return $this->render('usuarios/form.html.twig', [

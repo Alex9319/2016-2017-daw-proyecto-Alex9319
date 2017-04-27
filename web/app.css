@@ -41,6 +41,9 @@ table a:hover{
     color: white;
     text-decoration:none;
 }
+td, th{
+    text-align: center;
+}
 .articulos{
     display: flex;
     flex-direction: column;

@@ -25,7 +25,7 @@ class Usuario implements UserInterface
     private $usuario;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string")
      * @var string
      */
     private $clave;

@@ -28,8 +28,7 @@ class UsuarioType extends AbstractType
             ->add('nivelDeAcceso', null, [
                 'label' => 'Nivel de Acceso',
                 'disabled' => !$options['es_admin']
-            ])
-            ->add('save', SubmitType::class, array('label' => 'Guardar Usuario', 'attr' => array('class'=> 'btn btn-success')));
+            ]);
 
         if (!$options['es_admin']) {
             $builder
@@ -52,8 +51,7 @@ class UsuarioType extends AbstractType
                 'second_options' => [
                     'label' => 'Repetir Clave Nueva'
                 ]
-            ])
-            ->add('save', SubmitType::class, array('label' => 'Guardar Usuario y Contraseña', 'attr' => array('class'=> 'btn btn-success')));
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

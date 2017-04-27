@@ -87,12 +87,16 @@ class UsuarioController extends Controller
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
+        $nusuario = $this->getUser()->getNiveldeacceso();
+
         if (null == $usuario) {
             $usuario = new Usuario();
             $em->persist($usuario);
         }
 
-        $form = $this->createForm(UsuarioType::class, $usuario);
+        $form = $this->createForm(UsuarioType::class, $usuario, [
+            'es_admin' => $nusuario ==2000
+        ]);
 
         $form->handleRequest($request);
 
@@ -100,6 +104,9 @@ class UsuarioController extends Controller
             $em->flush();
             $this->addFlash('estado', 'Cambios guardados con éxito');
             return $this->redirectToRoute('listadoUsuarios',['usuario'=>$usuario->getId()]);
+        }
+        elseif($form->isSubmitted() && !$form->isValid()){
+            $this->addFlash('estado', 'Los cambios no se han podido actualizar');
         }
 
         return $this->render('usuarios/form.html.twig', [

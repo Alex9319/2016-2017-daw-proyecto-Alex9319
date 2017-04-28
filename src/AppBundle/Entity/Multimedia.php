@@ -18,7 +18,7 @@ class Multimedia
     private $id;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", nullable=true, unique=true)
      * @var string
      */
     private $nombre;
@@ -28,9 +28,14 @@ class Multimedia
      * @var string
      */
     private $multimedia;
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     * @var string
+     */
+    private $type;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Elementos", mappedBy="multimedia")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Elementos", inversedBy="multimedia")
      * @var Elementos
      * @ORM\JoinColumn(nullable=false)
      */
@@ -107,33 +112,47 @@ class Multimedia
     }
 
     /**
-     * Add elemento
+     * Set type
      *
-     * @param \AppBundle\Entity\Elementos $elemento
+     * @param string $type
      *
      * @return Multimedia
      */
-    public function addElemento(\AppBundle\Entity\Elementos $elemento)
+    public function setType($type)
     {
-        $this->elementos[] = $elemento;
+        $this->type = $type;
 
         return $this;
     }
 
     /**
-     * Remove elemento
+     * Get type
      *
-     * @param \AppBundle\Entity\Elementos $elemento
+     * @return string
      */
-    public function removeElemento(\AppBundle\Entity\Elementos $elemento)
+    public function getType()
     {
-        $this->elementos->removeElement($elemento);
+        return $this->type;
+    }
+
+    /**
+     * Set elementos
+     *
+     * @param \AppBundle\Entity\Elementos $elementos
+     *
+     * @return Multimedia
+     */
+    public function setElementos(\AppBundle\Entity\Elementos $elementos)
+    {
+        $this->elementos = $elementos;
+
+        return $this;
     }
 
     /**
      * Get elementos
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \AppBundle\Entity\Elementos
      */
     public function getElementos()
     {

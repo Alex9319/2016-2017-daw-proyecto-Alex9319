@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -69,8 +70,8 @@ class Elementos
     private $categoria;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Multimedia", inversedBy="elementos")
-     * @var Multimedia
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Multimedia", mappedBy="elementos")
+     * @var Collection Multimedia
      * @ORM\JoinColumn(nullable=false)
      */
     private $multimedia;
@@ -89,8 +90,6 @@ class Elementos
     {
         return $this->getNombre().'.....'.$this->getObservaciones();
     }
-
-
 
 
     /**
@@ -296,23 +295,33 @@ class Elementos
     }
 
     /**
-     * Set multimedia
+     * Add multimedia
      *
      * @param \AppBundle\Entity\Multimedia $multimedia
      *
      * @return Elementos
      */
-    public function setMultimedia(\AppBundle\Entity\Multimedia $multimedia)
+    public function addMultimedia(\AppBundle\Entity\Multimedia $multimedia)
     {
-        $this->multimedia = $multimedia;
+        $this->multimedia[] = $multimedia;
 
         return $this;
     }
 
     /**
+     * Remove multimedia
+     *
+     * @param \AppBundle\Entity\Multimedia $multimedia
+     */
+    public function removeMultimedia(\AppBundle\Entity\Multimedia $multimedia)
+    {
+        $this->multimedia->removeElement($multimedia);
+    }
+
+    /**
      * Get multimedia
      *
-     * @return \AppBundle\Entity\Multimedia
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getMultimedia()
     {

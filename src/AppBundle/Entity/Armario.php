@@ -18,16 +18,11 @@ class Armario
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     * @var int
-     */
-    private $numero;
-
-    /**
      * @ORM\Column(type="string")
      * @var string
      */
-    private $puerta;
+    private $nombre;
+
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Elementos", mappedBy="armario")
      * @var Elementos
@@ -46,7 +41,7 @@ class Armario
      */
     public function __toString()
     {
-        return $this->getNumero() . ', ' . $this->getPuerta();
+        return $this->getNombre();
     }
 
     /**
@@ -57,6 +52,7 @@ class Armario
         $this->elementos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->archivadores = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
 
     /**
      * Get id
@@ -69,51 +65,27 @@ class Armario
     }
 
     /**
-     * Set numero
+     * Set nombre
      *
-     * @param integer $numero
+     * @param string $nombre
      *
      * @return Armario
      */
-    public function setNumero($numero)
+    public function setNombre($nombre)
     {
-        $this->numero = $numero;
+        $this->nombre = $nombre;
 
         return $this;
     }
 
     /**
-     * Get numero
-     *
-     * @return integer
-     */
-    public function getNumero()
-    {
-        return $this->numero;
-    }
-
-    /**
-     * Set puerta
-     *
-     * @param string $puerta
-     *
-     * @return Armario
-     */
-    public function setPuerta($puerta)
-    {
-        $this->puerta = $puerta;
-
-        return $this;
-    }
-
-    /**
-     * Get puerta
+     * Get nombre
      *
      * @return string
      */
-    public function getPuerta()
+    public function getNombre()
     {
-        return $this->puerta;
+        return $this->nombre;
     }
 
     /**

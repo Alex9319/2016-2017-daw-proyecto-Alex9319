@@ -59,7 +59,7 @@ class MultimediaController extends Controller
             $ext=$file->guessExtension();
              
             // Le ponemos un nombre al fichero
-            $file_name=time().".".$ext;
+            $file_name=$file->getClientOriginalName();
              
             // Guardamos el fichero en el directorio uploads que estará en el directorio /web del framework
             $file->move("uploads", $file_name);

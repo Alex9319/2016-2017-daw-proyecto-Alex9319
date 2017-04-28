@@ -21,6 +21,7 @@ class DefaultController extends Controller
             ->select('e')
             ->from('AppBundle:Elementos', 'e')
             ->Where('e.NivelDeAcceso <= 1500')
+            ->andWhere('e.fechaBaja is null')
             ->orderBy('e.nombre')
             ->getQuery()
             ->getResult();

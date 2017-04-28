@@ -9,16 +9,14 @@
     <table class="table table-bordered table-hover">
         <thead>
         <tr>
-            <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Numero', 'a.Numero') }}</th>
-            <th class="col-sm-5">{{ knp_pagination_sortable(pagination, 'Puerta', 'a.Puerta') }}</th>
-            <th class="col-sm-1"></th>
+            <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Nombre', 'a.Nombre') }}</th>
+            <th class="col-sm-1">Acciones</th>
         </tr>
         </thead>
         <tbody>
         {% for armario in pagination %}
             <tr>
-                <td>{{ armario.numero }}</td>
-                <td>{{ armario.puerta }}</td>
+                <td>{{ armario.nombre }}</td>
                 <td>
                     <a href="{{ path('modificar_arm', {'id': armario.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
                     {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_armario', {'id': armario.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}

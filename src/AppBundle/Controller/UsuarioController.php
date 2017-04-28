@@ -19,7 +19,7 @@ class UsuarioController extends Controller
      * @Route("/usuarios/modificar/{id}", name="musuarios")
      */
     public function cambiarUsuarioAction(Request $request, Usuario $usuario) {
-        return $this->cambiarPerfilAction($request, $usuario);
+        return $this->formularioAction($request, $usuario);
     }
 
     /**
@@ -101,6 +101,14 @@ class UsuarioController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $claveFormulario = $form->get('nueva')->get('first')->getData();
+
+            if ($claveFormulario) {
+                $clave = $this->get('security.password_encoder')
+                    ->encodePassword($usuario, $claveFormulario);
+
+                $usuario->setClave($clave);
+            }
             $em->flush();
             $this->addFlash('estado', 'Cambios guardados con éxito');
             return $this->redirectToRoute('listadoUsuarios',['usuario'=>$usuario->getId()]);

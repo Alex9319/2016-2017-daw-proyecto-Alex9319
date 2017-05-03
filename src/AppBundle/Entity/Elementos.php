@@ -71,7 +71,7 @@ class Elementos
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Multimedia", mappedBy="elementos")
-     * @var Collection Multimedia
+     * @var Collection
      * @ORM\JoinColumn(nullable=false)
      */
     private $multimedia;
@@ -84,6 +84,7 @@ class Elementos
         $this->armario = new \Doctrine\Common\Collections\ArrayCollection();
         $this->archivador = new \Doctrine\Common\Collections\ArrayCollection();
         $this->categoria = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->multimedia = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function __toString()

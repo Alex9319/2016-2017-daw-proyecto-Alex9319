@@ -4,6 +4,7 @@ namespace AppBundle\Form\Type;
 
 use AppBundle\Entity\Elementos;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -36,7 +37,7 @@ class ElementosType extends AbstractType
             ->add('categoria', null, [
                 'label' => 'Categoria del Articulo'
             ])
-            ->add('multimedia', null, [
+            ->add('multimedia', CollectionType::class,[
                 'label' => 'Multimedia del Articulo'
             ]);
     }

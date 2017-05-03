@@ -56,16 +56,17 @@ class MultimediaController extends Controller
             $file=$form['multimedia']->getData();
              
             // Sacamos la extensión del fichero
-            $ext=$file->guessExtension();
+            $ext=$file->getMimeType();
              
             // Le ponemos un nombre al fichero
             $file_name=$file->getClientOriginalName();
              
-            // Guardamos el fichero en el directorio uploads que estará en el directorio /web del framework
+            // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
             $file->move("uploads", $file_name);
+
              
             // Establecemos el nombre de fichero en el atributo de la entidad
-            $multimedia->setNombre($file->getClientOriginalName());
+            $multimedia->setNombre($file->getClientOriginalName())->setType($ext);
 
             $em->flush();
 

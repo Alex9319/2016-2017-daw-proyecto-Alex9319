@@ -44,6 +44,10 @@ table a:hover{
 td, th{
     text-align: center;
 }
+table td img{
+    width: 150px;
+    height: 150px;
+}
 .articulos{
     display: flex;
     flex-direction: column;

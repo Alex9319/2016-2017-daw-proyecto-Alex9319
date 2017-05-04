@@ -29,7 +29,7 @@
                 <td>{{ elemento.categoria }}</td>
                 <td>
                     <a href="{{ path('modificar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
-                    <a href="{{ path('borrar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>
+                    {% if elemento.fechaBaja is null %}<a href="{{ path('borrar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
                 </td>
             </tr>
         {% endfor %}

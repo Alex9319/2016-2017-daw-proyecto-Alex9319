@@ -6,10 +6,10 @@ use AppBundle\Entity\Usuario;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
+
 
 class UsuarioType extends AbstractType
 {
@@ -23,11 +23,16 @@ class UsuarioType extends AbstractType
                 'label' => 'Apellidos'
             ])
             ->add('usuario', null, [
-                'label' => 'Nombre de Usuario'
+                'label' => 'Nombre de Usuario',
+                'disabled' => !$options['es_admin']
             ])
             ->add('nivelDeAcceso', null, [
                 'label' => 'Nivel de Acceso',
                 'disabled' => !$options['es_admin']
+            ])
+            ->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [
+                'label' => 'Enviar Perfil Completo',
+                'attr' => ['class' => 'btn btn-success']
             ]);
 
         if (!$options['es_admin']) {
@@ -36,7 +41,9 @@ class UsuarioType extends AbstractType
                     'label' => 'Clave Antigua',
                     'mapped' => false,
                     'constraints' => [
-                        new UserPassword()
+                        new UserPassword([
+                            'groups' => ['password']
+                        ])
                     ]
                  ]);
         }
@@ -46,11 +53,16 @@ class UsuarioType extends AbstractType
                 'mapped' => false,
                 'type' => PasswordType::class,
                 'first_options' => [
-                    'label' => 'Clave Nueva',
+                    'label' => 'Clave Nueva'
                 ],
                 'second_options' => [
                     'label' => 'Repetir Clave Nueva'
                 ]
+            ])
+            ->add('cambiarContraseñas', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [
+                'label' => 'Cambiar Contraseñas',
+                'attr' => ['class' => 'btn btn-success'],
+                'validation_groups' => ['Default', 'password']
             ]);
     }
 

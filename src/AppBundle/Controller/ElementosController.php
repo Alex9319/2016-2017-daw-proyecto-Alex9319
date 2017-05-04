@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 
 class ElementosController extends Controller
@@ -67,5 +68,35 @@ class ElementosController extends Controller
             'elementos' => $elementos,
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/articulos/eliminar/{id}", name="borrar_articulo", methods={"GET"})
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function borrarAction(Elementos $articulo)
+    {
+        /** @var EntityManager $em */
+        return $this->render('elementos/borrar.html.twig', [
+            'articulo' => $articulo
+        ]);
+    }
+    /**
+     * @Route("/articulos/eliminar/{id}", name="confirmar_borrar_articulo", methods={"POST"})
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function borrarDeVerdadAction(Elementos $articulo)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        try {
+            $articulo->setFechaBaja(new \DateTime("now"));
+            $em->flush();
+            $this->addFlash('estado', 'Articulo eliminado con éxito');
+        }
+        catch(Exception $e) {
+            $this->addFlash('error', 'No se han podido eliminar');
+        }
+        return $this->redirectToRoute('listadoArticulos');
     }
 }

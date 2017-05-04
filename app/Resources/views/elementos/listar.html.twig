@@ -20,8 +20,8 @@
         </thead>
         <tbody>
         {% for elemento in pagination %}
-            <tr{% if(elemento.fechaBaja) %} class="danger" {% endif %}>
-                <td>{{ elemento.multimedia }}</td>
+            <tr{% if(elemento.fechaBaja and is_granted('ROLE_ADMIN')) %} class="danger" {% endif %}>
+                <td>{{ elemento.multimedia[0] }}</td>
                 <td>{{ elemento.nombre }}</td>
                 <td>{{ elemento.observaciones }}</td>
                 <td>{{ elemento.fechaAlta | date("d/m/Y") }}</td>

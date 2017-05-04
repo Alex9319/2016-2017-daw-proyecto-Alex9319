@@ -12,8 +12,7 @@ class ArmarioType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('numero')
-            ->add('puerta');
+            ->add('nombre');
     }
 
     public function configureOptions(OptionsResolver $resolver)

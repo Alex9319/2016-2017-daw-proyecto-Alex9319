@@ -25,9 +25,6 @@ class ElementosType extends AbstractType
             ->add('fechaAlta', null, [
                 'label' => 'Fecha de alta del Articulo'
             ])
-            ->add('fechaBaja', null, [
-                'label' => 'Fecha de Baja del Articulo'
-            ])
             ->add('archivador', null, [
                 'label' => 'Archivador donde se encuentra el Articulo'
             ])

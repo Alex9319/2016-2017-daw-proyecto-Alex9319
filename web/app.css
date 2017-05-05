@@ -43,6 +43,7 @@ table a:hover{
 }
 td, th{
     text-align: center;
+    vertical-align: middle!important;
 }
 table td img{
     width: 150px;
@@ -54,6 +55,9 @@ table td img{
 }
 .modal-body{
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 .modal-body img{
     width: 250px;

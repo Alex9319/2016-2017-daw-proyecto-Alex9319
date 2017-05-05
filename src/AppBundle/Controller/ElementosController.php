@@ -25,6 +25,7 @@ class ElementosController extends Controller
         $query = $em->createQueryBuilder()
             ->select('e')
             ->from('AppBundle:Elementos', 'e')
+            ->leftJoin('AppBundle:Multimedia', 'm','WITH','e.id=m.elementos')
             ->where('e.NivelDeAcceso <= :roles')
             ->setParameter('roles', $rol)
             ->getQuery()

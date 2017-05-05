@@ -99,20 +99,23 @@
                                         <h4 class="modal-title">{{ articulos.nombre }}</h4>
                                     </div>
                                     <div class="modal-body">
-                                        {% if ("imagen" in articulos.multimedia[0].getType() ) %}
-                                            <img src="/uploads/{{ articulos.multimedia[0] }}" class="col-md-6">
-                                        {%  endif %}
-                                        {% if ("video" in articulos.multimedia[0].getType() ) %}
-                                            <video class="col-md-6" width="320" height="240">
-                                                <source src="/uploads/{{ articulos.multimedia[0] }}" type="{{ articulos.multimedia[0].getType() }}">
-                                            </video>
-                                        {%  endif %}
-                                        {% if ("audio" in articulos.multimedia[0].getType() ) %}
-                                            <audio controls>
-                                                <source src="/uploads/{{ articulos.multimedia[0] }}" type="{{ articulos.multimedia[0].getType() }}">
-                                                Your browser does not support the audio element.
-                                            </audio>
-                                        {%  endif %}
+                                        {% for numero in articulos.multimedia %}
+                                            {% if ("image" in numero.getType() ) %}
+                                                <img src="{{ numero.multimedia }}" class="col-md-6">
+                                            {%  endif %}
+                                            {% if ("video" in numero.getType() ) %}
+                                                <video class="col-md-6" width="320" height="240">
+                                                    <source src="{{ numero.multimedia }}" type="{{ numero.getType() }}">
+                                                    Tu navegador no soporta el elemento de video.
+                                                </video>
+                                            {%  endif %}
+                                            {% if ("audio" in numero.getType() ) %}
+                                                <audio controls>
+                                                    <source src="{{ numero.multimedia }}" type="{{ numero.getType() }}">
+                                                    Tu navegador no soporta el elemento de audio.
+                                                </audio>
+                                            {%  endif %}
+                                        {% endfor %}
                                         <p>{{ articulos.observaciones }}</p>
                                     </div>
                                     <div class="modal-footer">

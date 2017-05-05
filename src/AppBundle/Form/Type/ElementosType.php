@@ -33,9 +33,6 @@ class ElementosType extends AbstractType
             ])
             ->add('categoria', null, [
                 'label' => 'Categoria del Articulo'
-            ])
-            ->add('multimedia', CollectionType::class,[
-                'label' => 'Multimedia del Articulo'
             ]);
     }
 

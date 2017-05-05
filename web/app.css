@@ -46,7 +46,6 @@ td, th{
 }
 table td img{
     width: 150px;
-    height: 150px;
 }
 .articulos{
     display: flex;
@@ -57,7 +56,7 @@ table td img{
     display: flex;
 }
 .modal-body img{
-    height: 170px;
+    width: 250px;
 }
 @media (max-width: 992px) {
     .desplegable{

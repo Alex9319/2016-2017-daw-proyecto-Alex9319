@@ -4,7 +4,7 @@
     <h1>Confirmar desactivación de {{ articulo }}</h1>
     <form method="post" action="{{ path('confirmar_desactivar_articulo', {'id': articulo.id}) }}" name="confirmar">
         <button type="submit" name="desactivar" class="btn btn-danger"><i class="fa fa-download"></i> Sí, quiero desactivarlo</button>
-        <a href="{{ path('listadoUsuarios') }}" class="btn btn-info">No, quiero volver</a>
+        <a href="{{ path('listadoArticulos') }}" class="btn btn-info">No, quiero volver</a>
     </form>
 {% endblock %}
 

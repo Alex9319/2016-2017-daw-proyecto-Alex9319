@@ -99,4 +99,35 @@ class ElementosController extends Controller
         }
         return $this->redirectToRoute('listadoArticulos');
     }
+
+    /**
+     * @Route("/articulos/reactivar/{id}", name="reactivar_articulo", methods={"GET"})
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function reactivarAction(Elementos $articulo)
+    {
+        /** @var EntityManager $em */
+        return $this->render('elementos/reactivar.html.twig', [
+            'articulo' => $articulo
+        ]);
+    }
+
+    /**
+     * @Route("/articulos/reactivar/{id}", name="confirmar_activar_articulo", methods={"POST"})
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function reactivarDeVerdadAction(Elementos $articulo)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        try {
+            $articulo->setFechaBaja(null);
+            $em->flush();
+            $this->addFlash('estado', 'Articulo activado con éxito');
+        }
+        catch(Exception $e) {
+            $this->addFlash('error', 'No se han podido activar');
+        }
+        return $this->redirectToRoute('listadoArticulos');
+    }
 }

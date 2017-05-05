@@ -28,8 +28,9 @@
                 <td>{{ elemento.archivador }}</td>
                 <td>{{ elemento.categoria }}</td>
                 <td>
-                    <a href="{{ path('modificar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
+                    {% if elemento.fechaBaja is null %}<a href="{{ path('modificar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>{% endif %}
                     {% if elemento.fechaBaja is null %}<a href="{{ path('borrar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
+                    {% if elemento.fechaBaja is not null %}<a href="{{ path('reactivar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-success" title="Reactivar"><i class="fa fa-upload"></i></a>{% endif %}
                 </td>
             </tr>
         {% endfor %}

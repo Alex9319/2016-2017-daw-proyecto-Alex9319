@@ -71,7 +71,7 @@ class ElementosController extends Controller
     }
 
     /**
-     * @Route("/articulos/eliminar/{id}", name="borrar_articulo", methods={"GET"})
+     * @Route("/articulos/desactivar/{id}", name="desactivar_articulo", methods={"GET"})
      * @Security("is_granted('ROLE_ADMIN')")
      */
     public function borrarAction(Elementos $articulo)
@@ -82,7 +82,7 @@ class ElementosController extends Controller
         ]);
     }
     /**
-     * @Route("/articulos/eliminar/{id}", name="confirmar_borrar_articulo", methods={"POST"})
+     * @Route("/articulos/desactivar/{id}", name="confirmar_desactivar_articulo", methods={"POST"})
      * @Security("is_granted('ROLE_ADMIN')")
      */
     public function borrarDeVerdadAction(Elementos $articulo)

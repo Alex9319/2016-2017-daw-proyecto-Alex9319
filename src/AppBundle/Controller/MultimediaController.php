@@ -51,7 +51,6 @@ class MultimediaController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
             // Recogemos el fichero
             $file=$form['multimedia']->getData();
              
@@ -68,9 +67,9 @@ class MultimediaController extends Controller
             // Establecemos el nombre de fichero en el atributo de la entidad
             $multimedia->setNombre($file->getClientOriginalName())->setType($ext);
 
-            $em->flush();
-
             $em->persist($multimedia);
+
+            $em->flush();
 
             $this->addFlash('estado', 'Cambios guardados con éxito');
             return $this->redirectToRoute('listadoMultimedia',['multimedia'=>$multimedia->getId()]);

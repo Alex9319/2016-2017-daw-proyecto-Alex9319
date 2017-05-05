@@ -65,7 +65,7 @@ class MultimediaController extends Controller
 
              
             // Establecemos el nombre de fichero en el atributo de la entidad
-            $multimedia->setNombre($file->getClientOriginalName())->setType($ext);
+            $multimedia->setNombre($file->getClientOriginalName())->setType($ext)->setMultimedia('/uploads/'.$multimedia->getNombre());
 
             $em->persist($multimedia);
 

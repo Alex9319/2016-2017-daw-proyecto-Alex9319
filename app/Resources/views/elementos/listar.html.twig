@@ -23,7 +23,21 @@
             <tr{% if(elemento.fechaBaja and is_granted('ROLE_ADMIN')) %} class="danger" {% endif %}>
                 <td>
                     {% for numero in elemento.multimedia %}
-                        {{ numero }}
+                        {% if ("image" in numero.getType() ) %}
+                            <a href="{{ numero.multimedia }}" rel="lightbox[galeria{{ elemento.id }}]"><img src="{{ numero.multimedia }}"></a>
+                        {%  endif %}
+                        {% if ("video" in numero.getType() ) %}
+                            <video width="320" height="240">
+                                <source src="{{ numero.multimedia }}" type="{{ numero.getType() }}">
+                                Tu navegador no soporta el elemento de video.
+                            </video>
+                        {%  endif %}
+                        {% if ("audio" in numero.getType() ) %}
+                            <audio controls>
+                                <source src="{{ numero.multimedia }}" type="{{ numero.getType() }}">
+                                Tu navegador no soporta el elemento de audio.
+                            </audio>
+                        {%  endif %}
                     {% endfor %}
                 </td>
                 <td>{{ elemento.nombre }}</td>

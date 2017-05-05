@@ -101,7 +101,7 @@
                                     <div class="modal-body">
                                         {% for numero in articulos.multimedia %}
                                             {% if ("image" in numero.getType() ) %}
-                                                <img src="{{ numero.multimedia }}" class="col-md-6">
+                                                <a href="{{ numero.multimedia }}" rel="lightbox[galeria{{ articulos.id }}]"><img src="{{ numero.multimedia }}" class="col-md-6"></a>
                                             {%  endif %}
                                             {% if ("video" in numero.getType() ) %}
                                                 <video class="col-md-6" width="320" height="240">
@@ -110,7 +110,7 @@
                                                 </video>
                                             {%  endif %}
                                             {% if ("audio" in numero.getType() ) %}
-                                                <audio controls>
+                                                <audio controls class="col-md-6">
                                                     <source src="{{ numero.multimedia }}" type="{{ numero.getType() }}">
                                                     Tu navegador no soporta el elemento de audio.
                                                 </audio>

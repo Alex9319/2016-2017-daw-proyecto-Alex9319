@@ -23,6 +23,9 @@ body > .container{
 .navbar-brand:hover{
     color:var(--remarcado)!important;
 }
+#navbar{
+    margin-left: 25%;
+}
 .cuadro{
     border: solid 1px black;
     padding: 1em;
@@ -85,14 +88,13 @@ table td img{
     width: 250px;
 }
 footer{
-    margin-top: 3em;
     width:100%;
     position: fixed;
     bottom: 0;
     text-align: center;
     background-color: var(--oscuro);
     color:white;
-    padding: 1.5em;
+    height: 80px;
 }
 @media (max-width: 992px) {
     .desplegable{
@@ -100,5 +102,12 @@ footer{
     }
     .navbar-brand{
         margin-right: 25px;
+    }
+    footer{
+        margin-top: 200px;
+    }
+    #navbar{
+        margin-left: 0%;
+        text-align: center;
     }
 }

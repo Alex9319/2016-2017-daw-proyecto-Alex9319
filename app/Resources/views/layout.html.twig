@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Museo Andres Segovia
+    Museo Andrés Segovia
 {% endblock %}
 
 {% block body %}
    {% set ruta = app.request.get('_route') %}
     {% block navbar %}
-        <nav class="navbar navbar-default navbar-fixed-top barra">
+        <nav class="navbar navbar-default navbar-fixed-top barra center-block">
         <div class="container">
                 <div class="navbar-top">
                     {% if app.user %}
@@ -18,7 +18,7 @@
                             <span class="icon-bar"></span>
                         </button>
                     {% endif %}
-                        <a class="navbar-brand" href="{{ path('homepage') }}">Museo Andres Segovia</a>
+                        <a class="navbar-brand" href="{{ path('homepage') }}">Museo Andrés Segovia</a>
                      <ul class="nav navbar-nav navbar-right">
                         {% if app.user %}
                         <div class="btn-group">
@@ -44,7 +44,6 @@
                         {% if app.user %}
                             {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'listadoArticulos' %} class="active"{% endif %}><a href="{{ path('listadoArticulos') }}"><i class="fa fa-gift"></i> Articulos</a></li>{% endif %}
                             {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'listadoMultimedia' %} class="active"{% endif %}><a href="{{ path('listadoMultimedia') }}"><i class="fa fa-upload"></i> Multimedia</a></li>{% endif %}
-                            {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'aplicacion' %} class="active"{% endif %}><a href="#"><i class="fa fa-gear"></i> Web</a></li>{% endif %}
                             {% if is_granted('ROLE_ADMIN') %}<li{% if ruta == 'listadoUsuarios' %} class="active"{% endif %}><a href="{{ path('listadoUsuarios') }}"><i class="fa fa-users"></i> Usuarios</a></li>{% endif %}
                             {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'listadoCategorias' %} class="active"{% endif %}><a href="{{ path('listadoCategorias') }}"><i class="fa fa-cubes"></i> Categorias</a></li>{% endif %}
                             {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'listadoArmarios' %} class="active"{% endif %}><a href="{{ path('listadoArmarios') }}"><i class="fa fa-briefcase"></i> Armarios</a></li>{% endif %}

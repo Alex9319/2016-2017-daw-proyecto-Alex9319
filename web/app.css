@@ -1,21 +1,27 @@
+:root {
+    --remarcado: #A7A37E;
+    --fondo: #EFECCA;
+    --oscuro: #046380;
+    --claro:#E6E2AF;
+}
 body {
     padding-bottom: 30px;
-    background-color: #FFF0A5;
+    background-color:var(--fondo);
 }
 body > .container{
     padding-top: 120px;
 }
 .barra{
-    background-color: #468966;
+    background-color: var(--oscuro);
 }
 .barra li:hover, .navbar-default .navbar-nav > .active > a{
-    background-color: #FFB03B;
+    background-color: var(--remarcado);
 }
 .navbar-brand, .barra li a{
     color:white!important;
 }
 .navbar-brand:hover{
-    color:#FFB03B!important;
+    color:var(--remarcado)!important;
 }
 .cuadro{
     border: solid 1px black;
@@ -23,7 +29,7 @@ body > .container{
     border-radius: 15px;
 }
 .table{
-    background-color: #FFB03B;
+    background-color: var(--claro);
 }
 .usuario{
     color:white;
@@ -31,36 +37,62 @@ body > .container{
 .desplegable{
     margin-top: -3px;
 }
-#navbar{
-    margin-left: 25%;
-}
 table a, table th{
     color: black;
 }
 table a:hover{
-    color: white;
+    color:white;
     text-decoration:none;
 }
 td, th{
     text-align: center;
     vertical-align: middle!important;
 }
+table,tbody,thead{
+    border-color: black!important;
+}
 table td img{
-    width: 150px;
+    width: 140px;
 }
 .articulos{
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
 }
+.modal-content{
+    border-radius: 10px;
+}
+.modal-header, .modal-footer{
+    background-color: var(--oscuro);
+    color: white;
+}
+.modal-header{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.modal-footer{
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
 .modal-body{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    background-color: var(--fondo);
 }
 .modal-body img{
     width: 250px;
+}
+footer{
+    margin-top: 3em;
+    width:100%;
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    background-color: var(--oscuro);
+    color:white;
+    padding: 1.5em;
 }
 @media (max-width: 992px) {
     .desplegable{

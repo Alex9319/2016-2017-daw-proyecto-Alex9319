@@ -6,7 +6,7 @@
     {# total items count #}
     <h5>Total de Articulos: {{ pagination.getTotalItemCount }}</h5>
     <p></p>
-    <table class="table table-bordered table-hover">
+    <table class="table table-responsive table-hover">
         <thead>
         <tr>
             <th class="col-sm-1">Multimedia</th>
@@ -24,7 +24,7 @@
                 <td>
                     {% for numero in elemento.multimedia %}
                         {% if ("image" in numero.getType() ) %}
-                            <a href="{{ numero.multimedia }}" rel="lightbox[galeria{{ elemento.id }}]"><img src="{{ numero.multimedia }}"></a>
+                            <a href="{{ numero.multimedia }}" rel="lightbox[galeria{{ elemento.id }}]"><img src="{{ numero.multimedia }}" class="img-circle"></a>
                         {%  endif %}
                         {% if ("video" in numero.getType() ) %}
                             <video width="320" height="240">

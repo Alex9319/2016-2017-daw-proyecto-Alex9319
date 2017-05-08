@@ -15,6 +15,7 @@ class ArmarioController extends Controller
 {
 
     /**
+     * @Security("is_granted('ROLE_DOCUMENTADOR')")
      * @Route("/armarios", name="listadoArmarios")
      */
     public function indexAction(Request $request)

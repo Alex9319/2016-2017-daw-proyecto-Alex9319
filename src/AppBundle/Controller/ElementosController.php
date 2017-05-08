@@ -15,6 +15,7 @@ class ElementosController extends Controller
 {
 
     /**
+     * @Security("is_granted('ROLE_DOCUMENTADOR')")
      * @Route("/articulos", name="listadoArticulos")
      */
     public function indexAction(Request $request)

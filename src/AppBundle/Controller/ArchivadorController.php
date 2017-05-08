@@ -15,6 +15,7 @@ class ArchivadorController extends Controller
 {
 
     /**
+     * @Security("is_granted('ROLE_DOCUMENTADOR')")
      * @Route("/archivador", name="listadoArchivadores")
      */
     public function indexAction(Request $request)

@@ -5,8 +5,8 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.min.css') }}">
-    <link href="{{ asset('select2/css/select2.min.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('lightbox/css/lightbox.min.css') }}">
+    <link href="{{ asset('select2.min.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('lightbox.min.css') }}">
     <link rel="stylesheet" href="{{ asset('app.css') }}">
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -15,8 +15,8 @@
 {% block body %}{% endblock %}
 <script src="{{ asset('jquery/jquery-1.12.4.min.js') }}"></script>
 <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('select2/js/select2.min.js') }}"></script>
-<script src="{{ asset('lightbox/js/lightbox.js') }}"></script>
+<script src="{{ asset('jquery/select2.full.min.js') }}"></script>
+<script src="{{ asset('jquery/ligthbox.min.js') }}"></script>
 <script src="{{ asset('jquery/index.js') }}"></script>
 {% block javascripts %}{% endblock %}
 </body>

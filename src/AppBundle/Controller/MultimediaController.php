@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 
 class MultimediaController extends Controller
@@ -121,5 +122,35 @@ class MultimediaController extends Controller
             'multimedia' => $multimedia,
             'form' => $form->createView()
         ]);
+    }
+    /**
+     * @Route("/multimedia/eliminar/{id}", name="borrar_multimedia", methods={"GET"})
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function borrarAction(Multimedia $multimedia)
+    {
+        /** @var EntityManager $em */
+        return $this->render('multimedia/borrar.html.twig', [
+            'multimedia' => $multimedia
+        ]);
+    }
+    /**
+     * @Route("/multimedia/eliminar/{id}", name="confirmar_borrar_multimedia", methods={"POST"})
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function borrarDeVerdadAction(Multimedia $multimedia)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        try {
+            unlink('uploads/'.$multimedia->getNombre());
+            $em->remove($multimedia);
+            $em->flush();
+            $this->addFlash('estado', 'Archivo multimedia eliminado con éxito');
+        }
+        catch(Exception $e) {
+            $this->addFlash('error', 'No se han podido eliminar');
+        }
+        return $this->redirectToRoute('listadoMultimedia');
     }
 }

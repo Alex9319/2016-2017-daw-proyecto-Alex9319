@@ -13,13 +13,25 @@ class CategoriaType extends AbstractType
     {
         $builder
             ->add('numero', null, [
-                'label' => 'Numero de la Categoria'
+                'label' => 'Numero de la Categoria',
+                'required' => true,
+                'attr' => array(
+                   'placeholder' => 'Introduzca el numero de la Categoria'
+                )
             ])
             ->add('nombre', null, [
-                'label' => 'Nombre de la Categoria'
+                'label' => 'Nombre de la Categoria',
+                'required' => true,
+                'attr' => array(
+                    'placeholder' => 'Introduzca Nombre de la Categoria'
+                )
             ])
             ->add('padre', null, [
-                'label' => 'Categoria superior'
+                'label' => 'Categoria padre',
+                'required' => false,
+                'attr' => array(
+                    'placeholder' => 'Seleccione la categoria superior'
+                )
             ]);
     }
 

@@ -17,18 +17,34 @@ class UsuarioType extends AbstractType
     {
         $builder
             ->add('nombre', null, [
-                'label' => 'Nombre'
+                'label' => 'Nombre',
+                'required' => true,
+                'attr' => array(
+                    'placeholder' => 'Introduzca el Nombre'
+                )
             ])
             ->add('apellidos', null, [
-                'label' => 'Apellidos'
+                'label' => 'Apellidos',
+                'required' => true,
+                'attr' => array(
+                    'placeholder' => 'Introduzca el Apellido'
+                )
             ])
             ->add('usuario', null, [
                 'label' => 'Nombre de Usuario',
-                'disabled' => !$options['es_admin']
+                'disabled' => !$options['es_admin'],
+                'required' => true,
+                'attr' => array(
+                    'placeholder' => 'Introduzca su nombre de Usuario'
+                )
             ])
             ->add('nivelDeAcceso', null, [
                 'label' => 'Nivel de Acceso',
-                'disabled' => !$options['es_admin']
+                'disabled' => !$options['es_admin'],
+                'required' => true,
+                'attr' => array(
+                    'placeholder' => 'Introduzca el Nivel de Acceso (2000 => Administrador, 1500 => Documentador, 1200 => Usuario)'
+                )
             ])
             ->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [
                 'label' => 'Enviar Perfil Completo',
@@ -43,8 +59,11 @@ class UsuarioType extends AbstractType
                     'constraints' => [
                         new UserPassword([
                             'groups' => ['password']
-                        ])
-                    ]
+                        ]),
+                    ],
+                    'attr' => array(
+                        'placeholder' => 'Introduzca su Clave Antigua'
+                    )
                  ]);
         }
 
@@ -53,10 +72,16 @@ class UsuarioType extends AbstractType
                 'mapped' => false,
                 'type' => PasswordType::class,
                 'first_options' => [
-                    'label' => 'Clave Nueva'
+                    'label' => 'Clave Nueva',
+                    'attr' => array(
+                        'placeholder' => 'Introduzca su nueva Clave'
+                    )
                 ],
                 'second_options' => [
-                    'label' => 'Repetir Clave Nueva'
+                    'label' => 'Repetir Clave Nueva',
+                    'attr' => array(
+                        'placeholder' => 'Repita su nueva Clave'
+                    )
                 ]
             ])
             ->add('cambiarContraseñas', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [

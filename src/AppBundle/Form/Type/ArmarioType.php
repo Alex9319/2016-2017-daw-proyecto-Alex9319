@@ -12,7 +12,13 @@ class ArmarioType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombre');
+            ->add('nombre', null, [
+                'label' => 'Nombre del Armario',
+                'required' => true,
+                'attr' => array(
+                    'placeholder' => 'Introduzca el nombre del Armario'
+                )
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

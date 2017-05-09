@@ -16,10 +16,10 @@
         {% for ficheros in multimedia %}
             <tr>
                 <td>{{ ficheros.nombre }}</td>
-                <td><img src="uploads/{{ ficheros.nombre }}"</td>
+                <td><img src="{{ ficheros.multimedia }}"></td>
                 <td>
                     <a href="{{ path('modificar_multimedia', {'id': ficheros.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
-                   {# <a href="{{ path('#', {'id': material.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>#}
+                    <a href="{{ path('borrar_multimedia', {'id': ficheros.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         {% endfor %}

@@ -15,7 +15,11 @@ class MultimediaType extends AbstractType
         $builder
             ->add('multimedia', FileType::class ,array('label' => 'Fichero multimedia del articulo'))
             ->add('elementos',null,[
-                'label'=>'Id de elemento'
+                'label'=>'Id de elemento',
+                'required' => true,
+                'attr' => array(
+                   'placeholder' => 'Introduzca el número de la Categoria'
+                )
             ]);
     }
 

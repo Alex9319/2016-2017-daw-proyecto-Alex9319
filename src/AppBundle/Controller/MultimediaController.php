@@ -34,7 +34,6 @@ class MultimediaController extends Controller
 
     /**
      * @Security("is_granted('ROLE_DOCUMENTADOR')")
-     * @Route("/multimedia/modificar/{id}", name="modificar_multimedia")
      * @Route("/multimedia/nuevo", name="nuevo_multimedia")
      */
     public function formularioAction(Request $request, Multimedia $multimedia = null)
@@ -65,6 +64,48 @@ class MultimediaController extends Controller
             $file->move("uploads", $file_name);
 
              
+            // Establecemos el nombre de fichero en el atributo de la entidad
+            $multimedia->setNombre($file->getClientOriginalName())->setType($ext)->setMultimedia('/uploads/'.$multimedia->getNombre());
+
+            $em->persist($multimedia);
+
+            $em->flush();
+
+            $this->addFlash('estado', 'Cambios guardados con éxito');
+            return $this->redirectToRoute('listadoMultimedia',['multimedia'=>$multimedia->getId()]);
+        }
+
+        return $this->render('multimedia/form.html.twig', [
+            'multimedia' => $multimedia,
+            'form' => $form->createView()
+        ]);
+    }
+    /**
+     * @Security("is_granted('ROLE_DOCUMENTADOR')")
+     * @Route("/multimedia/modificar/{id}", name="modificar_multimedia")
+     */
+    public function modificarAction(Request $request, Multimedia $multimedia )
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm(MultimediaType::class, $multimedia);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Recogemos el fichero
+            $file=$form['multimedia']->getData();
+
+            // Sacamos la extensión del fichero
+            $ext=$file->getMimeType();
+
+            // Le ponemos un nombre al fichero
+            $file_name=$file->getClientOriginalName();
+
+            // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
+            $file->move("uploads", $file_name);
+
             // Establecemos el nombre de fichero en el atributo de la entidad
             $multimedia->setNombre($file->getClientOriginalName())->setType($ext)->setMultimedia('/uploads/'.$multimedia->getNombre());
 

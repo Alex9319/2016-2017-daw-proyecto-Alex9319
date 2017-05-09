@@ -16,7 +16,7 @@ class ArchivadorType extends AbstractType
                 'label'=> 'Numero del Archivador',
                 'required' => true,
                 'attr' => array(
-                    'placeholder' => 'Introduzca el numero del Archivador'
+                    'placeholder' => 'Introduzca el número del Archivador'
                 )
             ])
             ->add('color',null,[

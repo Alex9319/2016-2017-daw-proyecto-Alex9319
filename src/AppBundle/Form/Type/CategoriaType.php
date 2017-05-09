@@ -16,7 +16,7 @@ class CategoriaType extends AbstractType
                 'label' => 'Numero de la Categoria',
                 'required' => true,
                 'attr' => array(
-                   'placeholder' => 'Introduzca el numero de la Categoria'
+                   'placeholder' => 'Introduzca el número de la Categoria'
                 )
             ])
             ->add('nombre', null, [

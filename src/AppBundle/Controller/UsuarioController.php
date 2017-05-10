@@ -19,7 +19,7 @@ class UsuarioController extends Controller
      * @Route("/usuarios/modificar/{id}", name="musuarios")
      */
     public function cambiarUsuarioAction(Request $request, Usuario $usuario) {
-        return $this->formularioAction($request, $usuario);
+        return $this->cambiarPerfilAction($request, $usuario);
     }
 
     /**
@@ -48,6 +48,12 @@ class UsuarioController extends Controller
             }
 
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('estado', 'Cambios guardados con éxito');
+            return $this->redirectToRoute('listadoUsuarios',['usuario'=>$usuario->getId()]);
+        }
+        elseif($form->isSubmitted() && !$form->isValid()){
+            $this->addFlash('estado', 'Los cambios no se han podido actualizar');
+            return $this->redirectToRoute('listadoUsuarios',['usuario'=>$usuario->getId()]);
         }
         return $this->render('usuarios/form.html.twig', [
             'usuario'=>$usuario,

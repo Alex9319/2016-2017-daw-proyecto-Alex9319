@@ -14,23 +14,27 @@ class DefaultController extends Controller
      */
     public function inicioAction(Request $request)
     {
-
+        if($this->getUser()){
+            $rol=$this->getUser()->getNiveldeacceso();
+        }else {
+            $rol = 1200;
+        }
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQueryBuilder()
             ->select('e')
             ->from('AppBundle:Elementos', 'e')
-            ->Where('e.NivelDeAcceso <= 1500')
-            ->andWhere('e.fechaBaja is null')
-            ->orderBy('e.nombre')
+            ->leftJoin('AppBundle:Multimedia', 'm','WITH','e.id=m.elementos')
+            ->where('e.NivelDeAcceso <= :roles')
+            ->setParameter('roles', $rol)
             ->getQuery()
             ->getResult();
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $query, /* query NOT result */
-            12,/*limit per page*/
-            $request->query->getInt('page', 1)/*numero de pagina*/
+            $request->query->getInt('page', 1)/*page number*/,
+            12/*limit per page*/
         );
 
         return $this->render('layout.html.twig', array('pagination' => $pagination));
@@ -58,8 +62,24 @@ class DefaultController extends Controller
     /**
      * @Route("/contacto", name="contacto")
      */
-    public function contactoAction()
+    public function contactoAction(Request $request)
     {
+        if ($request) {
+            $message = \Swift_Message::newInstance()
+                ->setSubject('Mensaje enviado')
+                ->setFrom('send@example.com')
+                ->setTo('recipient@example.com')
+                ->setBody(
+                    $this->renderView(
+                    // app/Resources/views/Emails/registration.html.twig
+                        'aplicacion/enviado.html.twig',
+                        array('datos' => $request)
+                    ),
+                    'text/html'
+                );
+            $this->get('mailer')->send($message);
+        }
+
         return $this->render('aplicacion/contacto.html.twig');
     }
 }

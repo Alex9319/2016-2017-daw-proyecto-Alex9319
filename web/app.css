@@ -54,8 +54,8 @@ td, th{
 table,tbody,thead{
     border-color: black!important;
 }
-table td img{
-    width: 140px;
+table td img, table td video{
+    width: 160px;
 }
 .articulos{
     display: flex;
@@ -84,7 +84,7 @@ table td img{
     align-items: center;
     background-color: var(--fondo);
 }
-.modal-body img{
+.modal-body img , .modal-body video{
     width: 250px;
 }
 footer{

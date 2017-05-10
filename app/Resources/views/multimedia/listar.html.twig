@@ -16,7 +16,23 @@
         {% for ficheros in multimedia %}
             <tr>
                 <td>{{ ficheros.nombre }}</td>
-                <td><img src="{{ ficheros.multimedia }}"></td>
+                <td>
+                        {% if ("image" in ficheros.getType() ) %}
+                            <a href="{{ ficheros.multimedia }}" rel="lightbox[galeria{{ ficheros.id }}]"><img src="{{ ficheros.multimedia }}" class="img-circle"></a>
+                        {%  endif %}
+                        {% if ("video" in ficheros.getType() ) %}
+                            <video width="320" height="240" controls>
+                                <source src="{{ ficheros.multimedia }}" type="{{ ficheros.getType() }}">
+                                Tu navegador no soporta el elemento de video.
+                            </video>
+                        {%  endif %}
+                        {% if ("audio" in ficheros.getType() ) %}
+                            <audio controls>
+                                <source src="{{ ficheros.multimedia }}" type="{{ ficheros.getType() }}">
+                                Tu navegador no soporta el elemento de audio.
+                            </audio>
+                        {%  endif %}
+                </td>
                 <td>
                     <a href="{{ path('modificar_multimedia', {'id': ficheros.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
                     <a href="{{ path('borrar_multimedia', {'id': ficheros.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>

@@ -27,7 +27,7 @@
                             <a href="{{ numero.multimedia }}" rel="lightbox[galeria{{ elemento.id }}]"><img src="{{ numero.multimedia }}" class="img-circle"></a>
                         {%  endif %}
                         {% if ("video" in numero.getType() ) %}
-                            <video width="320" height="240">
+                            <video width="320" height="240" controls>
                                 <source src="{{ numero.multimedia }}" type="{{ numero.getType() }}">
                                 Tu navegador no soporta el elemento de video.
                             </video>

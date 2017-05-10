@@ -3,6 +3,7 @@ namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\Archivador;
 use AppBundle\Entity\Armario;
+use AppBundle\Entity\Categoria;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -49,6 +50,14 @@ class dataLoad implements FixtureInterface, ContainerAwareInterface
         $archivador1=new Archivador();
         $archivador1->setNumero(2)->setColor('Rojo')->setArmario($armario1);
         $manager->persist($archivador1);
+
+        $categoria=new Categoria();
+        $categoria->setNumero(1)->setNombre('Principal');
+        $manager->persist($categoria);
+
+        $categoria1=new Categoria();
+        $categoria1->setNumero(2)->setNombre('Hija')->setPadre($categoria);
+        $manager->persist($categoria1);
 
         $manager->flush();
     }

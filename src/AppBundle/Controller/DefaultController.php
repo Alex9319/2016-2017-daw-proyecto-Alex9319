@@ -64,20 +64,26 @@ class DefaultController extends Controller
      */
     public function contactoAction(Request $request)
     {
-        if ($request) {
+        if('POST' === $request->getMethod()) {
+            $nombre=$request->get('nombre');
+            $apellidos=$request->get('apellidos');
+            $email=$request->get('email');
+            $asunto=$request->get('asunto');
+            $contenido=$request->get('contenido');
             $message = \Swift_Message::newInstance()
-                ->setSubject('Mensaje enviado')
-                ->setFrom('send@example.com')
-                ->setTo('recipient@example.com')
-                ->setBody(
-                    $this->renderView(
+                ->setSubject('Mensaje enviado desde la Aplicación web del Museo Andres Segovia')
+                ->setFrom('alejandro19193@gmail.com')
+                ->setTo('alejandro19193@gmail.com')
+                ->setBody($this->renderView(
                     // app/Resources/views/Emails/registration.html.twig
-                        'aplicacion/enviado.html.twig',
-                        array('datos' => $request)
+                        'aplicacion/mensaje.html.twig',
+                        array('nombre' => $nombre,'apellidos'=> $apellidos,'email'=>$email,'contenido'=>$contenido,'asunto'=>$asunto)
                     ),
                     'text/html'
                 );
             $this->get('mailer')->send($message);
+
+            $this->addFlash('estado', 'Email mandado con exito');
         }
 
         return $this->render('aplicacion/contacto.html.twig');

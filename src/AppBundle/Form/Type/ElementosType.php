@@ -4,6 +4,7 @@ namespace AppBundle\Form\Type;
 
 use AppBundle\Entity\Elementos;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -27,12 +28,14 @@ class ElementosType extends AbstractType
                     'placeholder' => 'Introduzca la descripcion del articulo'
                 )
             ])
-            ->add('nivelDeAcceso', null, [
+            ->add('nivelDeAcceso', IntegerType::class, [
                 'label' => 'Nivel de acceso del Articulo',
                 'required' => true,
                 'attr'=>array(
-                    'placeholder' =>'Introduzca el Nivel de Acceso (MENOR de 1200 PÚBLICO, MAYOR de 1200 hasta 2000 PRIVADO)'
-                )
+                    'placeholder' =>'Introduzca el Nivel de Acceso (MENOR de 1200 PÚBLICO, MAYOR de 1200 hasta 2000 PRIVADO)',
+                    'min' =>1,
+                    'max' =>2000
+                ),
             ])
             ->add('fechaAlta', null, [
                 'label' => 'Fecha de Alta',

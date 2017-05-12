@@ -6,15 +6,16 @@
     {# total items count #}
     <h5>Total de Articulos: {{ pagination.getTotalItemCount }}</h5>
     <p></p>
-    <table class="table table-responsive table-hover">
+    <table class="table table-responsive table-hover table-bordered">
         <thead>
         <tr>
             <th class="col-sm-1">Multimedia</th>
             <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'Nombre', 'a.Nombre') }}</th>
             <th class="col-sm-2">Observaciones</th>
-            <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'Fecha Alta', 'a.Fecha Alta') }}</th>
-            <th class="col-sm-2">Archivador</th>
-            <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'Categoria', 'a.Categoria') }}</th>
+            <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Fecha Alta', 'a.Fecha Alta') }}</th>
+            <th class="col-sm-1">Archivador</th>
+            <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Armario', 'a.Armario') }}</th>
+            <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Categoria', 'a.Categoria') }}</th>
             <th class="col-sm-1">Acciones</th>
         </tr>
         </thead>
@@ -44,6 +45,7 @@
                 <td>{{ elemento.observaciones }}</td>
                 <td>{{ elemento.fechaAlta | date("d/m/Y") }}</td>
                 <td>{{ elemento.archivador }}</td>
+                <td>{{ elemento.armario }}</td>
                 <td>{{ elemento.categoria }}</td>
                 <td>
                     {% if elemento.fechaBaja is null %}<a href="{{ path('modificar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>{% endif %}

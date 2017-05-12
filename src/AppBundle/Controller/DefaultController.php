@@ -72,8 +72,8 @@ class DefaultController extends Controller
             $contenido=$request->get('contenido');
             $message = \Swift_Message::newInstance()
                 ->setSubject('Mensaje enviado desde la Aplicación web del Museo Andres Segovia')
-                ->setFrom('alejandro19193@gmail.com')
-                ->setTo('alejandro19193@gmail.com')
+                ->setFrom($this->getParameter('mailer_user'))
+                ->setTo($this->getParameter('mailer_user'))
                 ->setBody($this->renderView(
                     // app/Resources/views/Emails/registration.html.twig
                         'aplicacion/mensaje.html.twig',

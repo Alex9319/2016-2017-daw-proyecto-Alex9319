@@ -9,7 +9,6 @@
     <table class="table table-responsive table-hover">
         <thead>
         <tr>
-            <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Numero', 'a.Numero') }}</th>
             <th class="col-sm-5">{{ knp_pagination_sortable(pagination, 'Nombre', 'a.Nombre') }}</th>
             <th class="col-sm-5">Padre</th>
             <th class="col-sm-1">Acciones</th>
@@ -18,8 +17,7 @@
         <tbody>
         {% for categoria in pagination %}
             <tr>
-                <td>{{ categoria.numero }}</td>
-                <td>{{ categoria.nombre }}</td>
+                <td>{{ categoria }}</td>
                 <td>{{ categoria.padre }}</td>
                 <td>
                     <a href="{{ path('modificar_cat', {'id': categoria.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>

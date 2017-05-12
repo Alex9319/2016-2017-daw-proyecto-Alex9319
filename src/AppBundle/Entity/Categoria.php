@@ -45,7 +45,16 @@ class Categoria
 
     public function __toString()
     {
-        return $this->getNumero().'.....'.$this->getNombre();
+        $cat = $this;
+
+        $resultado = $this->getNumero() . '. ' . $this->getNombre();
+
+        while($cat->getPadre()) {
+            $cat = $cat->getPadre();
+            $resultado = $cat->getNumero() . '.' . $resultado;
+        }
+
+        return $resultado;
     }
 
     /**
@@ -185,3 +194,4 @@ class Categoria
         $this->elementos->removeElement($elemento);
     }
 }
+

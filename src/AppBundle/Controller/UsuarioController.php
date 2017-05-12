@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Usuario;
+use AppBundle\Form\Type\NewUsuarioType;
 use AppBundle\Form\Type\UsuarioType;
 use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -100,7 +101,7 @@ class UsuarioController extends Controller
             $em->persist($usuario);
         }
 
-        $form = $this->createForm(UsuarioType::class, $usuario, [
+        $form = $this->createForm(NewUsuarioType::class, $usuario, [
             'es_admin' => $nusuario ==2000
         ]);
 
@@ -116,11 +117,11 @@ class UsuarioController extends Controller
                 $usuario->setClave($clave);
             }
             $em->flush();
-            $this->addFlash('estado', 'Cambios guardados con éxito');
+            $this->addFlash('estado', 'Usuario registrado con éxito');
             return $this->redirectToRoute('listadoUsuarios',['usuario'=>$usuario->getId()]);
         }
         elseif($form->isSubmitted() && !$form->isValid()){
-            $this->addFlash('error', 'Los cambios no se han podido actualizar');
+            $this->addFlash('error', 'El usuario no se ha podido registrar');
         }
 
         return $this->render('usuarios/form.html.twig', [

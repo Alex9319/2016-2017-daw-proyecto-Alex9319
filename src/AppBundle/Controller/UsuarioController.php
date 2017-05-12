@@ -52,8 +52,8 @@ class UsuarioController extends Controller
             return $this->redirectToRoute('listadoUsuarios',['usuario'=>$usuario->getId()]);
         }
         elseif($form->isSubmitted() && !$form->isValid()){
-            $this->addFlash('estado', 'Los cambios no se han podido actualizar');
-            return $this->redirectToRoute('listadoUsuarios',['usuario'=>$usuario->getId()]);
+            $this->addFlash('error', 'Los cambios no se han podido actualizar');
+            //return $this->redirectToRoute('listadoUsuarios',['usuario'=>$usuario->getId()]);
         }
         return $this->render('usuarios/form.html.twig', [
             'usuario'=>$usuario,
@@ -120,8 +120,7 @@ class UsuarioController extends Controller
             return $this->redirectToRoute('listadoUsuarios',['usuario'=>$usuario->getId()]);
         }
         elseif($form->isSubmitted() && !$form->isValid()){
-            $this->addFlash('estado', 'Los cambios no se han podido actualizar');
-            return $this->redirectToRoute('listadoUsuarios',['usuario'=>$usuario->getId()]);
+            $this->addFlash('error', 'Los cambios no se han podido actualizar');
         }
 
         return $this->render('usuarios/form.html.twig', [

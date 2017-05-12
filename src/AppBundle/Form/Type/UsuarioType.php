@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 
 class UsuarioType extends AbstractType
@@ -47,8 +48,9 @@ class UsuarioType extends AbstractType
                 )
             ])
             ->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [
-                'label' => 'Enviar Perfil Completo',
-                'attr' => ['class' => 'btn btn-success']
+                'label' => 'Enviar solo el perfil',
+                'attr' => ['class' => 'btn btn-success'],
+                'validation_groups' => ['Default']
             ]);
 
         if (!$options['es_admin']) {
@@ -71,20 +73,31 @@ class UsuarioType extends AbstractType
             ->add('nueva', RepeatedType::class, [
                 'mapped' => false,
                 'type' => PasswordType::class,
+                'required' => false,
                 'first_options' => [
                     'label' => 'Clave Nueva',
                     'attr' => array(
                         'placeholder' => 'Introduzca su nueva Clave'
-                    )
+                    ),
+                    'constraints' => [
+                        new NotBlank([
+                            'groups'=>['password']
+                        ])
+                    ]
                 ],
                 'second_options' => [
                     'label' => 'Repetir Clave Nueva',
                     'attr' => array(
                         'placeholder' => 'Repita su nueva Clave'
-                    )
+                    ),
+                    'constraints' => [
+                        new NotBlank([
+                            'groups'=>['password']
+                        ])
+                    ]
                 ]
             ])
-            ->add('cambiarContraseñas', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [
+            ->add('cambiarContrasenas', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [
                 'label' => 'Cambiar Contraseñas',
                 'attr' => ['class' => 'btn btn-success'],
                 'validation_groups' => ['Default', 'password']
@@ -95,7 +108,9 @@ class UsuarioType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Usuario::class,
-            'es_admin' => false
+            'es_admin' => false,
+            'validation_groups'=>['Default'],
+            'translation_domain' => false
         ]);
     }
 }

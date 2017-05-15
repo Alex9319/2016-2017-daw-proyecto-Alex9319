@@ -89,7 +89,7 @@ class Elementos
 
     public function __toString()
     {
-        return $this->getNombre().'.....'.$this->getObservaciones();
+        return $this->getNombre();
     }
 
 

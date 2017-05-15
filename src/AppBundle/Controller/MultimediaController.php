@@ -18,7 +18,7 @@ class MultimediaController extends Controller
      * @Security("is_granted('ROLE_DOCUMENTADOR')")
      * @Route("/multimedia", name="listadoMultimedia")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
@@ -28,9 +28,13 @@ class MultimediaController extends Controller
             ->getQuery()
             ->getResult();
 
-        return $this->render('multimedia/listar.html.twig', [
-            'multimedia' => $multimedia,
-        ]);
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $multimedia, /* query NOT result */
+            $request->query->getInt('page', 1)/*numero de pagina*/
+        );
+
+        return $this->render('multimedia/listar.html.twig', array('pagination' => $pagination));
     }
 
     /**
@@ -60,13 +64,25 @@ class MultimediaController extends Controller
              
             // Le ponemos un nombre al fichero
             $file_name=$file->getClientOriginalName();
-             
-            // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
-            $file->move("uploads", $file_name);
 
-             
-            // Establecemos el nombre de fichero en el atributo de la entidad
-            $multimedia->setNombre($file->getClientOriginalName())->setType($ext)->setMultimedia('/uploads/'.$multimedia->getNombre());
+            if(substr($ext, 0,6 )=='image/'){
+                // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
+                $file->move("uploads/image", $file_name);
+                // Establecemos el nombre de fichero en el atributo de la entidad
+                $multimedia->setNombre($file->getClientOriginalName())->setType($ext)->setMultimedia('uploads/image/'.$multimedia->getNombre());
+            }
+            elseif (substr($ext, 0,6 )=='video/'){
+                // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
+                $file->move("uploads/video", $file_name);
+                // Establecemos el nombre de fichero en el atributo de la entidad
+                $multimedia->setNombre($file->getClientOriginalName())->setType($ext)->setMultimedia('uploads/video/'.$multimedia->getNombre());
+            }
+            elseif (substr($ext, 0,6 )=='audio/'){
+                // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
+                $file->move("uploads/audio", $file_name);
+                // Establecemos el nombre de fichero en el atributo de la entidad
+                $multimedia->setNombre($file->getClientOriginalName())->setType($ext)->setMultimedia('uploads/audio/'.$multimedia->getNombre());
+            }
 
             $em->persist($multimedia);
 
@@ -143,7 +159,7 @@ class MultimediaController extends Controller
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         try {
-            unlink('uploads/'.$multimedia->getNombre());
+            unlink($multimedia->getMultimedia());
             $em->remove($multimedia);
             $em->flush();
             $this->addFlash('estado', 'Archivo multimedia eliminado con éxito');

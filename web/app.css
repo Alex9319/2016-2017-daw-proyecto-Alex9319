@@ -37,6 +37,7 @@ body > .container{
 .contenido-articulo{
     background-color: var(--claro);
     border: solid 1px var(--remarcado);
+    padding-bottom: 1em;
 }
 .contenido-articulo>p{
     overflow:hidden;

@@ -34,6 +34,10 @@ body > .container{
     flex-wrap: wrap;
     align-items:flex-end;
 }
+.contenido-articulo{
+    background-color: var(--claro);
+    border: solid 1px var(--remarcado);
+}
 .contenido-articulo>p{
     overflow:hidden;
     white-space:nowrap;
@@ -63,9 +67,6 @@ table a:hover{
 td, th{
     text-align: center;
     vertical-align: middle!important;
-}
-table,tbody,thead{
-    border-color: black!important;
 }
 table td img, table td video{
     width: 160px;

@@ -90,12 +90,23 @@ table td img, table td video{
 .modal-body{
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: var(--fondo);
 }
-.modal-body img , .modal-body video{
+.multimedia{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.multimedia img , .multimedia video{
     width: 250px;
+}
+hr{
+    width:75%;
+    border-top: 1px solid var(--oscuro);
 }
 footer{
     width:100%;

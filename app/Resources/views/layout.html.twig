@@ -87,10 +87,10 @@
                 {% if  articulos.nombre %}
                             <div class="contenido-articulo col-md-4" >
 
-                            <h2>{{ articulos.nombre }}</h2>
-                            <p class="col-md-12">{{ articulos.observaciones }}</p>
+                            <h2>{{ articulos.nombre|title }}</h2>
+                            <p class="col-md-12">{{ articulos.observaciones|capitalize }}</p>
                             <!-- Trigger the modal with a button -->
-                             <button type="button" class="btn btn-info btn-lg-3 col-md-3 col-xs-5	col-sm-5 col-md-offset-5" data-toggle="modal" data-target="#{{ articulos.id }}">Ver</button>
+                             <button type="button" class="btn btn-info btn-lg-4 col-md-4 col-xs-5 col-sm-5 col-md-offset-4" data-toggle="modal" data-target="#{{ articulos.id }}">Ver</button>
                             </div>
                         <!-- Modal -->
                         <div class="modal fade" id="{{ articulos.id }}" role="dialog">
@@ -100,9 +100,10 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">{{ articulos.nombre }}</h4>
+                                        <h4 class="modal-title">{{ articulos.nombre|title }}</h4>
                                     </div>
                                     <div class="modal-body">
+                                        <div class="multimedia">
                                         {% for numero in articulos.multimedia %}
                                             {% if ("image" in numero.getType() ) %}
                                                 <a href="{{ numero.multimedia }}" rel="lightbox[galeria{{ articulos.id }}]"><img src="{{ numero.multimedia }}" class="col-md-6"></a>
@@ -120,7 +121,9 @@
                                                 </audio>
                                             {%  endif %}
                                         {% endfor %}
-                                        <p>{{ articulos.observaciones }}</p>
+                                        </div>
+                                        <hr />
+                                        <p>{{ articulos.observaciones|capitalize }}</p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -88,4 +88,35 @@ class DefaultController extends Controller
 
         return $this->render('aplicacion/contacto.html.twig');
     }
+
+    /**
+     * @Route("/buscar", name="buscar")
+     */
+    public function buscarAction(Request $request)
+    {
+        if($this->getUser()){
+            $rol=$this->getUser()->getNiveldeacceso();
+        }else {
+            $rol = 1200;
+        }
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQueryBuilder()
+            ->select('e')
+            ->from('AppBundle:Elementos', 'e')
+            ->leftJoin('AppBundle:Multimedia', 'm','WITH','e.id=m.elementos')
+            ->where('e.NivelDeAcceso <= :roles')
+            ->setParameter('roles', $rol)
+            ->getQuery()
+            ->getResult();
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            12/*limit per page*/
+        );
+
+        return $this->render('layout.html.twig', array('pagination' => $pagination));
+    }
 }

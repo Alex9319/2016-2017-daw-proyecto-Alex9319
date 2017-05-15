@@ -38,7 +38,8 @@ class ArchivadorType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Archivador::class
+            'data_class' => Archivador::class,
+            'translation_domain' => false
         ]);
     }
 }

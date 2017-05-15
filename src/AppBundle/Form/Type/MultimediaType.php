@@ -26,7 +26,8 @@ class MultimediaType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Multimedia::class
+            'data_class' => Multimedia::class,
+            'translation_domain' => false
         ]);
     }
 }

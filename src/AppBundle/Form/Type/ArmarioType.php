@@ -24,7 +24,8 @@ class ArmarioType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Armario::class
+            'data_class' => Armario::class,
+            'translation_domain' => false
         ]);
     }
 }

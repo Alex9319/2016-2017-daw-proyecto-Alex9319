@@ -66,7 +66,8 @@ class ElementosType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Elementos::class
+            'data_class' => Elementos::class,
+            'translation_domain' => false
         ]);
     }
 }

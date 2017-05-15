@@ -27,6 +27,18 @@ body > .container{
 #navbar{
     margin-left: 25%;
 }
+.articulos{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items:flex-end;
+}
+.contenido-articulo>p{
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+}
 .cuadro{
     border: solid 1px black;
     padding: 1em;
@@ -57,11 +69,6 @@ table,tbody,thead{
 }
 table td img, table td video{
     width: 160px;
-}
-.articulos{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
 }
 .modal-content{
     border-radius: 10px;
@@ -110,5 +117,10 @@ footer{
     #navbar{
         margin-left: 0%;
         text-align: center;
+    }
+    .articulos {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 }

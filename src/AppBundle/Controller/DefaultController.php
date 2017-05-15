@@ -94,29 +94,51 @@ class DefaultController extends Controller
      */
     public function buscarAction(Request $request)
     {
-        if($this->getUser()){
-            $rol=$this->getUser()->getNiveldeacceso();
-        }else {
-            $rol = 1200;
+        if ('' === $request->get('busco')) {
+            return $this->inicioAction($request);
+        } else {
+            if($this->getUser()){
+                $rol=$this->getUser()->getNiveldeacceso();
+            }else {
+                $rol = 1200;
+            }
+            /** @var EntityManager $em */
+            $em = $this->getDoctrine()->getManager();
+            $query = $em->createQueryBuilder()
+                ->select('e')
+                ->from('AppBundle:Elementos', 'e')
+                ->leftJoin('AppBundle:Multimedia', 'm', 'WITH', 'e.id=m.elementos')
+                ->where('e.NivelDeAcceso <= :roles')
+                ->andWhere('e.nombre LIKE :nombre')
+                ->orWhere('e.observaciones LIKE :nombre')
+                ->setParameter('nombre', '%' . $request->get('busco') . '%')
+                ->setParameter('roles', $rol)
+                ->getQuery()
+                ->getResult();
+
+            $paginator = $this->get('knp_paginator');
+            $pagination = $paginator->paginate(
+                $query, /* query NOT result */
+                $request->query->getInt('page', 1)/*page number*/
+            );
+
+            /** @var EntityManager $em */
+            $em = $this->getDoctrine()->getManager();
+            $query1 = $em->createQueryBuilder()
+                ->select('c')
+                ->from('AppBundle:Categoria', 'c')
+                ->Where('c.nombre LIKE :nombre')
+                ->setParameter('nombre', '%' . $request->get('busco') . '%')
+                ->getQuery()
+                ->getResult();
+
+            $paginator1 = $this->get('knp_paginator');
+            $pagination1 = $paginator1->paginate(
+                $query1, /* query NOT result */
+                $request->query->getInt('page', 1)/*page number*/
+            );
+
+            return $this->render('aplicacion/buscar.html.twig', array('pagination' => $pagination, 'pagination1' => $pagination1, 'variable' => $request->get('busco')));
         }
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-        $query = $em->createQueryBuilder()
-            ->select('e')
-            ->from('AppBundle:Elementos', 'e')
-            ->leftJoin('AppBundle:Multimedia', 'm','WITH','e.id=m.elementos')
-            ->where('e.NivelDeAcceso <= :roles')
-            ->setParameter('roles', $rol)
-            ->getQuery()
-            ->getResult();
-
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $query, /* query NOT result */
-            $request->query->getInt('page', 1)/*page number*/,
-            12/*limit per page*/
-        );
-
-        return $this->render('layout.html.twig', array('pagination' => $pagination));
     }
 }

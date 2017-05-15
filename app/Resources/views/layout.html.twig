@@ -8,16 +8,15 @@
    {% set ruta = app.request.get('_route') %}
     {% block navbar %}
         <nav class="navbar navbar-default navbar-fixed-top barra center-block">
-        <div class="container">
+        <div class="container-fluid">
                 <div class="navbar-top">
-                    {% if app.user %}
+                    <div class="container-fluid">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                             <span class="sr-only">Menu</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                    {% endif %}
                         <a class="navbar-brand" href="{{ path('homepage') }}">Museo Andrés Segovia</a>
                      <ul class="nav navbar-nav navbar-right">
                         {% if app.user %}
@@ -37,22 +36,28 @@
                         {% endif %}
                     </ul>
                 </div>
-            </div>              
+                </div>
+            </div>
+            <div class="container-fluid">
                 <div id="navbar" class="navbar-collapse collapse">
                     <div class="container">
                         <ul class="nav navbar-nav">
                         {% if app.user %}
+                            <li{% if ruta == 'homepage' %} class="active"{% endif %}><a href="{{ path('homepage') }}"><i class="fa fa-home"></i> Inicio</a></li>
                             {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'listadoArticulos' %} class="active"{% endif %}><a href="{{ path('listadoArticulos') }}"><i class="fa fa-gift"></i> Articulos</a></li>{% endif %}
                             {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'listadoMultimedia' %} class="active"{% endif %}><a href="{{ path('listadoMultimedia') }}"><i class="fa fa-upload"></i> Multimedia</a></li>{% endif %}
                             {% if is_granted('ROLE_ADMIN') %}<li{% if ruta == 'listadoUsuarios' %} class="active"{% endif %}><a href="{{ path('listadoUsuarios') }}"><i class="fa fa-users"></i> Usuarios</a></li>{% endif %}
                             {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'listadoCategorias' %} class="active"{% endif %}><a href="{{ path('listadoCategorias') }}"><i class="fa fa-cubes"></i> Categorias</a></li>{% endif %}
                             {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'listadoArmarios' %} class="active"{% endif %}><a href="{{ path('listadoArmarios') }}"><i class="fa fa-briefcase"></i> Armarios</a></li>{% endif %}
                             {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'listadoArchivadores' %} class="active"{% endif %}><a href="{{ path('listadoArchivadores') }}"><i class="fa fa-book"></i> Archivadores</a></li>{% endif %}
+                            <li><form action="{{ path('buscar') }}"><input type="text" name="busco"/><button type="submit" class="btn-success"><i class="fa fa-search" aria-hidden="true"></i></button></form></li>
                         {% else %}
                             <li{% if ruta == 'homepage' %} class="active"{% endif %}><a href="{{ path('homepage') }}"><i class="fa fa-gift"></i> Articulos</a></li>
                             <li{% if ruta == 'contacto' %} class="active"{% endif %}><a href="{{ path('contacto') }}"><i class="fa fa-child"></i> Contacto</a></li>
+                            <li><form action="{{ path('buscar') }}"><input type="text" name="busco"/><button type="submit" class="btn-success"><i class="fa fa-search" aria-hidden="true"></i></button></form></li>
                         {% endif %}
                         </ul>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -77,16 +82,16 @@
             {% endfor %}
         {% endif %}
         {% block content %}
+            <div class="articulos">
             {% for articulos in pagination %}
-                {% if  articulos.id %}
-                    <div class="col-md-4">
-                        <div class="articulos">
+                {% if  articulos.nombre %}
+                            <div class="contenido-articulo col-md-4" >
 
                             <h2>{{ articulos.nombre }}</h2>
-                            <h4 class="col-md-6">{{ articulos.observaciones }}</h4>
+                            <p class="col-md-12">{{ articulos.observaciones }}</p>
                             <!-- Trigger the modal with a button -->
-                             <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#{{ articulos.id }}">Ver</button>
-                        </div>
+                             <button type="button" class="btn btn-info btn-lg col-md-3 col-xs-5	col-sm-5 col-md-offset-5" data-toggle="modal" data-target="#{{ articulos.id }}">Ver</button>
+                            </div>
                         <!-- Modal -->
                         <div class="modal fade" id="{{ articulos.id }}" role="dialog">
                             <div class="modal-dialog">
@@ -124,13 +129,13 @@
 
                             </div>
                         </div>
-                    </div>
                 {% else %}
                             <div class="col-md-6 col-md-offset-3">
                                 <h2>No hay Actualmente ningun Artículo en el museo</h2>
                             </div>
                 {% endif %}
             {% endfor %}
+            </div>
             <div class="container">
                 <div class="col-md-6 col-md-offset-3">
                     {{ knp_pagination_render(pagination) }}

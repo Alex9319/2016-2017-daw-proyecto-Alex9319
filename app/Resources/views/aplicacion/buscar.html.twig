@@ -1,0 +1,95 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>Elementos que contienen {{ variable }}</h1>
+    {# total items count #}
+    <h5>Total de Articulos: {{ pagination.getTotalItemCount }}</h5>
+    <p></p>
+    <table class="table table-responsive table-hover table-bordered">
+        <thead>
+        <tr>
+            <th class="col-sm-1">Multimedia</th>
+            <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'Nombre', 'a.Nombre') }}</th>
+            <th class="col-sm-2">Observaciones</th>
+            <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Fecha Alta', 'a.Fecha Alta') }}</th>
+            <th class="col-sm-1">Archivador</th>
+            <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Armario', 'a.Armario') }}</th>
+            <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Categoria', 'a.Categoria') }}</th>
+            <th class="col-sm-1">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for elemento in pagination %}
+            <tr{% if(elemento.fechaBaja and is_granted('ROLE_ADMIN')) %} class="danger" {% endif %}>
+                <td>
+                    {% for numero in elemento.multimedia %}
+                        {% if ("image" in numero.getType() ) %}
+                            <a href="{{ numero.multimedia }}" rel="lightbox[galeria{{ elemento.id }}]"><img src="{{ numero.multimedia }}" class="img-circle"></a>
+                        {%  endif %}
+                        {% if ("video" in numero.getType() ) %}
+                            <video width="320" height="240" controls>
+                                <source src="{{ numero.multimedia }}" type="{{ numero.getType() }}">
+                                Tu navegador no soporta el elemento de video.
+                            </video>
+                        {%  endif %}
+                        {% if ("audio" in numero.getType() ) %}
+                            <audio controls>
+                                <source src="{{ numero.multimedia }}" type="{{ numero.getType() }}">
+                                Tu navegador no soporta el elemento de audio.
+                            </audio>
+                        {%  endif %}
+                    {% endfor %}
+                </td>
+                <td>{{ elemento.nombre }}</td>
+                <td>{{ elemento.observaciones }}</td>
+                <td>{{ elemento.fechaAlta | date("d/m/Y") }}</td>
+                <td>{{ elemento.archivador }}</td>
+                <td>{{ elemento.armario }}</td>
+                <td>{{ elemento.categoria }}</td>
+                <td>
+                    {% if elemento.fechaBaja is null %}<a href="{{ path('modificar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>{% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}{% if elemento.fechaBaja is null %}<a href="{{ path('desactivar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-danger" title="Desactivar"><i class="fa fa-download"></i></a>{% endif %}{% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}{% if elemento.fechaBaja is not null %}<a href="{{ path('reactivar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-success" title="Reactivar"><i class="fa fa-upload"></i></a>{% endif %}{% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="container">
+        <div class="col-md-6 col-md-offset-3">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+    {% if app.user %}
+        <h1>Categorias que contienen {{ variable }}</h1>
+        {# total items count #}
+        <h5>Total de Categorias: {{ pagination1.getTotalItemCount }}</h5>
+        <p></p>
+        <table class="table table-responsive table-hover">
+            <thead>
+            <tr>
+                <th class="col-sm-5">{{ knp_pagination_sortable(pagination, 'Nombre', 'a.Nombre') }}</th>
+                <th class="col-sm-5">Padre</th>
+                <th class="col-sm-1">Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for categoria in pagination1 %}
+                <tr>
+                    <td>{{ categoria }}</td>
+                    <td>{{ categoria.padre }}</td>
+                    <td>
+                        <a href="{{ path('modificar_cat', {'id': categoria.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
+                        {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_categoria', {'id': categoria.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="container">
+            <div class="col-md-6 col-md-offset-3">
+                {{ knp_pagination_render(pagination1) }}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

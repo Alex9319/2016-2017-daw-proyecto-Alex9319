@@ -9,7 +9,6 @@ use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 
 class MultimediaController extends Controller
@@ -87,10 +86,13 @@ class MultimediaController extends Controller
 
             $em->persist($multimedia);
 
-            $em->flush();
-
-            $this->addFlash('estado', 'Cambios guardados con éxito');
-            return $this->redirectToRoute('listadoMultimedia',['multimedia'=>$multimedia->getId()]);
+            try{
+                $em->flush();
+                $this->addFlash('estado', 'Cambios guardados con éxito');
+                return $this->redirectToRoute('listadoMultimedia');
+            }catch (\Exception $e){
+                $this->addFlash('error', 'No se ha guardado el archivo multimedia por que ya existe un archivo con este nombre');
+            }
         }
 
         return $this->render('multimedia/form.html.twig', [
@@ -152,10 +154,13 @@ class MultimediaController extends Controller
             }
             $em->persist($multimedia);
 
-            $em->flush();
-            $this->addFlash('estado', 'Cambios guardados con éxito');
-
-            return $this->redirectToRoute('listadoMultimedia',['multimedia'=>$multimedia->getId()]);
+            try{
+                $em->flush();
+                $this->addFlash('estado', 'Cambios guardados con éxito');
+                return $this->redirectToRoute('listadoMultimedia');
+            }catch (\Exception $e){
+                $this->addFlash('error', 'No se ha guardado el archivo multimedia por que ya existe un archivo con este nombre');
+            }
         }
 
         return $this->render('multimedia/modificar.html.twig', [
@@ -191,8 +196,8 @@ class MultimediaController extends Controller
             $em->flush();
             $this->addFlash('estado', 'Archivo multimedia eliminado con éxito');
         }
-        catch(Exception $e) {
-            $this->addFlash('error', 'No se han podido eliminar');
+        catch(\Exception $e) {
+            $this->addFlash('error', 'No se han podido eliminar el archivo multimedia');
         }
         return $this->redirectToRoute('listadoMultimedia');
     }

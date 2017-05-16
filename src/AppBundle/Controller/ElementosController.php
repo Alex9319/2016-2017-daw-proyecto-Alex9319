@@ -8,7 +8,6 @@ use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 
 class ElementosController extends Controller
@@ -73,10 +72,7 @@ class ElementosController extends Controller
                 $this->addFlash('estado', 'Cambios guardados con éxito');
                 return $this->redirectToRoute('listadoArticulos');
             }catch (\Exception $e){
-                $error=$e->getCode();
-                if(0==$error) {
                     $this->addFlash('error', 'No se ha guardado el articulo ya que existe un articulo con el mismo nombre');
-                }
             }
         }
 
@@ -110,8 +106,8 @@ class ElementosController extends Controller
             $em->flush();
             $this->addFlash('estado', 'Articulo desactivado con éxito');
         }
-        catch(Exception $e) {
-            $this->addFlash('error', 'No se han podido dasactivar');
+        catch(\Exception $e) {
+            $this->addFlash('error', 'No se han podido desactivar');
         }
         return $this->redirectToRoute('listadoArticulos');
     }
@@ -141,7 +137,7 @@ class ElementosController extends Controller
             $em->flush();
             $this->addFlash('estado', 'Articulo activado con éxito');
         }
-        catch(Exception $e) {
+        catch(\Exception $e) {
             $this->addFlash('error', 'No se han podido activar');
         }
         return $this->redirectToRoute('listadoArticulos');

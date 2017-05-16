@@ -61,29 +61,28 @@ class MultimediaController extends Controller
             $file=$form['multimedia']->getData();
              
             // Sacamos la extensión del fichero
-            $tipo=$file->getMimeType();
-            $extension=$file->getExtension();
+            $ext=$file->getMimeType();
              
             // Le ponemos un nombre al fichero
-            $file_name=$multimedia->getNombre().$extension;
+            $file_name=$file->getClientOriginalName();
 
-            if(substr($tipo, 0,6 )=='image/'){
+            if(substr($ext, 0,6 )=='image/'){
                 // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
                 $file->move("uploads/image", $file_name);
                 // Establecemos el nombre de fichero en el atributo de la entidad
-                $multimedia->setType($tipo)->setMultimedia('uploads/image/'.$multimedia->getNombre().$extension);
+                $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/image/'.$file_name);
             }
-            elseif (substr($tipo, 0,6 )=='video/'){
+            elseif (substr($ext, 0,6 )=='video/'){
                 // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
                 $file->move("uploads/video", $file_name);
                 // Establecemos el nombre de fichero en el atributo de la entidad
-                $multimedia->setNombre($file->getClientOriginalName())->setType($tipo)->setMultimedia('uploads/video/'.$multimedia->getNombre());
+                $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/video/'.$file_name);
             }
-            elseif (substr($tipo, 0,6 )=='audio/'){
+            elseif (substr($ext, 0,6 )=='audio/'){
                 // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
                 $file->move("uploads/audio", $file_name);
                 // Establecemos el nombre de fichero en el atributo de la entidad
-                $multimedia->setNombre($file->getClientOriginalName())->setType($tipo)->setMultimedia('uploads/audio/'.$multimedia->getNombre());
+                $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/audio/'.$file_name);
             }
 
             $em->persist($multimedia);
@@ -118,36 +117,35 @@ class MultimediaController extends Controller
                 $file = $form['nuevo_multimedia']->getData();
 
                 // Sacamos la extensión del fichero
-                $tipo=$file->getMimeType();
-                $extension=$file->getExtension();
+                $ext = $file->getMimeType();
 
                 // Le ponemos un nombre al fichero
-                $file_name = $multimedia->getNombre().$extension;
+                $file_name = $file->getClientOriginalName();
 
                 //Cogemos el fichero antiguo antes de modificarlo
                 $img=$multimedia->getMultimedia();
 
-                if(substr($tipo, 0,6 )=='image/'){
+                if(substr($ext, 0,6 )=='image/'){
                     // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
                     $file->move("uploads/image", $file_name);
                     // Establecemos el nombre de fichero en el atributo de la entidad
-                    $multimedia->setType($tipo)->setMultimedia('uploads/image/'.$multimedia->getNombre());
+                    $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/image/'.$file_name);
                     //Borramos el fichero antiguo
                     unlink($img);
                 }
-                elseif (substr($tipo, 0,6 )=='video/'){
+                elseif (substr($ext, 0,6 )=='video/'){
                     // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
                     $file->move("uploads/video", $file_name);
                     // Establecemos el nombre de fichero en el atributo de la entidad
-                    $multimedia->setType($tipo)->setMultimedia('uploads/video/'.$multimedia->getNombre());
+                    $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/video/'.$file_name);
                     //Borramos el fichero antiguo
                     unlink($img);
                 }
-                elseif (substr($tipo, 0,6 )=='audio/'){
+                elseif (substr($ext, 0,6 )=='audio/'){
                     // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
                     $file->move("uploads/audio", $file_name);
                     // Establecemos el nombre de fichero en el atributo de la entidad
-                    $multimedia->setType($tipo)->setMultimedia('uploads/audio/'.$multimedia->getNombre());
+                    $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/audio/'.$file_name);
                     //Borramos el fichero antiguo
                     unlink($img);
                 }

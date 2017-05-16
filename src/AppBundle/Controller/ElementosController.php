@@ -68,9 +68,13 @@ class ElementosController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
-            $this->addFlash('estado', 'Cambios guardados con éxito');
-            return $this->redirectToRoute('listadoArticulos',['elementos'=>$elementos->getId()]);
+            try{
+                $em->flush();
+                $this->addFlash('estado', 'Cambios guardados con éxito');
+                return $this->redirectToRoute('listadoArticulos');
+            }catch (\Exception $e){
+                $this->addFlash('error', 'No se ha guardado el articulo '.$e->getMessage());
+            }
         }
 
         return $this->render('elementos/form.html.twig', [
@@ -83,7 +87,7 @@ class ElementosController extends Controller
      * @Route("/articulos/desactivar/{id}", name="desactivar_articulo", methods={"GET"})
      * @Security("is_granted('ROLE_ADMIN')")
      */
-    public function borrarAction(Elementos $articulo)
+    public function desactivarAction(Elementos $articulo)
     {
         /** @var EntityManager $em */
         return $this->render('elementos/borrar.html.twig', [
@@ -94,17 +98,17 @@ class ElementosController extends Controller
      * @Route("/articulos/desactivar/{id}", name="confirmar_desactivar_articulo", methods={"POST"})
      * @Security("is_granted('ROLE_ADMIN')")
      */
-    public function borrarDeVerdadAction(Elementos $articulo)
+    public function desactivarDeVerdadAction(Elementos $articulo)
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         try {
             $articulo->setFechaBaja(new \DateTime("now"));
             $em->flush();
-            $this->addFlash('estado', 'Articulo eliminado con éxito');
+            $this->addFlash('estado', 'Articulo desactivado con éxito');
         }
         catch(Exception $e) {
-            $this->addFlash('error', 'No se han podido eliminar');
+            $this->addFlash('error', 'No se han podido dasactivar');
         }
         return $this->redirectToRoute('listadoArticulos');
     }

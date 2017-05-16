@@ -25,7 +25,7 @@
                 <td>
                     {% for numero in elemento.multimedia %}
                         {% if ("image" in numero.getType() ) %}
-                            <a href="{{ numero.multimedia }}" rel="lightbox[galeria{{ elemento.id }}]"><img src="{{ numero.multimedia }}" class="img-circle"></a>
+                            <a href="{{ numero.multimedia }}" rel="lightbox[galeria{{ elemento.id }}]"><img src="{{ numero.multimedia }}" class="img-circle" alt="{{ numero.nombre }}"></a>
                         {%  endif %}
                         {% if ("video" in numero.getType() ) %}
                             <video width="320" height="240" controls>

@@ -8,7 +8,6 @@ use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 
 class ArmarioController extends Controller
@@ -97,8 +96,8 @@ class ArmarioController extends Controller
             $em->flush();
             $this->addFlash('estado', 'Armario eliminado con éxito');
         }
-        catch(Exception $e) {
-            $this->addFlash('error', 'No se han podido eliminar');
+        catch(\Exception $e) {
+            $this->addFlash('error', 'No se han podido eliminar ya que hay archivadores en este armario');
         }
         return $this->redirectToRoute('listadoArmarios');
     }

@@ -1,0 +1,40 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>
+        {% if multimedia.id %}
+            Modificar Archivo Multimedia {{ multimedia }}
+        {% else %}
+            Nuevo Archivo Multimedia
+        {% endif %}
+    </h1>
+    {{ form_start(form) }}
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Imagen multimedia actual</label>
+        <div class="col-sm-10">
+            {% if ("image" in tipo ) %}
+                <img src="{{ archivo }}" class="img-circle" alt="{{ contenido }}">
+            {%  endif %}
+            {% if ("video" in tipo ) %}
+                <video height="240" controls>
+                    <source src="{{ archivo }}" type="{{ tipo }}">
+                    Tu navegador no soporta el elemento de video.
+                </video>
+            {%  endif %}
+            {% if ("audio" in tipo ) %}
+                <audio controls>
+                    <source src="{{ archivo }}" type="{{ tipo }}">
+                    Tu navegador no soporta el elemento de audio.
+                </audio>
+            {%  endif %}
+        </div>
+    </div>
+    {{ form_widget(form) }}
+    <div class="form-group">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-10">
+            <button type="submit" name="enviar" class="btn btn-success"><i class="fa fa-check"></i>Guardar</button>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

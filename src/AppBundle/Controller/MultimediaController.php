@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Multimedia;
+use AppBundle\Form\Type\ModMultimediaType;
 use AppBundle\Form\Type\MultimediaType;
 use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -106,37 +107,58 @@ class MultimediaController extends Controller
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm(MultimediaType::class, $multimedia);
+        $form = $this->createForm(ModMultimediaType::class, $multimedia);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Recogemos el fichero
-            $file=$form['multimedia']->getData();
+            if($form['nuevo_multimedia']->getData()) {
+                // Recogemos el fichero
+                $file = $form['nuevo_multimedia']->getData();
 
-            // Sacamos la extensión del fichero
-            $ext=$file->getMimeType();
+                // Sacamos la extensión del fichero
+                $ext = $file->getMimeType();
 
-            // Le ponemos un nombre al fichero
-            $file_name=$file->getClientOriginalName();
+                // Le ponemos un nombre al fichero
+                $file_name = $file->getClientOriginalName();
 
-            // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
-            $file->move("uploads", $file_name);
+                //Borramos el fichero antiguo
+                $img=$multimedia->getMultimedia();
 
-            // Establecemos el nombre de fichero en el atributo de la entidad
-            $multimedia->setNombre($file->getClientOriginalName())->setType($ext)->setMultimedia('/uploads/'.$multimedia->getNombre());
-
+                if(substr($ext, 0,6 )=='image/'){
+                    // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
+                    $file->move("uploads/image", $file_name);
+                    // Establecemos el nombre de fichero en el atributo de la entidad
+                    $multimedia->setNombre($file->getClientOriginalName())->setType($ext)->setMultimedia('uploads/image/'.$multimedia->getNombre());
+                }
+                elseif (substr($ext, 0,6 )=='video/'){
+                    // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
+                    $file->move("uploads/video", $file_name);
+                    // Establecemos el nombre de fichero en el atributo de la entidad
+                    $multimedia->setNombre($file->getClientOriginalName())->setType($ext)->setMultimedia('uploads/video/'.$multimedia->getNombre());
+                }
+                elseif (substr($ext, 0,6 )=='audio/'){
+                    // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
+                    $file->move("uploads/audio", $file_name);
+                    // Establecemos el nombre de fichero en el atributo de la entidad
+                    $multimedia->setNombre($file->getClientOriginalName())->setType($ext)->setMultimedia('uploads/audio/'.$multimedia->getNombre());
+                }
+            }
             $em->persist($multimedia);
 
             $em->flush();
 
             $this->addFlash('estado', 'Cambios guardados con éxito');
+            unlink($img);
             return $this->redirectToRoute('listadoMultimedia',['multimedia'=>$multimedia->getId()]);
         }
 
-        return $this->render('multimedia/form.html.twig', [
+        return $this->render('multimedia/modificar.html.twig', [
             'multimedia' => $multimedia,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'archivo'=>'/'.$multimedia->getMultimedia(),
+            'contenido'=>$multimedia->getNombre(),
+            'tipo'=>$multimedia->getType()
         ]);
     }
     /**

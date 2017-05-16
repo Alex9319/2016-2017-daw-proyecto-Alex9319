@@ -130,26 +130,28 @@ class MultimediaController extends Controller
                     $file->move("uploads/image", $file_name);
                     // Establecemos el nombre de fichero en el atributo de la entidad
                     $multimedia->setNombre($file->getClientOriginalName())->setType($ext)->setMultimedia('uploads/image/'.$multimedia->getNombre());
+                    unlink($img);
                 }
                 elseif (substr($ext, 0,6 )=='video/'){
                     // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
                     $file->move("uploads/video", $file_name);
                     // Establecemos el nombre de fichero en el atributo de la entidad
                     $multimedia->setNombre($file->getClientOriginalName())->setType($ext)->setMultimedia('uploads/video/'.$multimedia->getNombre());
+                    unlink($img);
                 }
                 elseif (substr($ext, 0,6 )=='audio/'){
                     // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
                     $file->move("uploads/audio", $file_name);
                     // Establecemos el nombre de fichero en el atributo de la entidad
                     $multimedia->setNombre($file->getClientOriginalName())->setType($ext)->setMultimedia('uploads/audio/'.$multimedia->getNombre());
+                    unlink($img);
                 }
             }
             $em->persist($multimedia);
 
             $em->flush();
-
             $this->addFlash('estado', 'Cambios guardados con éxito');
-            unlink($img);
+
             return $this->redirectToRoute('listadoMultimedia',['multimedia'=>$multimedia->getId()]);
         }
 

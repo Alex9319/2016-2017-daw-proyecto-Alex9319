@@ -122,7 +122,7 @@ class MultimediaController extends Controller
                 // Le ponemos un nombre al fichero
                 $file_name = $file->getClientOriginalName();
 
-                //Borramos el fichero antiguo
+                //Cogemos el fichero antiguo antes de modificarlo
                 $img=$multimedia->getMultimedia();
 
                 if(substr($ext, 0,6 )=='image/'){
@@ -130,6 +130,7 @@ class MultimediaController extends Controller
                     $file->move("uploads/image", $file_name);
                     // Establecemos el nombre de fichero en el atributo de la entidad
                     $multimedia->setNombre($file->getClientOriginalName())->setType($ext)->setMultimedia('uploads/image/'.$multimedia->getNombre());
+                    //Borramos el fichero antiguo
                     unlink($img);
                 }
                 elseif (substr($ext, 0,6 )=='video/'){
@@ -137,6 +138,7 @@ class MultimediaController extends Controller
                     $file->move("uploads/video", $file_name);
                     // Establecemos el nombre de fichero en el atributo de la entidad
                     $multimedia->setNombre($file->getClientOriginalName())->setType($ext)->setMultimedia('uploads/video/'.$multimedia->getNombre());
+                    //Borramos el fichero antiguo
                     unlink($img);
                 }
                 elseif (substr($ext, 0,6 )=='audio/'){
@@ -144,6 +146,7 @@ class MultimediaController extends Controller
                     $file->move("uploads/audio", $file_name);
                     // Establecemos el nombre de fichero en el atributo de la entidad
                     $multimedia->setNombre($file->getClientOriginalName())->setType($ext)->setMultimedia('uploads/audio/'.$multimedia->getNombre());
+                    //Borramos el fichero antiguo
                     unlink($img);
                 }
             }

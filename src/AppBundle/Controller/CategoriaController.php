@@ -8,7 +8,6 @@ use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 
 class CategoriaController extends Controller
@@ -91,8 +90,8 @@ class CategoriaController extends Controller
             $em->flush();
             $this->addFlash('estado', 'Categoria eliminado con éxito');
         }
-        catch(Exception $e) {
-            $this->addFlash('error', 'No se han podido eliminar');
+        catch(\Exception $e) {
+            $this->addFlash('error', 'No se han podido eliminar ya que una categoria tiene esta categoria como padre o un articulo tiene asignado esta categoria');
         }
         return $this->redirectToRoute('listadoCategorias');
     }

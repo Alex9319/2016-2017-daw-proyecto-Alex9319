@@ -60,10 +60,7 @@ class ArmarioController extends Controller
                 $this->addFlash('estado', 'Cambios guardados con éxito');
                 return $this->redirectToRoute('listadoArmarios');
             }catch (\Exception $e){
-                $error=$e->getCode();
-                if(0==$error) {
                     $this->addFlash('error', 'No se ha guardado el armario ya que existe un armario con el mismo nombre');
-                }
             }
         }
 

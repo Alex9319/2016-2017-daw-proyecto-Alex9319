@@ -30,6 +30,8 @@ class UsuarioController extends Controller
         if (null === $usuario) {
             $usuario = $this->getUser();
         }
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
 
         $form = $this->createForm(UsuarioType::class, $usuario, [
             'es_admin' => $this->isGranted('ROLE_ADMIN')
@@ -47,14 +49,13 @@ class UsuarioController extends Controller
 
                 $usuario->setClave($clave);
             }
-
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('estado', 'Cambios guardados con éxito');
-            return $this->redirectToRoute('listadoUsuarios',['usuario'=>$usuario->getId()]);
-        }
-        elseif($form->isSubmitted() && !$form->isValid()){
-            $this->addFlash('error', 'Los cambios no se han podido actualizar');
-            //return $this->redirectToRoute('listadoUsuarios',['usuario'=>$usuario->getId()]);
+            try{
+                $em->flush();
+                $this->addFlash('estado', 'Cambios guardados con éxito');
+                return $this->redirectToRoute('listadoMultimedia');
+            }catch (\Exception $e){
+                $this->addFlash('error', 'Los cambios no se han podido actualizar el nombre de usuario ya existe');
+            }
         }
         return $this->render('usuarios/form.html.twig', [
             'usuario'=>$usuario,
@@ -116,12 +117,13 @@ class UsuarioController extends Controller
 
                 $usuario->setClave($clave);
             }
-            $em->flush();
-            $this->addFlash('estado', 'Usuario registrado con éxito');
-            return $this->redirectToRoute('listadoUsuarios',['usuario'=>$usuario->getId()]);
-        }
-        elseif($form->isSubmitted() && !$form->isValid()){
-            $this->addFlash('error', 'El usuario no se ha podido registrar');
+            try{
+                $em->flush();
+                $this->addFlash('estado', 'Usuario registrado con éxito');
+                return $this->redirectToRoute('listadoMultimedia');
+            }catch (\Exception $e){
+                $this->addFlash('error', 'No se ha podido registrar al usuario el nombre de usuario ya existe');
+            }
         }
 
         return $this->render('usuarios/form.html.twig', [
@@ -153,8 +155,8 @@ class UsuarioController extends Controller
             $em->flush();
             $this->addFlash('estado', 'Usuario eliminado con éxito');
         }
-        catch(Exception $e) {
-            $this->addFlash('error', 'No se han podido eliminar');
+        catch(\Exception $e) {
+            $this->addFlash('error', 'No se han podido eliminar al Usuario');
         }
         return $this->redirectToRoute('listadoUsuarios');
     }

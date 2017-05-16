@@ -16,7 +16,7 @@ class MultimediaController extends Controller
 {
 
     /**
-     * @Security("is_granted('ROLE_DOCUMENTADOR')")
+     * @Security("is_granted('ROLE_USER')")
      * @Route("/multimedia", name="listadoMultimedia")
      */
     public function indexAction(Request $request)

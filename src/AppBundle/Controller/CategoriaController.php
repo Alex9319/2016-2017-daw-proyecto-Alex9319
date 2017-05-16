@@ -15,7 +15,7 @@ class CategoriaController extends Controller
 {
 
     /**
-     * @Security("is_granted('ROLE_DOCUMENTADOR')")
+     * @Security("is_granted('ROLE_USER')")
      * @Route("/categorias", name="listadoCategorias")
      */
     public function indexAction(Request $request)

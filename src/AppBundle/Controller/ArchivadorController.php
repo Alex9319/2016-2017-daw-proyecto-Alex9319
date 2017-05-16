@@ -24,7 +24,9 @@ class ArchivadorController extends Controller
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQueryBuilder()
             ->select('a')
+            ->addSelect('ar')
             ->from('AppBundle:Archivador', 'a')
+            ->join('a.armario','ar')
             ->getQuery()
             ->getResult();
 

@@ -23,8 +23,9 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQueryBuilder()
             ->select('e')
+            ->addSelect('m')
             ->from('AppBundle:Elementos', 'e')
-            ->leftJoin('AppBundle:Multimedia', 'm','WITH','e.id=m.elementos')
+            ->leftJoin('e.multimedia','m')
             ->where('e.NivelDeAcceso <= :roles')
             ->setParameter('roles', $rol)
             ->getQuery()

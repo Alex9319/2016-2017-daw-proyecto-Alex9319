@@ -73,7 +73,10 @@ class ElementosController extends Controller
                 $this->addFlash('estado', 'Cambios guardados con éxito');
                 return $this->redirectToRoute('listadoArticulos');
             }catch (\Exception $e){
-                $this->addFlash('error', 'No se ha guardado el articulo '.$e->getMessage());
+                $error=$e->getCode();
+                if(0==$error) {
+                    $this->addFlash('error', 'No se ha guardado el articulo ya que existe un articulo con el mismo nombre');
+                }
             }
         }
 

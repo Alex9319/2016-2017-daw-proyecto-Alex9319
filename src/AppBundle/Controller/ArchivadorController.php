@@ -59,9 +59,16 @@ class ArchivadorController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
-            $this->addFlash('estado', 'Cambios guardados con éxito');
-            return $this->redirectToRoute('listadoArchivadores',['archivadores'=>$archivadores->getId()]);
+            try {
+                $em->flush();
+                $this->addFlash('estado', 'Cambios guardados con éxito');
+                return $this->redirectToRoute('listadoArchivadores');
+            } catch (\Exception $e) {
+                $error = $e->getCode();
+                if (0 == $error) {
+                    $this->addFlash('error', 'No se ha guardado el archivador ya que existe un archivador con el mismo nombre');
+                }
+            }
         }
 
         return $this->render('archivador/form.html.twig', [
@@ -93,8 +100,8 @@ class ArchivadorController extends Controller
             $em->flush();
             $this->addFlash('estado', 'Archivador eliminado con éxito');
         }
-        catch(Exception $e) {
-            $this->addFlash('error', 'No se han podido eliminar');
+        catch(\Exception $e) {
+            $this->addFlash('error', 'No se han podido eliminar ya que algun articulo tiene asignado este archivador');
         }
         return $this->redirectToRoute('listadoArchivadores');
     }

@@ -23,7 +23,7 @@
                 <td>{{ usuario.usuario }}</td>
                 <td>
                     <a href="{{ path('musuarios', {'id': usuario.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
-                    {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_usuario', {'id': usuario.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
+                    <a href="{{ path('borrar_usuario', {'id': usuario.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         {% endfor %}

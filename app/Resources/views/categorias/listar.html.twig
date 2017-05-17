@@ -11,7 +11,7 @@
         <tr>
             <th class="col-sm-5">{{ knp_pagination_sortable(pagination, 'Nombre', 'a.Nombre') }}</th>
             <th class="col-sm-5">Padre</th>
-            <th class="col-sm-1">Acciones</th>
+            {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
         </tr>
         </thead>
         <tbody>
@@ -19,10 +19,12 @@
             <tr>
                 <td>{{ categoria }}</td>
                 <td>{{ categoria.padre }}</td>
-                <td>
-                    <a href="{{ path('modificar_cat', {'id': categoria.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
-                    {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_categoria', {'id': categoria.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
-                </td>
+                {% if is_granted('ROLE_DOCUMENTADOR') %}
+                    <td>
+                        <a href="{{ path('modificar_cat', {'id': categoria.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
+                        {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_categoria', {'id': categoria.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
+                    </td>
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>

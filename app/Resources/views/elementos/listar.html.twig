@@ -16,7 +16,7 @@
             <th class="col-sm-1">Archivador</th>
             <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Armario', 'a.Armario') }}</th>
             <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Categoria', 'a.Categoria') }}</th>
-            <th class="col-sm-1">Acciones</th>
+            {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
         </tr>
         </thead>
         <tbody>
@@ -47,11 +47,13 @@
                 <td>{{ elemento.archivador }}</td>
                 <td>{{ elemento.armario }}</td>
                 <td>{{ elemento.categoria }}</td>
-                <td>
-                    {% if elemento.fechaBaja is null %}<a href="{{ path('modificar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>{% endif %}
-                    {% if is_granted('ROLE_ADMIN') %}{% if elemento.fechaBaja is null %}<a href="{{ path('desactivar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-danger" title="Desactivar"><i class="fa fa-download"></i></a>{% endif %}{% endif %}
-                    {% if is_granted('ROLE_ADMIN') %}{% if elemento.fechaBaja is not null %}<a href="{{ path('reactivar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-success" title="Reactivar"><i class="fa fa-upload"></i></a>{% endif %}{% endif %}
-                </td>
+                {% if is_granted('ROLE_DOCUMENTADOR') %}
+                    <td>
+                        {% if elemento.fechaBaja is null %}<a href="{{ path('modificar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>{% endif %}
+                        {% if is_granted('ROLE_ADMIN') %}{% if elemento.fechaBaja is null %}<a href="{{ path('desactivar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-danger" title="Desactivar"><i class="fa fa-download"></i></a>{% endif %}{% endif %}
+                        {% if is_granted('ROLE_ADMIN') %}{% if elemento.fechaBaja is not null %}<a href="{{ path('reactivar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-success" title="Reactivar"><i class="fa fa-upload"></i></a>{% endif %}{% endif %}
+                    </td>
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>

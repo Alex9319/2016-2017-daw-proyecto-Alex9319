@@ -10,17 +10,19 @@
         <thead>
         <tr>
             <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Nombre', 'a.Nombre') }}</th>
-            <th class="col-sm-1">Acciones</th>
+            {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
         </tr>
         </thead>
         <tbody>
         {% for armario in pagination %}
             <tr>
                 <td>{{ armario.nombre }}</td>
-                <td>
-                    <a href="{{ path('modificar_arm', {'id': armario.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
-                    {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_armario', {'id': armario.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
-                </td>
+                {% if is_granted('ROLE_DOCUMENTADOR') %}
+                    <td>
+                        <a href="{{ path('modificar_arm', {'id': armario.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
+                        {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_armario', {'id': armario.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
+                    </td>
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>

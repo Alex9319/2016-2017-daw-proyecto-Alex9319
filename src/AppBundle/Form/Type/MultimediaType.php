@@ -18,9 +18,7 @@ class MultimediaType extends AbstractType
             ->add('elementos',null,[
                 'label'=>'Id de elemento',
                 'required' => true,
-                'attr' => array(
-                   'placeholder' => 'Introduzca el número de la Categoria'
-                )
+                   'placeholder' => 'Seleccione el articulo al que pertenece'
             ]);
     }
 

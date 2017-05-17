@@ -4,6 +4,7 @@ namespace AppBundle\Form\Type;
 
 use AppBundle\Entity\Elementos;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -44,22 +45,17 @@ class ElementosType extends AbstractType
             ])
             ->add('archivador', null, [
                 'label' => 'Archivador donde se encuentra el Articulo',
-                'attr'=>array(
-                    'placeholder'=>'Seleccione el Archivador'
-                )
+                'placeholder'=>'Seleccione el Archivador'
             ])
-            ->add('armario', null, [
+            ->add('armario', ChoiceType::class, [
                 'label' => 'Armario donde se encuentra el Articulo',
-                'attr'=>array(
-                    'placeholder'=>'Selecciona el Armario'
-                )
+                'placeholder'=>'Seleccione el un Armario'
             ])
             ->add('categoria', null, [
+
                 'label' => 'Categoria del Articulo',
                 'required' => true,
-                'attr'=>array(
-                    'placeholder'=>'Seleccione la Categoria'
-                )
+                'placeholder'=>'Seleccione la Categoria'
             ]);
     }
 

@@ -29,9 +29,7 @@ class CategoriaType extends AbstractType
             ->add('padre', null, [
                 'label' => 'Categoria padre',
                 'required' => false,
-                'attr' => array(
-                    'placeholder' => 'Seleccione la categoria superior'
-                )
+                'placeholder' => 'Seleccione la categoria de la que depende'
             ]);
     }
 

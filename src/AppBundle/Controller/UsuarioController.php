@@ -52,7 +52,7 @@ class UsuarioController extends Controller
             try{
                 $em->flush();
                 $this->addFlash('estado', 'Cambios guardados con éxito');
-                return $this->redirectToRoute('listadoMultimedia');
+                return $this->redirectToRoute('listadoUsuarios');
             }catch (\Exception $e){
                 $this->addFlash('error', 'Los cambios no se han podido actualizar el nombre de usuario ya existe');
             }
@@ -120,7 +120,7 @@ class UsuarioController extends Controller
             try{
                 $em->flush();
                 $this->addFlash('estado', 'Usuario registrado con éxito');
-                return $this->redirectToRoute('listadoMultimedia');
+                return $this->redirectToRoute('listadoUsuarios');
             }catch (\Exception $e){
                 $this->addFlash('error', 'No se ha podido registrar al usuario el nombre de usuario ya existe');
             }

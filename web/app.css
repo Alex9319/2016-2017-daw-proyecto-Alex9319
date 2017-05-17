@@ -120,6 +120,17 @@ hr{
     width:75%;
     border-top: 1px solid var(--oscuro);
 }
+button a{
+    color: white;
+}
+button a:hover{
+    text-decoration: none;
+    color: white;
+}
+#envio{
+    display: flex;
+    justify-content: space-between;
+}
 footer{
     width:100%;
     position: fixed;
@@ -162,25 +173,25 @@ footer{
         justify-content: center;
     }
 
-    table {
+    table[class*="table"] {
         width:100%;
     }
     /*thead {*/
         /*display: none;*/
     /*}*/
-    tr:nth-of-type(2n) {
+    table[class*="table"]>tr:nth-of-type(2n) {
         background-color: inherit;
     }
-    tr td:first-child {
+    table[class*="table"]>tr td:first-child {
         background: var(--remarcado);
         font-weight:bold;
         font-size:1.3em;
     }
-    tbody td {
+    table[class*="table"]>tbody td {
         display: block;
         text-align:center;
     }
-    tbody td:before {
+    table[class*="table"]>tbody td:before {
         content: attr(data-content);
         display: block;
         text-align:center;

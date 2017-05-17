@@ -3,17 +3,13 @@ $(".desplegable").hide();
 if((screen.width>=992) && (screen.height>=768)){
 	$("#usuario").mouseenter(function() {
 		$(".desplegable").show();
-	});
-
-	$("#usuario").mouseleave(function() {
+	}).mouseleave(function() {
 		$(".desplegable").hide();
 	});
 	
 	$(".desplegable").mouseenter(function() {
 		$(".desplegable").show();
-	});
-
-	$(".desplegable").mouseleave(function() {
+	}).mouseleave(function() {
 		$(".desplegable").hide();
 	});	
 }
@@ -26,3 +22,4 @@ else{
 $('select').select2()({
     theme: "bootstrap"
 });
+

@@ -4,7 +4,6 @@ namespace AppBundle\Form\Type;
 
 use AppBundle\Entity\Elementos;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -41,7 +40,8 @@ class ElementosType extends AbstractType
             ->add('fechaAlta', null, [
                 'label' => 'Fecha de Alta',
                 'widget' => 'single_text',
-                'required' => true
+                'required' => true,
+                'placeholder'=>'dd/mm/aaaa'
             ])
             ->add('archivador', null, [
                 'label' => 'Archivador donde se encuentra el Articulo',

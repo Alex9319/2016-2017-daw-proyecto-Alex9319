@@ -45,14 +45,15 @@ class ElementosType extends AbstractType
             ])
             ->add('archivador', null, [
                 'label' => 'Archivador donde se encuentra el Articulo',
-                'placeholder'=>'Seleccione el Archivador'
+                'placeholder'=>'Seleccione el Archivador',
+                'required' => false,
             ])
-            ->add('armario', ChoiceType::class, [
-                'label' => 'Armario donde se encuentra el Articulo',
-                'placeholder'=>'Seleccione el un Armario'
+            ->add('armario', null, [
+                'label' => 'Armario donde se encuentra el Archivador',
+                'placeholder'=>'Seleccione el un Armario',
+                'required' => false,
             ])
             ->add('categoria', null, [
-
                 'label' => 'Categoria del Articulo',
                 'required' => true,
                 'placeholder'=>'Seleccione la Categoria'

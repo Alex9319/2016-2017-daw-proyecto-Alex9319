@@ -11,14 +11,14 @@
         <div class="container-fluid">
                 <div class="navbar-top">
                     <div class="container-fluid">
+                        <a class="navbar-brand col-xs-4" href="{{ path('homepage') }}">Museo Andrés Segovia</a>
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                             <span class="sr-only">Menu</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="{{ path('homepage') }}">Museo Andrés Segovia</a>
-                     <ul class="nav navbar-nav navbar-right">
+                     <ul class="nav navbar-nav navbar-right col-xs-4">
                         {% if app.user %}
                         <div class="btn-group">
                             <ul class="nav navbar-nav navbar-right">
@@ -50,7 +50,7 @@
                             {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'listadoCategorias' %} class="active"{% endif %}><a href="{{ path('listadoCategorias') }}"><i class="fa fa-cubes"></i> Categorias</a></li>{% endif %}
                             {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'listadoArmarios' %} class="active"{% endif %}><a href="{{ path('listadoArmarios') }}"><i class="fa fa-briefcase"></i> Armarios</a></li>{% endif %}
                             {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'listadoArchivadores' %} class="active"{% endif %}><a href="{{ path('listadoArchivadores') }}"><i class="fa fa-book"></i> Archivadores</a></li>{% endif %}
-                            <li><form action="{{ path('buscar') }}"><input type="text" name="busco"/><button type="submit" class="btn-success"><i class="fa fa-search" aria-hidden="true"></i></button></form></li>
+                            <li><form action="{{ path('buscar') }}" id="buscar"><input type="text" name="busco"/><button type="submit" class="btn-success"><i class="fa fa-search" aria-hidden="true"></i></button></form></li>
                         {% else %}
                             <li{% if ruta == 'homepage' %} class="active"{% endif %}><a href="{{ path('homepage') }}"><i class="fa fa-gift"></i> Articulos</a></li>
                             <li{% if ruta == 'contacto' %} class="active"{% endif %}><a href="{{ path('contacto') }}"><i class="fa fa-child"></i> Contacto</a></li>
@@ -90,7 +90,7 @@
                             <h2>{{ articulos.nombre|title }}</h2>
                             <p class="col-md-12">{{ articulos.observaciones|capitalize }}</p>
                             <!-- Trigger the modal with a button -->
-                             <button type="button" class="btn btn-info btn-lg-4 col-md-4 col-xs-5 col-sm-5 col-md-offset-4" data-toggle="modal" data-target="#{{ articulos.id }}">Ver</button>
+                             <button type="button" class="btn btn-info btn-lg-4 col-md-4 col-xs-6 col-sm-6 col-md-offset-4" data-toggle="modal" data-target="#{{ articulos.id }}">Ver</button>
                             </div>
                         <!-- Modal -->
                         <div class="modal fade" id="{{ articulos.id }}" role="dialog">

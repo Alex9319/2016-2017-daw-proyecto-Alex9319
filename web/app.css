@@ -24,8 +24,20 @@ body > .container{
 .navbar-brand:hover{
     color:var(--remarcado)!important;
 }
-#navbar{
-    margin-left: 25%;
+#navbar>.container{
+    display: flex;
+    justify-content: center;
+}
+ul.navbar-nav{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+}
+#buscar{
+    display: flex;
+    flex-wrap: nowrap;
 }
 .articulos{
     display: flex;
@@ -121,19 +133,56 @@ footer{
     .desplegable{
         margin-top: -7px;
     }
-    .navbar-brand{
-        margin-right: 25px;
+    .barra{
+        padding-bottom: 1.5em;
     }
     footer{
         margin-top: 200px;
     }
-    #navbar{
-        margin-left: 0%;
-        text-align: center;
+    ul.navbar-nav{
+        flex-direction: column;
     }
     .articulos {
         flex-direction: column;
-        align-items: center;
+        align-items: inherit;
         justify-content: center;
+    }
+    .contenido-articulo{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .navbar-top>.container-fluid{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+    #botones{
+        display: flex;
+        justify-content: center;
+    }
+
+    table {
+        width:100%;
+    }
+    /*thead {*/
+        /*display: none;*/
+    /*}*/
+    tr:nth-of-type(2n) {
+        background-color: inherit;
+    }
+    tr td:first-child {
+        background: var(--remarcado);
+        font-weight:bold;
+        font-size:1.3em;
+    }
+    tbody td {
+        display: block;
+        text-align:center;
+    }
+    tbody td:before {
+        content: attr(data-content);
+        display: block;
+        text-align:center;
     }
 }

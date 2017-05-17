@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>Listado de Categorias</h1>
-    <a href="{{ path("nueva_cat") }}" class="btn btn-success"><i class="fa fa-plus"></i> Añadir categoria</a>
+    {% if is_granted('ROLE_DOCUMENTADOR') %}<a href="{{ path("nueva_cat") }}" class="btn btn-success"><i class="fa fa-plus"></i> Añadir categoria</a>{% endif %}
     {# total items count #}
     <h5>Total de Categorias: {{ pagination.getTotalItemCount }}</h5>
     <p></p>

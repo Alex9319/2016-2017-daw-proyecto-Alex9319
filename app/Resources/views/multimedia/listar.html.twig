@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>Listado de Archivos Multimedia</h1>
-    <a href="{{ path("nuevo_multimedia") }}" class="btn btn-success"><i class="fa fa-plus"></i> Añadir archivo multimedia</a>
+    {% if is_granted('ROLE_DOCUMENTADOR') %}<a href="{{ path("nuevo_multimedia") }}" class="btn btn-success"><i class="fa fa-plus"></i> Añadir archivo multimedia</a>{% endif %}
     <p></p>
     {# total items count #}
     <h5>Total de Articulos Multimedia: {{ pagination.getTotalItemCount }}</h5>

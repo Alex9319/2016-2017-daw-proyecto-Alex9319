@@ -3,7 +3,7 @@
 {% block content %}
 
     <h1>Listado de Archivadores</h1>
-    <a href="{{ path("nuevo_arch") }}" class="btn btn-success"><i class="fa fa-plus"></i> Añadir archivador</a>
+    {% if is_granted('ROLE_DOCUMENTADOR') %}<a href="{{ path("nuevo_arch") }}" class="btn btn-success"><i class="fa fa-plus"></i> Añadir archivador</a>{% endif %}
     {# total items count #}
     <h5>Total de Archivadores: {{ pagination.getTotalItemCount }}</h5>
     <p></p>

@@ -44,12 +44,12 @@
                         <ul class="nav navbar-nav">
                         {% if app.user %}
                             <li{% if ruta == 'homepage' %} class="active"{% endif %}><a href="{{ path('homepage') }}"><i class="fa fa-home"></i> Inicio</a></li>
-                            {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'listadoArticulos' %} class="active"{% endif %}><a href="{{ path('listadoArticulos') }}"><i class="fa fa-gift"></i> Articulos</a></li>{% endif %}
-                            {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'listadoMultimedia' %} class="active"{% endif %}><a href="{{ path('listadoMultimedia') }}"><i class="fa fa-upload"></i> Multimedia</a></li>{% endif %}
+                            {% if is_granted('ROLE_USER') %}<li{% if ruta == 'listadoArticulos' %} class="active"{% endif %}><a href="{{ path('listadoArticulos') }}"><i class="fa fa-gift"></i> Articulos</a></li>{% endif %}
+                            {% if is_granted('ROLE_USER') %}<li{% if ruta == 'listadoMultimedia' %} class="active"{% endif %}><a href="{{ path('listadoMultimedia') }}"><i class="fa fa-upload"></i> Multimedia</a></li>{% endif %}
                             {% if is_granted('ROLE_ADMIN') %}<li{% if ruta == 'listadoUsuarios' %} class="active"{% endif %}><a href="{{ path('listadoUsuarios') }}"><i class="fa fa-users"></i> Usuarios</a></li>{% endif %}
-                            {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'listadoCategorias' %} class="active"{% endif %}><a href="{{ path('listadoCategorias') }}"><i class="fa fa-cubes"></i> Categorias</a></li>{% endif %}
-                            {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'listadoArmarios' %} class="active"{% endif %}><a href="{{ path('listadoArmarios') }}"><i class="fa fa-briefcase"></i> Armarios</a></li>{% endif %}
-                            {% if is_granted('ROLE_DOCUMENTADOR') %}<li{% if ruta == 'listadoArchivadores' %} class="active"{% endif %}><a href="{{ path('listadoArchivadores') }}"><i class="fa fa-book"></i> Archivadores</a></li>{% endif %}
+                            {% if is_granted('ROLE_USER') %}<li{% if ruta == 'listadoCategorias' %} class="active"{% endif %}><a href="{{ path('listadoCategorias') }}"><i class="fa fa-cubes"></i> Categorias</a></li>{% endif %}
+                            {% if is_granted('ROLE_USER') %}<li{% if ruta == 'listadoArmarios' %} class="active"{% endif %}><a href="{{ path('listadoArmarios') }}"><i class="fa fa-briefcase"></i> Armarios</a></li>{% endif %}
+                            {% if is_granted('ROLE_USER') %}<li{% if ruta == 'listadoArchivadores' %} class="active"{% endif %}><a href="{{ path('listadoArchivadores') }}"><i class="fa fa-book"></i> Archivadores</a></li>{% endif %}
                             <li><form action="{{ path('buscar') }}" id="buscar"><input type="text" name="busco"/><button type="submit" class="btn-success"><i class="fa fa-search" aria-hidden="true"></i></button></form></li>
                         {% else %}
                             <li{% if ruta == 'homepage' %} class="active"{% endif %}><a href="{{ path('homepage') }}"><i class="fa fa-gift"></i> Articulos</a></li>

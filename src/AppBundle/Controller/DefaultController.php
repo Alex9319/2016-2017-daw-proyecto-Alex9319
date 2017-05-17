@@ -128,7 +128,7 @@ class DefaultController extends Controller
             $paginator = $this->get('knp_paginator');
             $pagination = $paginator->paginate(
                 $query, /* query NOT result */
-                $request->query->getInt('page', 1)/*page number*/
+                $request->query->getInt('page', 1)/*page number*/,5/*Limite de elementos por tabla*/
             );
 
             /** @var EntityManager $em */
@@ -144,7 +144,7 @@ class DefaultController extends Controller
             $paginator1 = $this->get('knp_paginator');
             $pagination1 = $paginator1->paginate(
                 $query1, /* query NOT result */
-                $request->query->getInt('page', 1)/*page number*/
+                $request->query->getInt('page', 1)/*page number*/,5/*Limite de elementos por tabla*/
             );
 
             return $this->render('aplicacion/buscar.html.twig', array('pagination' => $pagination, 'pagination1' => $pagination1, 'variable' => $request->get('busco')));

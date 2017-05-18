@@ -13,12 +13,16 @@ class MultimediaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombre',null,array('label' => 'Nombre del articulo'))
-            ->add('multimedia', FileType::class ,array('label' => 'Fichero multimedia del articulo'))
+            ->add('nombre',null,array(
+                'label' => 'Nombre del articulo',
+            ))
+            ->add('multimedia', FileType::class ,array(
+                'label' => 'Fichero multimedia del articulo'
+            ))
             ->add('elementos',null,[
                 'label'=>'Id de elemento',
                 'required' => true,
-                   'placeholder' => 'Seleccione el articulo al que pertenece'
+                'placeholder' => 'Seleccione el articulo al que pertenece'
             ]);
     }
 

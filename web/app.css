@@ -113,7 +113,7 @@ table td img, table td video, .col-sm-10>img, .col-sm-10>video{
     justify-content: center;
     align-items: center;
 }
-.multimedia img , .multimedia video{
+.multimedia img , .multimedia audio{
     width: 250px;
 }
 hr{
@@ -143,9 +143,6 @@ footer{
 @media (max-width: 992px) {
     .desplegable{
         margin-top: -7px;
-    }
-    .barra{
-        padding-bottom: 1.5em;
     }
     footer{
         margin-top: 200px;

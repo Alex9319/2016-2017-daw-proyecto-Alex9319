@@ -28,13 +28,13 @@
                             <a href="{{ numero.multimedia }}" rel="lightbox[galeria{{ elemento.id }}]"><img src="{{ numero.multimedia }}" class="img-circle" alt="{{ numero.nombre }}"></a>
                         {%  endif %}
                         {% if ("video" in numero.getType() ) %}
-                            <video width="320" height="240" controls>
+                            <video width="320" height="240" controls controlsList="nodownload">
                                 <source src="{{ numero.multimedia }}" type="{{ numero.getType() }}">
                                 Tu navegador no soporta el elemento de video.
                             </video>
                         {%  endif %}
                         {% if ("audio" in numero.getType() ) %}
-                            <audio controls>
+                            <audio controls controlsList="nodownload">
                                 <source src="{{ numero.multimedia }}" type="{{ numero.getType() }}">
                                 Tu navegador no soporta el elemento de audio.
                             </audio>

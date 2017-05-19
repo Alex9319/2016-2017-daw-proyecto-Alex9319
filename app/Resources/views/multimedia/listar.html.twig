@@ -23,13 +23,13 @@
                             <a href="{{ ficheros.multimedia }}" rel="lightbox[galeria{{ ficheros.id }}]"><img src="{{ ficheros.multimedia }}" class="img-circle"></a>
                         {%  endif %}
                         {% if ("video" in ficheros.getType() ) %}
-                            <video width="320" height="240" controls>
+                            <video width="320" height="240" controls controlsList="nodownload">
                                 <source src="{{ ficheros.multimedia }}" type="{{ ficheros.getType() }}">
                                 Tu navegador no soporta el elemento de video.
                             </video>
                         {%  endif %}
                         {% if ("audio" in ficheros.getType() ) %}
-                            <audio controls>
+                            <audio controls controlsList="nodownload">
                                 <source src="{{ ficheros.multimedia }}" type="{{ ficheros.getType() }}">
                                 Tu navegador no soporta el elemento de audio.
                             </audio>

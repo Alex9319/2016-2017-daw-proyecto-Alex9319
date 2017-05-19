@@ -109,13 +109,13 @@
                                                 <a href="{{ numero.multimedia }}" rel="lightbox[galeria{{ articulos.id }}]"><img src="{{ numero.multimedia }}" class="col-md-6" alt="{{ numero.nombre }}"></a>
                                             {%  endif %}
                                             {% if ("video" in numero.getType() ) %}
-                                                <video class="col-md-6" width="320" height="240" controls>
+                                                <video class="col-md-6" width="320" height="240" controls controlsList="nodownload">
                                                     <source src="{{ numero.multimedia }}" type="{{ numero.getType() }}">
                                                     Tu navegador no soporta el elemento de video.
                                                 </video>
                                             {%  endif %}
                                             {% if ("audio" in numero.getType() ) %}
-                                                <audio controls class="col-md-6">
+                                                <audio class="col-md-6" controls controlsList="nodownload">
                                                     <source src="{{ numero.multimedia }}" type="{{ numero.getType() }}">
                                                     Tu navegador no soporta el elemento de audio.
                                                 </audio>
@@ -126,7 +126,7 @@
                                         <p>{{ articulos.observaciones|capitalize }}</p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal" id="cerrar">Cerrar</button>
                                     </div>
                                 </div>
 

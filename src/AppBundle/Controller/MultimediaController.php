@@ -56,42 +56,62 @@ class MultimediaController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Recogemos el fichero
-            $file=$form['multimedia']->getData();
-             
-            // Sacamos la extensión del fichero
-            $ext=$file->getMimeType();
-             
-            // Le ponemos un nombre al fichero
-            $file_name=$file->getClientOriginalName();
+            try {
+                // Recogemos el fichero
+                $file = $form['multimedia']->getData();
+
+                // Sacamos la extensión del fichero
+                $ext = $file->getMimeType();
+
+                // Le ponemos un nombre al fichero
+                $file_name = $file->getClientOriginalName();
 
             if(substr($ext, 0,6 )=='image/'){
                 // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
                 $file->move("uploads/image", $file_name);
                 // Establecemos el nombre de fichero en el atributo de la entidad
                 $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/image/'.$file_name);
+                $em->persist($multimedia);
+                try{
+                    $em->flush();
+                    $this->addFlash('estado', 'Cambios guardados con éxito');
+                    return $this->redirectToRoute('listadoMultimedia');
+                }catch (\Exception $e){
+                    $this->addFlash('error', 'No se ha guardado el archivo multimedia por que ya existe un archivo con este nombre');
+                }
             }
             elseif (substr($ext, 0,6 )=='video/'){
                 // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
                 $file->move("uploads/video", $file_name);
                 // Establecemos el nombre de fichero en el atributo de la entidad
                 $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/video/'.$file_name);
+                $em->persist($multimedia);
+                try{
+                    $em->flush();
+                    $this->addFlash('estado', 'Cambios guardados con éxito');
+                    return $this->redirectToRoute('listadoMultimedia');
+                }catch (\Exception $e){
+                    $this->addFlash('error', 'No se ha guardado el archivo multimedia por que ya existe un archivo con este nombre');
+                }
             }
             elseif (substr($ext, 0,6 )=='audio/'){
                 // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
                 $file->move("uploads/audio", $file_name);
                 // Establecemos el nombre de fichero en el atributo de la entidad
                 $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/audio/'.$file_name);
+                $em->persist($multimedia);
+                try{
+                    $em->flush();
+                    $this->addFlash('estado', 'Cambios guardados con éxito');
+                    return $this->redirectToRoute('listadoMultimedia');
+                }catch (\Exception $e){
+                    $this->addFlash('error', 'No se ha guardado el archivo multimedia por que ya existe un archivo con este nombre');
+                }
+            }else{
+                $this->addFlash('error', 'El archivo multimedia debe de ser un audio, un video o una imagen');
             }
-
-            $em->persist($multimedia);
-
-            try{
-                $em->flush();
-                $this->addFlash('estado', 'Cambios guardados con éxito');
-                return $this->redirectToRoute('listadoMultimedia');
             }catch (\Exception $e){
-                $this->addFlash('error', 'No se ha guardado el archivo multimedia por que ya existe un archivo con este nombre');
+                $this->addFlash('error', 'El archivo multimedia es demasiado grande');
             }
         }
 
@@ -115,52 +135,76 @@ class MultimediaController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             if($form['nuevo_multimedia']->getData()) {
-                // Recogemos el fichero
-                $file = $form['nuevo_multimedia']->getData();
+                try {
+                    // Recogemos el fichero
+                    $file = $form['nuevo_multimedia']->getData();
 
-                // Sacamos la extensión del fichero
-                $ext = $file->getMimeType();
+                    // Sacamos la extensión del fichero
+                    $ext = $file->getMimeType();
 
-                // Le ponemos un nombre al fichero
-                $file_name = $file->getClientOriginalName();
+                    // Le ponemos un nombre al fichero
+                    $file_name = $file->getClientOriginalName();
 
-                //Cogemos el fichero antiguo antes de modificarlo
-                $img=$multimedia->getMultimedia();
+                    //Cogemos el fichero antiguo antes de modificarlo
+                    $img=$multimedia->getMultimedia();
 
-                if(substr($ext, 0,6 )=='image/'){
-                    // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
-                    $file->move("uploads/image", $file_name);
-                    // Establecemos el nombre de fichero en el atributo de la entidad
-                    $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/image/'.$file_name);
-                    //Borramos el fichero antiguo
-                    unlink($img);
+                    if(substr($ext, 0,6 )=='image/'){
+                        // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
+                        $file->move("uploads/image", $file_name);
+                        // Establecemos el nombre de fichero en el atributo de la entidad
+                        $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/image/'.$file_name);
+                        //Borramos el fichero antiguo
+                        unlink($img);
+                        $em->persist($multimedia);
+
+                        try{
+                            $em->flush();
+                            $this->addFlash('estado', 'Cambios guardados con éxito');
+                            return $this->redirectToRoute('listadoMultimedia');
+                        }catch (\Exception $e){
+                            $this->addFlash('error', 'No se ha guardado el archivo multimedia por que ya existe un archivo con este nombre');
+                        }
+                    }
+                    elseif (substr($ext, 0,6 )=='video/'){
+                        // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
+                        $file->move("uploads/video", $file_name);
+                        // Establecemos el nombre de fichero en el atributo de la entidad
+                        $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/video/'.$file_name);
+                        //Borramos el fichero antiguo
+                        unlink($img);
+                        $em->persist($multimedia);
+
+                        try{
+                            $em->flush();
+                            $this->addFlash('estado', 'Cambios guardados con éxito');
+                            return $this->redirectToRoute('listadoMultimedia');
+                        }catch (\Exception $e){
+                            $this->addFlash('error', 'No se ha guardado el archivo multimedia por que ya existe un archivo con este nombre');
+                        }
+                    }
+                    elseif (substr($ext, 0,6 )=='audio/'){
+                        // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
+                        $file->move("uploads/audio", $file_name);
+                        // Establecemos el nombre de fichero en el atributo de la entidad
+                        $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/audio/'.$file_name);
+                        //Borramos el fichero antiguo
+                        unlink($img);
+                        $em->persist($multimedia);
+
+                        try{
+                            $em->flush();
+                            $this->addFlash('estado', 'Cambios guardados con éxito');
+                            return $this->redirectToRoute('listadoMultimedia');
+                        }catch (\Exception $e){
+                            $this->addFlash('error', 'No se ha guardado el archivo multimedia por que ya existe un archivo con este nombre');
+                        }
+                    }else{
+                        $this->addFlash('error', 'El archivo multimedia debe de ser un audio, un video o una imagen');
+                    }
+                    }catch (\Exception $e){
+                        $this->addFlash('error', 'El archivo multimedia es demasiado grande');
+                    }
                 }
-                elseif (substr($ext, 0,6 )=='video/'){
-                    // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
-                    $file->move("uploads/video", $file_name);
-                    // Establecemos el nombre de fichero en el atributo de la entidad
-                    $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/video/'.$file_name);
-                    //Borramos el fichero antiguo
-                    unlink($img);
-                }
-                elseif (substr($ext, 0,6 )=='audio/'){
-                    // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
-                    $file->move("uploads/audio", $file_name);
-                    // Establecemos el nombre de fichero en el atributo de la entidad
-                    $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/audio/'.$file_name);
-                    //Borramos el fichero antiguo
-                    unlink($img);
-                }
-            }
-            $em->persist($multimedia);
-
-            try{
-                $em->flush();
-                $this->addFlash('estado', 'Cambios guardados con éxito');
-                return $this->redirectToRoute('listadoMultimedia');
-            }catch (\Exception $e){
-                $this->addFlash('error', 'No se ha guardado el archivo multimedia por que ya existe un archivo con este nombre');
-            }
         }
 
         return $this->render('multimedia/modificar.html.twig', [

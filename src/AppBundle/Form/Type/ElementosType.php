@@ -32,9 +32,9 @@ class ElementosType extends AbstractType
                 'label' => 'Nivel de acceso del Articulo',
                 'required' => true,
                 'attr'=>array(
-                    'placeholder' =>'Introduzca el Nivel de Acceso (MENOR de 1200 PÚBLICO, MAYOR de 1200 hasta 2000 PRIVADO)',
+                    'placeholder' =>'Introduzca el Nivel de Acceso (MENOR de 1200 PÚBLICO, MAYOR de 1200 hasta 1999 PRIVADO)',
                     'min' =>1,
-                    'max' =>2000
+                    'max' =>1999
                 ),
             ])
             ->add('fechaAlta', null, [

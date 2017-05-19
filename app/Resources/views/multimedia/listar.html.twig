@@ -9,8 +9,9 @@
     <table class="table table-responsive table-hover">
         <thead>
         <tr>
-            <th class="col-sm-5">Nombre</th>
-            <th class="col-sm-5">Fichero Multimedia</th>
+            <th class="col-sm-3">Nombre</th>
+            <th class="col-sm-4">Descripción</th>
+            <th class="col-sm-4">Fichero Multimedia</th>
             {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
         </tr>
         </thead>
@@ -18,6 +19,7 @@
         {% for ficheros in pagination %}
             <tr>
                 <td>{{ ficheros.nombre }}</td>
+                <td>{{ ficheros.observaciones }}</td>
                 <td>
                         {% if ("image" in ficheros.getType() ) %}
                             <a href="{{ ficheros.multimedia }}" rel="lightbox[galeria{{ ficheros.id }}]"><img src="{{ ficheros.multimedia }}" class="img-circle"></a>

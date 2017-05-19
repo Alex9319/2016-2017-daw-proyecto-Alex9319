@@ -14,8 +14,17 @@ class ModMultimediaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombre',null,array('label' => 'Nombre del articulo'))
-            ->add('nuevo_multimedia', FileType::class ,array('label' => 'Fichero multimedia nuevo del articulo','mapped' => false,'required'=>false))
+            ->add('nombre',null,array(
+                'label' => 'Nombre del articulo'
+            ))
+            ->add('observaciones',null,array(
+                'label' => 'Descripción del articulo',
+            ))
+            ->add('nuevo_multimedia', FileType::class ,array(
+                'label' => 'Fichero multimedia nuevo del articulo',
+                'mapped' => false,
+                'required'=>false
+            ))
             ->add('elementos',null,[
                 'label'=>'Id de elemento',
                 'required' => true,

@@ -33,6 +33,11 @@ class Multimedia
      * @var string
      */
     private $type;
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     * @var string
+     */
+    private $observaciones;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Elementos", inversedBy="multimedia")
@@ -133,6 +138,22 @@ class Multimedia
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getObservaciones()
+    {
+        return $this->observaciones;
+    }
+
+    /**
+     * @param string $observaciones
+     */
+    public function setObservaciones($observaciones)
+    {
+        $this->observaciones = $observaciones;
     }
 
     /**

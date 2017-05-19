@@ -16,6 +16,9 @@ class MultimediaType extends AbstractType
             ->add('nombre',null,array(
                 'label' => 'Nombre del articulo',
             ))
+            ->add('observaciones',null,array(
+                'label' => 'Descripción del articulo',
+            ))
             ->add('multimedia', FileType::class ,array(
                 'label' => 'Fichero multimedia del articulo'
             ))

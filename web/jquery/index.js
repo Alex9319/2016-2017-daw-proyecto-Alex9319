@@ -23,12 +23,16 @@ $('select').select2();
 
 $('.cerrar').click(function(){
 	fina=$("audio").length;
-    finv=$("video").length;
+	finv=$("video").length;
     if(fina >= 0 ) {
-		$('audio').pause();
-    }
-    if(finv >= 0 ) {
-        $('video').pause();
-    }
+		for (var i = 0; i < fina; i++) {
+			$('audio')[i].pause();
+		}
+	}
+	if(finv >= 0 ) {
+		for (var j = 0; j < finv; j++) {
+			$('video')[j].pause();
+		}
+	}
 });
 

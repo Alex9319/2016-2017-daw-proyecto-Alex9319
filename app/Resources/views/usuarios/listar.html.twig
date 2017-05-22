@@ -10,9 +10,10 @@
         <table class="table table-hover table-bordered">
             <thead>
             <tr>
-                <th class="col-sm-4">{{ knp_pagination_sortable(pagination, 'Nombre', 'a.Nombre') }}</th>
-                <th class="col-sm-4">{{ knp_pagination_sortable(pagination, 'Apellidos', 'a.Apellidos') }}</th>
+                <th class="col-sm-3">{{ knp_pagination_sortable(pagination, 'Nombre', 'a.Nombre') }}</th>
+                <th class="col-sm-3">{{ knp_pagination_sortable(pagination, 'Apellidos', 'a.Apellidos') }}</th>
                 <th class="col-sm-3">{{ knp_pagination_sortable(pagination, 'Usuario', 'a.Usuario') }}</th>
+                <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'Tipo de Usuario', 'a.nivelDeAcceso') }}</th>
                 <th class="col-sm-1">Acciones</th>
             </tr>
             </thead>
@@ -22,6 +23,14 @@
                     <td>{{ usuario.nombre }}</td>
                     <td>{{ usuario.apellidos }}</td>
                     <td>{{ usuario.usuario }}</td>
+                    <td>{% if(usuario.nivelDeAcceso <= 1200)%}
+                            Usuario
+                        {% elseif(usuario.nivelDeAcceso <= 1500 ) %}
+                            Documentador
+                        {% else %}
+                            Administrador
+                        {% endif %}
+                    </td>
                     <td>
                         <a href="{{ path('musuarios', {'id': usuario.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
                         <a href="{{ path('borrar_usuario', {'id': usuario.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>

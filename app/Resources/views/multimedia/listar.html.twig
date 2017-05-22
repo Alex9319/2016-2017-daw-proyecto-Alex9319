@@ -3,50 +3,52 @@
 {% block content %}
     <h1>Listado de Archivos Multimedia</h1>
     {% if is_granted('ROLE_DOCUMENTADOR') %}<a href="{{ path("nuevo_multimedia") }}" class="btn btn-success"><i class="fa fa-plus"></i> Añadir archivo multimedia</a>{% endif %}
-    <p></p>
     {# total items count #}
     <h5>Total de Articulos Multimedia: {{ pagination.getTotalItemCount }}</h5>
-    <table class="table table-responsive table-hover">
-        <thead>
-        <tr>
-            <th class="col-sm-3">Nombre</th>
-            <th class="col-sm-4">Descripción</th>
-            <th class="col-sm-4">Fichero Multimedia</th>
-            {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
-        </tr>
-        </thead>
-        <tbody>
-        {% for ficheros in pagination %}
+    <p></p>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <thead>
             <tr>
-                <td>{{ ficheros.nombre }}</td>
-                <td>{{ ficheros.observaciones }}</td>
-                <td>
-                        {% if ("image" in ficheros.getType() ) %}
-                            <a href="{{ ficheros.multimedia }}" rel="lightbox[galeria{{ ficheros.id }}]"><img src="{{ ficheros.multimedia }}" class="img-circle"></a>
-                        {%  endif %}
-                        {% if ("video" in ficheros.getType() ) %}
-                            <video width="320" height="240" controls controlsList="nodownload">
-                                <source src="{{ ficheros.multimedia }}" type="{{ ficheros.getType() }}">
-                                Tu navegador no soporta el elemento de video.
-                            </video>
-                        {%  endif %}
-                        {% if ("audio" in ficheros.getType() ) %}
-                            <audio controls controlsList="nodownload">
-                                <source src="{{ ficheros.multimedia }}" type="{{ ficheros.getType() }}">
-                                Tu navegador no soporta el elemento de audio.
-                            </audio>
-                        {%  endif %}
-                </td>
-                {% if is_granted('ROLE_DOCUMENTADOR') %}
-                    <td>
-                        <a href="{{ path('modificar_multimedia', {'id': ficheros.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
-                        {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_multimedia', {'id': ficheros.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
-                    </td>
-                {% endif %}
+                <th class="col-sm-3">Nombre</th>
+                <th class="col-sm-4">Descripción</th>
+                <th class="col-sm-4">Fichero Multimedia</th>
+                {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for ficheros in pagination %}
+                <tr>
+                    <td>{{ ficheros.nombre }}</td>
+                    <td>{{ ficheros.observaciones }}</td>
+                    <td>
+                            {% if ("image" in ficheros.getType() ) %}
+                                <a href="{{ ficheros.multimedia }}" rel="lightbox[galeria{{ ficheros.id }}]"><img src="{{ ficheros.multimedia }}" class="img-circle"></a>
+                            {%  endif %}
+                            {% if ("video" in ficheros.getType() ) %}
+                                <video width="320" height="240" controls controlsList="nodownload">
+                                    <source src="{{ ficheros.multimedia }}" type="{{ ficheros.getType() }}">
+                                    Tu navegador no soporta el elemento de video.
+                                </video>
+                            {%  endif %}
+                            {% if ("audio" in ficheros.getType() ) %}
+                                <audio controls controlsList="nodownload">
+                                    <source src="{{ ficheros.multimedia }}" type="{{ ficheros.getType() }}">
+                                    Tu navegador no soporta el elemento de audio.
+                                </audio>
+                            {%  endif %}
+                    </td>
+                    {% if is_granted('ROLE_DOCUMENTADOR') %}
+                        <td>
+                            <a href="{{ path('modificar_multimedia', {'id': ficheros.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
+                            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_multimedia', {'id': ficheros.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
     <div class="container">
         <div class="col-md-6 col-md-offset-3">
             {{ knp_pagination_render(pagination) }}

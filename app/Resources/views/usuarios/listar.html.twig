@@ -6,29 +6,31 @@
     {# total items count #}
     <h5>Total de Usuarios: {{ pagination.getTotalItemCount }}</h5>
     <p></p>
-    <table class="table table-responsive table-hover">
-        <thead>
-        <tr>
-            <th class="col-sm-4">{{ knp_pagination_sortable(pagination, 'Nombre', 'a.Nombre') }}</th>
-            <th class="col-sm-4">{{ knp_pagination_sortable(pagination, 'Apellidos', 'a.Apellidos') }}</th>
-            <th class="col-sm-3">{{ knp_pagination_sortable(pagination, 'Usuario', 'a.Usuario') }}</th>
-            <th class="col-sm-1">Acciones</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for usuario in pagination %}
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <thead>
             <tr>
-                <td>{{ usuario.nombre }}</td>
-                <td>{{ usuario.apellidos }}</td>
-                <td>{{ usuario.usuario }}</td>
-                <td>
-                    <a href="{{ path('musuarios', {'id': usuario.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
-                    <a href="{{ path('borrar_usuario', {'id': usuario.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>
-                </td>
+                <th class="col-sm-4">{{ knp_pagination_sortable(pagination, 'Nombre', 'a.Nombre') }}</th>
+                <th class="col-sm-4">{{ knp_pagination_sortable(pagination, 'Apellidos', 'a.Apellidos') }}</th>
+                <th class="col-sm-3">{{ knp_pagination_sortable(pagination, 'Usuario', 'a.Usuario') }}</th>
+                <th class="col-sm-1">Acciones</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for usuario in pagination %}
+                <tr>
+                    <td>{{ usuario.nombre }}</td>
+                    <td>{{ usuario.apellidos }}</td>
+                    <td>{{ usuario.usuario }}</td>
+                    <td>
+                        <a href="{{ path('musuarios', {'id': usuario.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
+                        <a href="{{ path('borrar_usuario', {'id': usuario.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
     <div class="container">
         <div class="col-md-6 col-md-offset-3">
             {{ knp_pagination_render(pagination) }}

@@ -6,29 +6,31 @@
     {# total items count #}
     <h5>Total de Categorias: {{ pagination.getTotalItemCount }}</h5>
     <p></p>
-    <table class="table table-responsive table-hover">
-        <thead>
-        <tr>
-            <th class="col-sm-5">{{ knp_pagination_sortable(pagination, 'Nombre', 'a.Nombre') }}</th>
-            <th class="col-sm-5">Padre</th>
-            {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
-        </tr>
-        </thead>
-        <tbody>
-        {% for categoria in pagination %}
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <thead>
             <tr>
-                <td>{{ categoria }}</td>
-                <td>{{ categoria.padre }}</td>
-                {% if is_granted('ROLE_DOCUMENTADOR') %}
-                    <td>
-                        <a href="{{ path('modificar_cat', {'id': categoria.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
-                        {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_categoria', {'id': categoria.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
-                    </td>
-                {% endif %}
+                <th class="col-sm-5">{{ knp_pagination_sortable(pagination, 'Nombre', 'a.Nombre') }}</th>
+                <th class="col-sm-5">Padre</th>
+                {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for categoria in pagination %}
+                <tr>
+                    <td>{{ categoria }}</td>
+                    <td>{{ categoria.padre }}</td>
+                    {% if is_granted('ROLE_DOCUMENTADOR') %}
+                        <td>
+                            <a href="{{ path('modificar_cat', {'id': categoria.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
+                            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_categoria', {'id': categoria.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
     <div class="container">
         <div class="col-md-6 col-md-offset-3">
             {{ knp_pagination_render(pagination) }}

@@ -94,6 +94,10 @@ td, th{
 table td img, table td video, .col-sm-10>img, .col-sm-10>video{
     width: 160px;
 }
+#paginador{
+    display: flex;
+    justify-content: center;
+}
 .modal-content{
     border-radius: 10px;
 }

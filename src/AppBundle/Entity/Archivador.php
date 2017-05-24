@@ -39,7 +39,7 @@ class Archivador
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Armario", inversedBy="archivadores")
      * @var Armario
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $armario;
 

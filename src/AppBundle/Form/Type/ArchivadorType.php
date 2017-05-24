@@ -28,7 +28,7 @@ class ArchivadorType extends AbstractType
             ])
             ->add('armario',null,[
                 'label'=> 'Armario',
-                'required' => false,
+                'required' => true,
                 'placeholder' => 'Seleccione el Armario en el que se encuentra'
             ]);
     }

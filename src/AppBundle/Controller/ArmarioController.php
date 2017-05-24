@@ -70,6 +70,34 @@ class ArmarioController extends Controller
         ]);
     }
     /**
+     * @Security("is_granted('ROLE_USER')")
+     * @Route("/armario/listar/{id}", name="contenido_Armario")
+     */
+    public function articuloAction(Request $request, Armario $armario)
+    {
+        $rol = $this->getUser()->getNiveldeacceso();
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQueryBuilder()
+            ->select('arc')
+            ->addSelect('arm')
+            ->from('AppBundle:Archivador', 'arc')
+            ->leftJoin('arc.armario','arm')
+            ->andWhere('arc.armario=:id')
+            ->setParameter('id', $armario)
+            ->getQuery()
+            ->getResult();
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*numero de pagina*/
+        );
+
+        return $this->render('armarios/listararcharm.html.twig', array('pagination' => $pagination,'armario'=>$armario));
+    }
+
+    /**
      * @Route("/armario/eliminar/{id}", name="borrar_armario", methods={"GET"})
      * @Security("is_granted('ROLE_ADMIN')")
      */

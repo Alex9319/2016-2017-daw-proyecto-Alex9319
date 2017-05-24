@@ -38,6 +38,42 @@ class ArchivadorController extends Controller
 
         return $this->render('archivador/listar.html.twig', array('pagination' => $pagination));
     }
+    /**
+     * @Security("is_granted('ROLE_USER')")
+     * @Route("/archivador/listar/{id}", name="contenido_Archivador")
+     */
+    public function articuloAction(Request $request, Archivador $archivador)
+    {
+        $rol = $this->getUser()->getNiveldeacceso();
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQueryBuilder()
+            ->select('e')
+            ->addSelect('m')
+            ->addSelect('arm')
+            ->addSelect('arc')
+            ->addSelect('cat')
+            ->from('AppBundle:Elementos', 'e')
+            ->leftJoin('e.multimedia','m')
+            ->leftJoin('e.armario','arm')
+            ->leftJoin('e.archivador','arc')
+            ->join('e.categoria','cat')
+            ->where('e.NivelDeAcceso <= :roles')
+            ->andWhere('e.archivador = :id')
+            ->setParameter('roles', $rol)
+            ->setParameter('id', $archivador)
+            ->getQuery()
+            ->getResult();
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*numero de pagina*/
+        );
+
+        return $this->render('archivador/listarartarch.html.twig', array('pagination' => $pagination,'archivador'=>$archivador));
+    }
+
 
     /**
      * @Security("is_granted('ROLE_DOCUMENTADOR')")

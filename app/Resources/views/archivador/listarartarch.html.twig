@@ -1,0 +1,43 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>Listado de Articulos del Archivador {{ archivador }}</h1>
+    {# total items count #}
+    <h5>Total de Articulos: {{ pagination.getTotalItemCount }}</h5>
+    <p></p>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th class="col-sm-3">{{ knp_pagination_sortable(pagination, 'Nombre', 'a.Nombre') }}</th>
+                <th class="col-sm-2">Observaciones</th>
+                <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'Fecha Alta', 'a.Fecha Alta') }}</th>
+                <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'Categoria', 'a.Categoria') }}</th>
+                {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for elemento in pagination %}
+                <tr{% if(elemento.fechaBaja and is_granted('ROLE_ADMIN')) %} class="danger" {% endif %}>
+                    <td>{{ elemento.nombre }}</td>
+                    <td>{{ elemento.observaciones }}</td>
+                    <td>{{ elemento.fechaAlta | date("d/m/Y") }}</td>
+                    <td>{{ elemento.categoria }}</td>
+                    {% if is_granted('ROLE_DOCUMENTADOR') %}
+                        <td>
+                            {% if elemento.fechaBaja is null %}<a href="{{ path('modificar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>{% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}{% if elemento.fechaBaja is null %}<a href="{{ path('desactivar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-danger" title="Desactivar"><i class="fa fa-download"></i></a>{% endif %}{% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}{% if elemento.fechaBaja is not null %}<a href="{{ path('reactivar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-success" title="Reactivar"><i class="fa fa-upload"></i></a>{% endif %}{% endif %}
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="container">
+        <div class="col-md-6 col-md-offset-3">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+{% endblock %}

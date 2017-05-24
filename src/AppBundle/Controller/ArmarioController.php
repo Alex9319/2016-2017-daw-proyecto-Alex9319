@@ -70,7 +70,7 @@ class ArmarioController extends Controller
         ]);
     }
     /**
-     * @Security("is_granted('ROLE_USER')")
+     * @Security("is_granted('ROLE_DOCUMENTADOR')")
      * @Route("/armario/listar/{id}", name="contenido_Armario")
      */
     public function articuloAction(Request $request, Armario $armario)

@@ -39,7 +39,7 @@ class ArchivadorController extends Controller
         return $this->render('archivador/listar.html.twig', array('pagination' => $pagination));
     }
     /**
-     * @Security("is_granted('ROLE_USER')")
+     * @Security("is_granted('ROLE_DOCUMENTADOR')")
      * @Route("/archivador/listar/{id}", name="contenido_Archivador")
      */
     public function articuloAction(Request $request, Archivador $archivador)

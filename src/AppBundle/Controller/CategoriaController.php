@@ -37,6 +37,42 @@ class CategoriaController extends Controller
     }
 
     /**
+     * @Security("is_granted('ROLE_USER')")
+     * @Route("/categoria/listar/{id}", name="contenido_Categoria")
+     */
+    public function categoriaAction(Request $request, Categoria $categoria)
+    {
+        $rol = $this->getUser()->getNiveldeacceso();
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQueryBuilder()
+            ->select('e')
+            ->addSelect('m')
+            ->addSelect('arm')
+            ->addSelect('arc')
+            ->addSelect('cat')
+            ->from('AppBundle:Elementos', 'e')
+            ->leftJoin('e.multimedia','m')
+            ->leftJoin('e.armario','arm')
+            ->leftJoin('e.archivador','arc')
+            ->join('e.categoria','cat')
+            ->where('e.NivelDeAcceso <= :roles')
+            ->andWhere('e.categoria = :id')
+            ->setParameter('roles', $rol)
+            ->setParameter('id', $categoria)
+            ->getQuery()
+            ->getResult();
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*numero de pagina*/
+        );
+
+        return $this->render('categorias/listarartcat.html.twig', array('pagination' => $pagination,'categoria'=>$categoria));
+    }
+
+    /**
      * @Security("is_granted('ROLE_DOCUMENTADOR')")
      * @Route("/categoria/modificar/{id}", name="modificar_cat")
      * @Route("/categoria/nueva", name="nueva_cat")

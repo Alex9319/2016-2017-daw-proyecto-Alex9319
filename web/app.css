@@ -63,6 +63,16 @@ ul.navbar-nav{
 }
 .table{
     background-color: var(--claro);
+    border: 0.5px solid var(--oscuro);
+}
+.table-hover tbody tr:hover td {
+    background: var(--remarcado);
+}
+.table-bordered td, .table-bordered th{
+    border-color: var(--oscuro) !important;
+}
+.table-bordered th{
+    border-bottom:0!important;
 }
 .usuario{
     color:white;

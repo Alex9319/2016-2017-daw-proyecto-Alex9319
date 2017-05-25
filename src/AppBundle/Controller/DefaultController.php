@@ -147,7 +147,40 @@ class DefaultController extends Controller
                 $request->query->getInt('page', 1)/*page number*/,5/*Limite de elementos por tabla*/
             );
 
-            return $this->render('aplicacion/buscar.html.twig', array('pagination' => $pagination, 'pagination1' => $pagination1, 'variable' => $request->get('busco')));
+            /** @var EntityManager $em */
+            $em = $this->getDoctrine()->getManager();
+            $query2 = $em->createQueryBuilder()
+                ->select('a')
+                ->from('AppBundle:Armario', 'a')
+                ->Where('a.nombre LIKE :nombre')
+                ->setParameter('nombre', '%' . $request->get('busco') . '%')
+                ->getQuery()
+                ->getResult();
+
+            $paginator2 = $this->get('knp_paginator');
+            $pagination2 = $paginator2->paginate(
+                $query2, /* query NOT result */
+                $request->query->getInt('page', 1)/*page number*/,5/*Limite de elementos por tabla*/
+            );
+
+            /** @var EntityManager $em */
+            $em = $this->getDoctrine()->getManager();
+            $query3 = $em->createQueryBuilder()
+                ->select('a')
+                ->from('AppBundle:Archivador', 'a')
+                ->Where('a.numero LIKE :nombre')
+                ->orWhere('a.color LIKE :nombre')
+                ->setParameter('nombre', '%' . $request->get('busco') . '%')
+                ->getQuery()
+                ->getResult();
+
+            $paginator3 = $this->get('knp_paginator');
+            $pagination3 = $paginator3->paginate(
+                $query3, /* query NOT result */
+                $request->query->getInt('page', 1)/*page number*/,5/*Limite de elementos por tabla*/
+            );
+
+            return $this->render('aplicacion/buscar.html.twig', array('pagination' => $pagination, 'pagination1' => $pagination1, 'pagination2' => $pagination2, 'pagination3'=>$pagination3, 'variable' => $request->get('busco')));
         }
     }
 }

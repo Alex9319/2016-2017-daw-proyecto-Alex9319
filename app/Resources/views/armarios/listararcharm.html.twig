@@ -19,7 +19,7 @@
                 <tbody>
                 {% for archivador in pagination %}
                     <tr>
-                        <td>{{ archivador.numero }}</td>
+                        <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Archivador', {'id': archivador.id}) }}">{{ archivador.numero }}</a>{% else %}{{ archivador.numero }}{% endif %}</td>
                         <td>{{ archivador.color }}</td>
                         {% if is_granted('ROLE_DOCUMENTADOR') %}
                             <td>

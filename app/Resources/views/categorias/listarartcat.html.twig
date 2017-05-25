@@ -15,7 +15,6 @@
                 <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Fecha Alta', 'a.Fecha Alta') }}</th>
                 <th class="col-sm-1">Archivador</th>
                 <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Armario', 'a.Armario') }}</th>
-                <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Categoria', 'a.Categoria') }}</th>
                 {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
             </tr>
             </thead>
@@ -26,9 +25,8 @@
                     <td>{{ elemento.nombre }}</td>
                     <td>{{ elemento.observaciones }}</td>
                     <td>{{ elemento.fechaAlta | date("d/m/Y") }}</td>
-                    <td><a href="{{ path('contenido_Archivador', {'id': elemento.archivador.id}) }}">{{ elemento.archivador }}</a></td>
-                    <td><a href="{{ path('contenido_Armario', {'id': elemento.armario.id}) }}">{{ elemento.armario }}</a></td>
-                    <td>{{ elemento.categoria }}</td>
+                    <td>{{ elemento.archivador }}</td>
+                    <td>{{ elemento.armario }}</td>
                     {% if is_granted('ROLE_DOCUMENTADOR') %}
                         <td>
                             {% if elemento.fechaBaja is null %}<a href="{{ path('modificar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>{% endif %}

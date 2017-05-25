@@ -3,38 +3,42 @@
 {% block content %}
 
     <h1>Listado de Archivadores del Armario {{ armario }}</h1>
-    {# total items count #}
-    <h5>Total de Archivadores: {{ pagination.getTotalItemCount }}</h5>
-    <p></p>
-    <div class="table-responsive">
-        <table class="table table-hover table-bordered">
-            <thead>
-            <tr>
-                <th class="col-sm-4">{{ knp_pagination_sortable(pagination, 'Numero', 'a.Numero') }}</th>
-                <th class="col-sm-7">{{ knp_pagination_sortable(pagination, 'Color', 'a.Color') }}</th>
-                {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
-            </tr>
-            </thead>
-            <tbody>
-            {% for archivador in pagination %}
+    {% if (pagination.getTotalItemCount != 0) %}
+        {# total items count #}
+        <h5>Total de Archivadores: {{ pagination.getTotalItemCount }}</h5>
+        <p></p>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead>
                 <tr>
-                    <td>{{ archivador.numero }}</td>
-                    <td>{{ archivador.color }}</td>
-                    {% if is_granted('ROLE_DOCUMENTADOR') %}
-                        <td>
-                            <a href="{{ path('modificar_arch', {'id': archivador.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
-                            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_archivador', {'id': archivador.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
-                        </td>
-                    {% endif %}
+                    <th class="col-sm-4">{{ knp_pagination_sortable(pagination, 'Numero', 'a.Numero') }}</th>
+                    <th class="col-sm-7">{{ knp_pagination_sortable(pagination, 'Color', 'a.Color') }}</th>
+                    {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <div id="paginador">
-        {{ knp_pagination_render(pagination) }}
-    </div>
-    <div id="botones">
-        <button type="button" name="volver" class="btn btn-info"><a href="javascript:history.back();"><i class="fa fa-reply"></i> Volver</a></button>
-    </div>
+                </thead>
+                <tbody>
+                {% for archivador in pagination %}
+                    <tr>
+                        <td>{{ archivador.numero }}</td>
+                        <td>{{ archivador.color }}</td>
+                        {% if is_granted('ROLE_DOCUMENTADOR') %}
+                            <td>
+                                <a href="{{ path('modificar_arch', {'id': archivador.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
+                                {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_archivador', {'id': archivador.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div id="paginador">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+        <div id="botones">
+            <button type="button" name="volver" class="btn btn-info"><a href="javascript:history.back();"><i class="fa fa-reply"></i> Volver</a></button>
+        </div>
+    {% else %}
+        <h4 id="error">Este Armario está vacío</h4>
+    {% endif %}
 {% endblock %}

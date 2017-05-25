@@ -3,33 +3,37 @@
 {% block content %}
     <h1>Listado de Armarios</h1>
     {% if is_granted('ROLE_DOCUMENTADOR') %}<a href="{{ path("nuevo_arm") }}" class="btn btn-success"><i class="fa fa-plus"></i> Añadir armario</a>{% endif %}
-    {# total items count #}
-    <h5>Total de Armarios: {{ pagination.getTotalItemCount }}</h5>
-    <p></p>
-    <div class="table-responsive">
-        <table class="table table-hover table-bordered">
-            <thead>
-            <tr>
-                <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Nombre', 'a.Nombre') }}</th>
-                {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
-            </tr>
-            </thead>
-            <tbody>
-            {% for armario in pagination %}
+    {% if (pagination.getTotalItemCount != 0) %}
+        {# total items count #}
+        <h5>Total de Armarios: {{ pagination.getTotalItemCount }}</h5>
+        <p></p>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead>
                 <tr>
-                    <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Armario', {'id': armario.id}) }}">{{ armario.nombre }}</a>{% else %}{{ armario.nombre }}{% endif %}</td>
-                    {% if is_granted('ROLE_DOCUMENTADOR') %}
-                        <td>
-                            <a href="{{ path('modificar_arm', {'id': armario.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
-                            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_armario', {'id': armario.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
-                        </td>
-                    {% endif %}
+                    <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Nombre', 'a.Nombre') }}</th>
+                    {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <div id="paginador">
-        {{ knp_pagination_render(pagination) }}
-    </div>
+                </thead>
+                <tbody>
+                {% for armario in pagination %}
+                    <tr>
+                        <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Armario', {'id': armario.id}) }}">{{ armario.nombre }}</a>{% else %}{{ armario.nombre }}{% endif %}</td>
+                        {% if is_granted('ROLE_DOCUMENTADOR') %}
+                            <td>
+                                <a href="{{ path('modificar_arm', {'id': armario.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
+                                {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_armario', {'id': armario.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div id="paginador">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    {% else %}
+        <h4 id="error">No hay ningun Armario para mostrar, añada uno nuevo</h4>
+    {% endif %}
 {% endblock %}

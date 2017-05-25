@@ -3,35 +3,39 @@
 {% block content %}
     <h1>Listado de Categorias</h1>
     {% if is_granted('ROLE_DOCUMENTADOR') %}<a href="{{ path("nueva_cat") }}" class="btn btn-success"><i class="fa fa-plus"></i> Añadir categoria</a>{% endif %}
-    {# total items count #}
-    <h5>Total de Categorias: {{ pagination.getTotalItemCount }}</h5>
-    <p></p>
-    <div class="table-responsive">
-        <table class="table table-hover table-bordered">
-            <thead>
-            <tr>
-                <th class="col-sm-5">{{ knp_pagination_sortable(pagination, 'Nombre', 'a.Nombre') }}</th>
-                <th class="col-sm-5">Padre</th>
-                {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
-            </tr>
-            </thead>
-            <tbody>
-            {% for categoria in pagination %}
+    {% if (pagination.getTotalItemCount != 0) %}
+        {# total items count #}
+        <h5>Total de Categorias: {{ pagination.getTotalItemCount }}</h5>
+        <p></p>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead>
                 <tr>
-                    <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Categoria', {'id': categoria.id}) }}">{{ categoria }}</a>{% else %}{{ categoria }}{% endif %}</td>
-                    <td>{{ categoria.padre }}</td>
-                    {% if is_granted('ROLE_DOCUMENTADOR') %}
-                        <td>
-                            <a href="{{ path('modificar_cat', {'id': categoria.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
-                            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_categoria', {'id': categoria.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
-                        </td>
-                    {% endif %}
+                    <th class="col-sm-5">{{ knp_pagination_sortable(pagination, 'Nombre', 'a.Nombre') }}</th>
+                    <th class="col-sm-5">Padre</th>
+                    {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <div id="paginador">
-        {{ knp_pagination_render(pagination) }}
-    </div>
+                </thead>
+                <tbody>
+                {% for categoria in pagination %}
+                    <tr>
+                        <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Categoria', {'id': categoria.id}) }}">{{ categoria }}</a>{% else %}{{ categoria }}{% endif %}</td>
+                        <td>{{ categoria.padre }}</td>
+                        {% if is_granted('ROLE_DOCUMENTADOR') %}
+                            <td>
+                                <a href="{{ path('modificar_cat', {'id': categoria.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
+                                {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_categoria', {'id': categoria.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div id="paginador">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    {% else %}
+        <h4 id="error">No hay ninguna Categoria para mostrar, añada una nueva</h4>
+    {% endif %}
 {% endblock %}

@@ -24,6 +24,10 @@ body > .container{
 .navbar-brand:hover{
     color:var(--remarcado)!important;
 }
+ul.navbar-right{
+    display: flex;
+    justify-content: flex-end!important;
+}
 #navbar>.container{
     display: flex;
     justify-content: center;

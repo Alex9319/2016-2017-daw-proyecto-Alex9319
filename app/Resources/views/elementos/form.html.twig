@@ -16,3 +16,57 @@
     </div>
     {{ form_end(form) }}
 {% endblock %}
+{% block javascripts %}
+    <script>
+        var armario = $("#elementos_armario");
+        var archivador = $("#elementos_archivador");
+
+        archivador.change(function() {
+            var form = $(this).closest('form');
+            var data = {};
+            data[archivador.attr('name')] = archivador.val();
+            armario.replaceWith('<div id="elementos_armario"><span class="text-info"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></span></div>');
+            $.ajax({
+                url: form.attr('action'),
+                type: form.attr('method'),
+                data: data,
+                success: function(html) {
+                    armario.replaceWith(
+                        $(html).find(armario)
+                    )
+                },
+                error: function() {
+                    armario.replaceWith('<div id="elementos_armario"><span class="text-danger"><i class="fa fa-times-circle fa-3x"></i></span></div>')
+                }
+            });
+        });
+
+//
+//        var $armario = $('#elementos_armario');
+//        var $form = $armario.closest('form');
+//
+//        // cada vez que el usuario cambie el Armario en el select
+//        $armario.on('change', function() {
+//            // creamos la data, solo con el campo del Armario,
+//            // ya que es el dato relevante en este caso.
+//            var data = $armario.serialize();
+//
+//            // Hacemos un envío del formulario, lo que ejecutará el evento preSubmit
+//            // del listener AddStateFieldSubscriber,
+//            // y actualizará el campo Archivador, con los estados del Armario seleccionado.
+//
+//            $.ajax({
+//                url : $form.attr('action'),
+//                type: $form.attr('method'),
+//                data : data,
+//                success: function(html) {
+//
+//                    // la variable html representa toda la página junto con el select de Archivadores.
+//                    // el cual tomamos y colocamos para reemplazar el select actual.
+//
+//                    $('#elementos_archivador').replaceWith($(html).find('#elementos_archivador'));
+//                }
+//            });
+//        });
+    </script>
+{% endblock %}

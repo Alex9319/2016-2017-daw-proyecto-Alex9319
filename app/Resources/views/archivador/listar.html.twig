@@ -20,9 +20,9 @@
             <tbody>
             {% for archivador in pagination %}
                 <tr>
-                    <td>{{ archivador.numero }}</td>
+                    <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Archivador', {'id': archivador.id}) }}">{{ archivador.numero }}</a>{% else %}{{ archivador.numero }}{% endif %}</td>
                     <td>{{ archivador.color }}</td>
-                    <td><a href="{{ path('contenido_Armario', {'id': archivador.armario.id}) }}">{{ archivador.armario }}</a></td>
+                    <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Armario', {'id': archivador.armario.id}) }}">{{ archivador.armario }}</a>{% else %}{{ archivador.armario }}{% endif %}</td>
                     {% if is_granted('ROLE_DOCUMENTADOR') %}
                         <td>
                             <a href="{{ path('modificar_arch', {'id': archivador.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>

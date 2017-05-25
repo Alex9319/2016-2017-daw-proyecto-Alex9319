@@ -17,7 +17,7 @@
             <tbody>
             {% for armario in pagination %}
                 <tr>
-                    <td>{{ armario.nombre }}</td>
+                    <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Armario', {'id': armario.id}) }}">{{ armario.nombre }}</a>{% else %}{{ armario.nombre }}{% endif %}</td>
                     {% if is_granted('ROLE_DOCUMENTADOR') %}
                         <td>
                             <a href="{{ path('modificar_arm', {'id': armario.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>

@@ -18,7 +18,7 @@
             <tbody>
             {% for categoria in pagination %}
                 <tr>
-                    <td>{{ categoria }}</td>
+                    <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Categoria', {'id': categoria.id}) }}">{{ categoria }}</a>{% else %}{{ categoria }}{% endif %}</td>
                     <td>{{ categoria.padre }}</td>
                     {% if is_granted('ROLE_DOCUMENTADOR') %}
                         <td>

@@ -45,9 +45,9 @@
                     <td>{{ elemento.nombre }}</td>
                     <td>{{ elemento.observaciones }}</td>
                     <td>{{ elemento.fechaAlta | date("d/m/Y") }}</td>
-                    <td><a href="{{ path('contenido_Archivador', {'id': elemento.archivador.id}) }}">{{ elemento.archivador }}</a></td>
-                    <td><a href="{{ path('contenido_Armario', {'id': elemento.armario.id}) }}">{{ elemento.armario }}</a></td>
-                    <td><a href="{{ path('contenido_Categoria', {'id': elemento.categoria.id}) }}">{{ elemento.categoria }}</a></td>
+                    <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Archivador', {'id': elemento.archivador.id}) }}">{{ elemento.archivador }}</a>{% else %}{{ elemento.archivador }}{% endif %}</td>
+                    <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Armario', {'id': elemento.armario.id}) }}">{{ elemento.armario }}</a>{% else %}{{ elemento.armario }}{% endif %}</td>
+                    <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Categoria', {'id': elemento.categoria.id}) }}">{{ elemento.categoria }}</a>{% else %}{{ elemento.categoria }}{% endif %}</td>
                     {% if is_granted('ROLE_DOCUMENTADOR') %}
                         <td>
                             {% if elemento.fechaBaja is null %}<a href="{{ path('modificar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>{% endif %}

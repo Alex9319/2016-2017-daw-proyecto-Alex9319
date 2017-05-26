@@ -41,8 +41,8 @@
                         </td>
                         {% if is_granted('ROLE_DOCUMENTADOR') %}
                             <td>
-                                <a href="{{ path('modificar_multimedia', {'id': ficheros.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
-                                {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_multimedia', {'id': ficheros.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
+                                <a href="{{ path('modificar_multimedia', {'id': ficheros.id}) }}" class="btn btn-sm btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
+                                {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_multimedia', {'id': ficheros.id}) }}" class="btn btn-sm btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
                             </td>
                         {% endif %}
                     </tr>

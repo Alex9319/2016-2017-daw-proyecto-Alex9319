@@ -30,9 +30,9 @@
                         <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Armario', {'id': elemento.armario.id}) }}">{{ elemento.armario }}</a>{% else %}{{ elemento.armario }}{% endif %}</td>
                         {% if is_granted('ROLE_DOCUMENTADOR') %}
                             <td>
-                                {% if elemento.fechaBaja is null %}<a href="{{ path('modificar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>{% endif %}
-                                {% if is_granted('ROLE_ADMIN') %}{% if elemento.fechaBaja is null %}<a href="{{ path('desactivar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-danger" title="Desactivar"><i class="fa fa-download"></i></a>{% endif %}{% endif %}
-                                {% if is_granted('ROLE_ADMIN') %}{% if elemento.fechaBaja is not null %}<a href="{{ path('reactivar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-success" title="Reactivar"><i class="fa fa-upload"></i></a>{% endif %}{% endif %}
+                                {% if elemento.fechaBaja is null %}<a href="{{ path('modificar_articulo', {'id': elemento.id}) }}" class="btn btn-sm btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>{% endif %}
+                                {% if is_granted('ROLE_ADMIN') %}{% if elemento.fechaBaja is null %}<a href="{{ path('desactivar_articulo', {'id': elemento.id}) }}" class="btn btn-sm btn-danger" title="Desactivar"><i class="fa fa-download"></i></a>{% endif %}{% endif %}
+                                {% if is_granted('ROLE_ADMIN') %}{% if elemento.fechaBaja is not null %}<a href="{{ path('reactivar_articulo', {'id': elemento.id}) }}" class="btn btn-sm btn-success" title="Reactivar"><i class="fa fa-upload"></i></a>{% endif %}{% endif %}
                             </td>
                         {% endif %}
                     </tr>

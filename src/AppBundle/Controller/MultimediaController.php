@@ -37,6 +37,33 @@ class MultimediaController extends Controller
     }
 
     /**
+     * @Security("is_granted('ROLE_USER')")
+     * @Route("/multimedia/{id}", name="visor_Multimedia")
+     */
+    public function maticuloAction(Request $request, Multimedia $fichero)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $multimedia = $em->createQueryBuilder()
+            ->select('m')
+            ->from('AppBundle:Multimedia', 'm')
+            ->getQuery();
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $multimedia, /* query NOT result */
+            $request->query->getInt('page', 1)/*numero de pagina*/
+        );
+
+        return $this->render('multimedia/visor.html.twig',
+            array('pagination' => $pagination,
+                'archivo'=>'/'.$fichero->getMultimedia(),
+                'contenido'=>$fichero->getNombre(),
+                'tipo'=>$fichero->getType()
+            ));
+    }
+
+    /**
      * @Security("is_granted('ROLE_DOCUMENTADOR')")
      * @Route("/multimedia/nuevo", name="nuevo_multimedia")
      */

@@ -7,7 +7,7 @@
         {# total items count #}
         <h5>Total de Articulos Multimedia: {{ pagination.getTotalItemCount }}</h5>
         <p></p>
-        <div class="table-responsive">
+        <div class="table-responsive col-sm-8">
             <table class="table table-hover table-bordered">
                 <thead>
                 <tr>
@@ -31,6 +31,23 @@
                 {% endfor %}
                 </tbody>
             </table>
+        </div>
+        <div class="col-sm-4 visor">
+                {% if ("image" in tipo ) %}
+                    <img src="{{ archivo }}" alt="{{ contenido }}">
+                {%  endif %}
+                {% if ("video" in tipo ) %}
+                    <video controls controlsList="nodownload">
+                        <source src="{{ archivo }}" type="{{ tipo }}">
+                        Tu navegador no soporta el elemento de video.
+                    </video>
+                {%  endif %}
+                {% if ("audio" in tipo ) %}
+                    <audio controls controlsList="nodownload">
+                        <source src="{{ archivo }}" type="{{ tipo }}">
+                        Tu navegador no soporta el elemento de audio.
+                    </audio>
+                {%  endif %}
         </div>
         <div id="paginador">
             {{ knp_pagination_render(pagination) }}

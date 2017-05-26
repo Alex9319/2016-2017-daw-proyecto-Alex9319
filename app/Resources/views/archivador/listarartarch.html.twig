@@ -25,7 +25,7 @@
                         <td>{{ elemento.nombre }}</td>
                         <td>{{ elemento.observaciones }}</td>
                         <td>{{ elemento.fechaAlta | date("d/m/Y") }}</td>
-                        <td>{{ elemento.categoria }}</td>
+                        <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Categoria', {'id': elemento.categoria.id}) }}">{{ elemento.categoria }}</a>{% else %}{{ elemento.categoria }}{% endif %}</td>
                         {% if is_granted('ROLE_DOCUMENTADOR') %}
                             <td>
                                 {% if elemento.fechaBaja is null %}<a href="{{ path('modificar_articulo', {'id': elemento.id}) }}" class="btn btn-sm btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>{% endif %}

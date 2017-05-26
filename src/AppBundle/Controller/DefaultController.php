@@ -28,8 +28,7 @@ class DefaultController extends Controller
             ->leftJoin('e.multimedia','m')
             ->where('e.NivelDeAcceso <= :roles')
             ->setParameter('roles', $rol)
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -124,63 +123,39 @@ class DefaultController extends Controller
                 ->setParameter('roles', $rol)
                 ->getQuery()
                 ->getResult();
-
-            $paginator = $this->get('knp_paginator');
-            $pagination = $paginator->paginate(
-                $query, /* query NOT result */
-                $request->query->getInt('page', 1)/*page number*/,5/*Limite de elementos por tabla*/
-            );
-
+//
             /** @var EntityManager $em */
             $em = $this->getDoctrine()->getManager();
             $query1 = $em->createQueryBuilder()
-                ->select('c')
-                ->from('AppBundle:Categoria', 'c')
-                ->Where('c.nombre LIKE :nombre')
+                ->select('cat')
+                ->from('AppBundle:Categoria', 'cat')
+                ->Where('cat.nombre LIKE :nombre')
                 ->setParameter('nombre', '%' . $request->get('busco') . '%')
                 ->getQuery()
                 ->getResult();
-
-            $paginator1 = $this->get('knp_paginator');
-            $pagination1 = $paginator1->paginate(
-                $query1, /* query NOT result */
-                $request->query->getInt('page', 1)/*page number*/,5/*Limite de elementos por tabla*/
-            );
 
             /** @var EntityManager $em */
             $em = $this->getDoctrine()->getManager();
             $query2 = $em->createQueryBuilder()
-                ->select('a')
-                ->from('AppBundle:Armario', 'a')
-                ->Where('a.nombre LIKE :nombre')
+                ->select('arm')
+                ->from('AppBundle:Armario', 'arm')
+                ->Where('arm.nombre LIKE :nombre')
                 ->setParameter('nombre', '%' . $request->get('busco') . '%')
                 ->getQuery()
                 ->getResult();
-
-            $paginator2 = $this->get('knp_paginator');
-            $pagination2 = $paginator2->paginate(
-                $query2, /* query NOT result */
-                $request->query->getInt('page', 1)/*page number*/,5/*Limite de elementos por tabla*/
-            );
 
             /** @var EntityManager $em */
             $em = $this->getDoctrine()->getManager();
             $query3 = $em->createQueryBuilder()
-                ->select('a')
-                ->from('AppBundle:Archivador', 'a')
-                ->Where('a.numero LIKE :nombre')
-                ->orWhere('a.color LIKE :nombre')
+                ->select('arc')
+                ->from('AppBundle:Archivador', 'arc')
+                ->Where('arc.numero LIKE :nombre')
+                ->orWhere('arc.color LIKE :nombre')
                 ->setParameter('nombre', '%' . $request->get('busco') . '%')
                 ->getQuery()
                 ->getResult();
 
-            $paginator3 = $this->get('knp_paginator');
-            $pagination3 = $paginator3->paginate(
-                $query3, /* query NOT result */
-                $request->query->getInt('page', 1)/*page number*/,5/*Limite de elementos por tabla*/
-            );
-
-            return $this->render('aplicacion/buscar.html.twig', array('pagination' => $pagination, 'pagination1' => $pagination1, 'pagination2' => $pagination2, 'pagination3'=>$pagination3, 'variable' => $request->get('busco')));
+            return $this->render('aplicacion/buscar.html.twig', array('pagination' => $query, 'pagination1' => $query1, 'pagination2' => $query2, 'pagination3' => $query3, 'variable' => $request->get('busco')));
         }
     }
 }

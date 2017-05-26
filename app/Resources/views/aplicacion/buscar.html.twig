@@ -1,22 +1,21 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    {% if( pagination.getTotalItemCount !=0) %}
+    {% if( pagination|length !=0) %}
     <h1>Elementos que contienen {{ variable }}</h1>
-    {# total items count #}
-    <h5>Total de Articulos: {{ pagination.getTotalItemCount }}</h5>
+    <h5>Total de Articulos: {{ pagination|length }}</h5>
     <p></p>
     <table class="table table-responsive table-hover table-bordered">
         <thead>
         <tr>
             <th class="col-sm-1">Multimedia</th>
-            <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'Nombre', 'a.Nombre') }}</th>
+            <th class="col-sm-2">Nombre</th>
             <th class="col-sm-2">Observaciones</th>
-            <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Fecha Alta', 'a.Fecha Alta') }}</th>
+            <th class="col-sm-1">Fecha de Alta</th>
             <th class="col-sm-1">Archivador</th>
-            <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Armario', 'a.Armario') }}</th>
-            <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Categoria', 'a.Categoria') }}</th>
-            {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
+            <th class="col-sm-1">Armario</th>
+            <th class="col-sm-2">Categoria</th>
+            {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-2">Acciones</th>{% endif %}
         </tr>
         </thead>
         <tbody>
@@ -49,31 +48,28 @@
                 <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Categoria', {'id': elemento.categoria.id}) }}">{{ elemento.categoria }}</a>{% else %}{{ elemento.categoria }}{% endif %}</td>
                 {% if is_granted('ROLE_DOCUMENTADOR') %}
                     <td>
-                        {% if elemento.fechaBaja is null %}<a href="{{ path('modificar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>{% endif %}
-                        {% if is_granted('ROLE_ADMIN') %}{% if elemento.fechaBaja is null %}<a href="{{ path('desactivar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-danger" title="Desactivar"><i class="fa fa-download"></i></a>{% endif %}{% endif %}
-                        {% if is_granted('ROLE_ADMIN') %}{% if elemento.fechaBaja is not null %}<a href="{{ path('reactivar_articulo', {'id': elemento.id}) }}" class="btn btn-xs btn-success" title="Reactivar"><i class="fa fa-upload"></i></a>{% endif %}{% endif %}
+                        {% if elemento.fechaBaja is null %}<a href="{{ path('modificar_articulo', {'id': elemento.id}) }}" class="btn btn-ms btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>{% endif %}
+                        {% if is_granted('ROLE_ADMIN') %}{% if elemento.fechaBaja is null %}<a href="{{ path('desactivar_articulo', {'id': elemento.id}) }}" class="btn btn-sm btn-danger" title="Desactivar"><i class="fa fa-download"></i></a>{% endif %}{% endif %}
+                        {% if is_granted('ROLE_ADMIN') %}{% if elemento.fechaBaja is not null %}<a href="{{ path('reactivar_articulo', {'id': elemento.id}) }}" class="btn btn-sm btn-success" title="Reactivar"><i class="fa fa-upload"></i></a>{% endif %}{% endif %}
                     </td>
                 {% endif %}
             </tr>
         {% endfor %}
         </tbody>
     </table>
-        <div id="paginador">
-            {{ knp_pagination_render(pagination1) }}
-        </div>
     {% else %}
         <h4 id="error">No hay ninguna Elemento que se llame o que contenga {{ variable }} en sus observaciones</h4>
     {% endif %}
     {% if app.user and is_granted('ROLE_DOCUMENTADOR') %}
-        {% if( pagination1.getTotalItemCount !=0) %}
+        {% if( pagination1|length !=0) %}
         <h1>Categorias que contienen {{ variable }}</h1>
-        {# total items count #}
-        <h5>Total de Categorias: {{ pagination1.getTotalItemCount }}</h5>
+         total items count
+        <h5>Total de Categorias: {{ pagination1|length }}</h5>
         <p></p>
         <table class="table table-responsive table-hover">
             <thead>
             <tr>
-                <th class="col-sm-5">{{ knp_pagination_sortable(pagination, 'Nombre', 'a.Nombre') }}</th>
+                <th class="col-sm-5">Nombre</th>
                 <th class="col-sm-5">Padre</th>
                 <th class="col-sm-1">Acciones</th>
             </tr>
@@ -84,29 +80,26 @@
                     <td>{{ categoria }}</td>
                     <td>{{ categoria.padre }}</td>
                     <td>
-                        <a href="{{ path('modificar_cat', {'id': categoria.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
-                        {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_categoria', {'id': categoria.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
+                        <a href="{{ path('modificar_cat', {'id': categoria.id}) }}" class="btn btn-sm btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
+                        {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_categoria', {'id': categoria.id}) }}" class="btn btn-sm btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
                     </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
-        <div id="paginador">
-                {{ knp_pagination_render(pagination1) }}
-        </div>
             {% else %}
             <h4 id="error">No hay ninguna categoria que se llame o que contenga {{ variable }}</h4>
     {% endif %}
-        {% if( pagination2.getTotalItemCount !=0) %}
+        {% if( pagination2|length !=0) %}
             <h1>Listado de Armarios que contienen {{ variable }}</h1>
-            {# total items count #}
-            <h5>Total de Armarios: {{ pagination2.getTotalItemCount }}</h5>
+             total items count
+            <h5>Total de Armarios: {{ pagination2|length }}</h5>
             <p></p>
             <div class="table-responsive">
                 <table class="table table-hover table-bordered">
                     <thead>
                     <tr>
-                        <th class="col-sm-1">{{ knp_pagination_sortable(pagination2, 'Nombre', 'a.Nombre') }}</th>
+                        <th class="col-sm-1">Nombre</th>
                         {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
                     </tr>
                     </thead>
@@ -116,8 +109,8 @@
                             <td><a href="{{ path('contenido_Armario', {'id': armario.id}) }}">{{ armario.nombre }}</a></td>
                             {% if is_granted('ROLE_DOCUMENTADOR') %}
                                 <td>
-                                    <a href="{{ path('modificar_arm', {'id': armario.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
-                                    {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_armario', {'id': armario.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
+                                    <a href="{{ path('modificar_arm', {'id': armario.id}) }}" class="btn btn-sm btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
+                                    {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_armario', {'id': armario.id}) }}" class="btn btn-sm btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
                                 </td>
                             {% endif %}
                         </tr>
@@ -125,24 +118,21 @@
                     </tbody>
                 </table>
             </div>
-            <div id="paginador">
-                {{ knp_pagination_render(pagination2) }}
-            </div>
         {% else %}
             <h4 id="error">No hay ningun Armario que se llame o que contenga {{ variable }}</h4>
         {% endif %}
-        {% if( pagination3.getTotalItemCount !=0) %}
+        {% if( pagination3|length !=0) %}
             <h1>Listado de Archivadores que contienen {{ variable }}</h1>
-            {# total items count #}
-            <h5>Total de Archivadores: {{ pagination3.getTotalItemCount }}</h5>
+             total items count
+            <h5>Total de Archivadores: {{ pagination3|length }}</h5>
             <p></p>
             <div class="table-responsive">
                 <table class="table table-hover table-bordered">
                     <thead>
                     <tr>
-                        <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'Numero', 'a.Numero') }}</th>
-                        <th class="col-sm-4">{{ knp_pagination_sortable(pagination, 'Color', 'a.Color') }}</th>
-                        <th class="col-sm-5">{{ knp_pagination_sortable(pagination, 'Armario', 'a.Armario') }}</th>
+                        <th class="col-sm-2">Número</th>
+                        <th class="col-sm-4">Color</th>
+                        <th class="col-sm-5">Armario</th>
                         {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
                     </tr>
                     </thead>
@@ -154,17 +144,14 @@
                             <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Armario', {'id': archivador.armario.id}) }}">{{ archivador.armario }}</a>{% else %}{{ archivador.armario }}{% endif %}</td>
                             {% if is_granted('ROLE_DOCUMENTADOR') %}
                                 <td>
-                                    <a href="{{ path('modificar_arch', {'id': archivador.id}) }}" class="btn btn-xs btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
-                                    {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_archivador', {'id': archivador.id}) }}" class="btn btn-xs btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
+                                    <a href="{{ path('modificar_arch', {'id': archivador.id}) }}" class="btn btn-sm btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
+                                    {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_archivador', {'id': archivador.id}) }}" class="btn btn-sm btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
                                 </td>
                             {% endif %}
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
-            </div>
-            <div id="paginador">
-                {{ knp_pagination_render(pagination3) }}
             </div>
         {% else %}
             <h4 id="error">No hay ningun Archivador que contenga en su color o numero {{ variable }}</h4>

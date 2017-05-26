@@ -24,6 +24,7 @@ class ArmarioController extends Controller
         $query = $em->createQueryBuilder()
             ->select('a')
             ->from('AppBundle:Armario', 'a')
+            ->orderBy( 'a.nombre','asc')
             ->getQuery();
 
         $paginator  = $this->get('knp_paginator');

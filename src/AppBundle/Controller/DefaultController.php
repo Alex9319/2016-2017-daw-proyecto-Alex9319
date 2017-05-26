@@ -28,6 +28,7 @@ class DefaultController extends Controller
             ->leftJoin('e.multimedia','m')
             ->where('e.NivelDeAcceso <= :roles')
             ->setParameter('roles', $rol)
+            ->orderBy( 'e.fechaAlta','desc')
             ->getQuery();
 
         $paginator  = $this->get('knp_paginator');

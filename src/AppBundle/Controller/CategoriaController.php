@@ -24,6 +24,7 @@ class CategoriaController extends Controller
         $query = $em->createQueryBuilder()
             ->select('c')
             ->from('AppBundle:Categoria', 'c')
+            ->orderBy( 'c.nombre','desc')
             ->getQuery();
 
         $paginator  = $this->get('knp_paginator');

@@ -27,6 +27,7 @@ class ArchivadorController extends Controller
             ->addSelect('ar')
             ->from('AppBundle:Archivador', 'a')
             ->join('a.armario','ar')
+            ->orderBy( 'a.numero','asc')
             ->getQuery();
 
         $paginator  = $this->get('knp_paginator');

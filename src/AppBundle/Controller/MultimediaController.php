@@ -203,7 +203,11 @@ class MultimediaController extends Controller
                     }catch (\Exception $e){
                         $this->addFlash('error', 'El archivo multimedia es demasiado grande');
                     }
-                }
+                }else{
+                $em->flush();
+                $this->addFlash('estado', 'Cambios guardados con éxito');
+                return $this->redirectToRoute('listadoMultimedia');
+            }
         }
 
         return $this->render('multimedia/modificar.html.twig', [

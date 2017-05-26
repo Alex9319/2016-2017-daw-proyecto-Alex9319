@@ -72,10 +72,9 @@ class UsuarioController extends Controller
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQueryBuilder()
-            ->select('c')
-            ->from('AppBundle:Usuario', 'c')
-            ->getQuery()
-            ->getResult();
+            ->select('u')
+            ->from('AppBundle:Usuario', 'u')
+            ->getQuery();
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(

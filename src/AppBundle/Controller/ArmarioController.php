@@ -24,8 +24,7 @@ class ArmarioController extends Controller
         $query = $em->createQueryBuilder()
             ->select('a')
             ->from('AppBundle:Armario', 'a')
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -85,8 +84,7 @@ class ArmarioController extends Controller
             ->leftJoin('arc.armario','arm')
             ->andWhere('arc.armario=:id')
             ->setParameter('id', $armario)
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(

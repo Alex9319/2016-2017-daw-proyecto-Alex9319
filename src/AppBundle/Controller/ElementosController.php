@@ -35,8 +35,7 @@ class ElementosController extends Controller
             ->join('e.categoria','cat')
             ->where('e.NivelDeAcceso <= :roles')
             ->setParameter('roles', $rol)
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(

@@ -27,8 +27,7 @@ class ArchivadorController extends Controller
             ->addSelect('ar')
             ->from('AppBundle:Archivador', 'a')
             ->join('a.armario','ar')
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -62,8 +61,7 @@ class ArchivadorController extends Controller
             ->andWhere('e.archivador = :id')
             ->setParameter('roles', $rol)
             ->setParameter('id', $archivador)
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(

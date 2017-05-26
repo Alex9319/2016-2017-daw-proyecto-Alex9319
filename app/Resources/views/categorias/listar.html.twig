@@ -11,7 +11,7 @@
             <table class="table table-hover table-bordered">
                 <thead>
                 <tr>
-                    <th class="col-sm-5">{{ knp_pagination_sortable(pagination, 'Nombre', 'a.Nombre') }}</th>
+                    <th class="col-sm-5">{{ knp_pagination_sortable(pagination, 'Nombre', 'c.nombre') }}</th>
                     <th class="col-sm-5">Padre</th>
                     {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
                 </tr>

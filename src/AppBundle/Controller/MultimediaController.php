@@ -25,8 +25,7 @@ class MultimediaController extends Controller
         $multimedia = $em->createQueryBuilder()
             ->select('m')
             ->from('AppBundle:Multimedia', 'm')
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(

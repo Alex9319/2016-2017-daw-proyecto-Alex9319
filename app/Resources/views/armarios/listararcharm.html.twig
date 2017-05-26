@@ -11,8 +11,8 @@
             <table class="table table-hover table-bordered">
                 <thead>
                 <tr>
-                    <th class="col-sm-4">{{ knp_pagination_sortable(pagination, 'Numero', 'a.Numero') }}</th>
-                    <th class="col-sm-7">{{ knp_pagination_sortable(pagination, 'Color', 'a.Color') }}</th>
+                    <th class="col-sm-4">{{ knp_pagination_sortable(pagination, 'Numero', 'e.numero') }}</th>
+                    <th class="col-sm-7">{{ knp_pagination_sortable(pagination, 'Color', 'e.color') }}</th>
                     {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
                 </tr>
                 </thead>

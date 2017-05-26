@@ -11,11 +11,11 @@
                 <thead>
                 <tr>
                     <th class="col-sm-1">Archivos Multimedia</th>
-                    <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'Nombre', 'a.Nombre') }}</th>
+                    <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'Nombre', 'e.nombre') }}</th>
                     <th class="col-sm-2">Observaciones</th>
-                    <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Fecha Alta', 'a.Fecha Alta') }}</th>
+                    <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Fecha Alta', 'e.fechaAlta') }}</th>
                     <th class="col-sm-1">Archivador</th>
-                    <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Armario', 'a.Armario') }}</th>
+                    <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Armario', 'arm.nombre') }}</th>
                     {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
                 </tr>
                 </thead>

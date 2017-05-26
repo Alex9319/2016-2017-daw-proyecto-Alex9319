@@ -24,8 +24,7 @@ class CategoriaController extends Controller
         $query = $em->createQueryBuilder()
             ->select('c')
             ->from('AppBundle:Categoria', 'c')
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -60,8 +59,7 @@ class CategoriaController extends Controller
             ->andWhere('e.categoria = :id')
             ->setParameter('roles', $rol)
             ->setParameter('id', $categoria)
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(

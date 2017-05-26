@@ -44,7 +44,7 @@
                 {{ knp_pagination_render(pagination) }}
         </div>
         <div id="botones">
-            <button type="button" name="volver" class="btn btn-info"><a href="javascript:history.back();"><i class="fa fa-reply"></i> Volver</a></button>
+            <button type="button" name="volver" class="btn btn-info"><a href="{{ app.request.headers.get('referer') }}"><i class="fa fa-reply"></i> Volver</a></button>
         </div>
     {% else %}
         <h4 id="error">Esta Categoria está vacía</h4>

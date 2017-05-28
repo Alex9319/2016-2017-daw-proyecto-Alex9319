@@ -26,13 +26,12 @@
                     <tr{% if(elemento.fechaBaja and is_granted('ROLE_ADMIN')) %} class="danger" {% endif %}>
                         <td>
                             {% if(is_granted('ROLE_DOCUMENTADOR')) %}
-                                {% if(elemento.multimedia!=null) %}
+                                {% if(elemento.multimedia|length!=0) %}
                                     {% for numero in elemento.multimedia %}
                                         <a href="{{ path('visor_Archivo', {'id':numero.id}) }}">{{ numero.observaciones }}</a><br/>
                                     {% endfor %}
                                 {% else %}
-                                    No Contiene
-                                    {{ dump("hola") }}
+                                    {{ elemento.multimedia|length }}
                                 {% endif %}
                             {% else %}
                                 {{ elemento.multimedia|length }}

@@ -52,9 +52,9 @@
                             {% if is_granted('ROLE_USER') %}<li{% if ruta == 'listadoArchivadores' %} class="active"{% endif %}><a href="{{ path('listadoArchivadores') }}"><i class="fa fa-book"></i> Archivadores</a></li>{% endif %}
                             <li><form action="{{ path('buscar') }}" id="buscar"><input type="text" name="busco"/><button type="submit" class="btn-success"><i class="fa fa-search" aria-hidden="true"></i></button></form></li>
                         {% else %}
+                            <li><form action="{{ path('buscar') }}"><input type="text" name="busco"/><button type="submit" class="btn-success"><i class="fa fa-search" aria-hidden="true"></i></button></form></li>
                             <li{% if ruta == 'homepage' %} class="active"{% endif %}><a href="{{ path('homepage') }}"><i class="fa fa-gift"></i> Articulos</a></li>
                             <li{% if ruta == 'contacto' %} class="active"{% endif %}><a href="{{ path('contacto') }}"><i class="fa fa-child"></i> Contacto</a></li>
-                            <li><form action="{{ path('buscar') }}"><input type="text" name="busco"/><button type="submit" class="btn-success"><i class="fa fa-search" aria-hidden="true"></i></button></form></li>
                         {% endif %}
                         </ul>
                     </div>

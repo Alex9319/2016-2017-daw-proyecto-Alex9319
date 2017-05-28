@@ -11,7 +11,7 @@
             <table class="table table-hover table-bordered">
                 <thead>
                 <tr>
-                    <th class="col-sm-1">Multimedia</th>
+                    <th class="col-sm-1">Ficheros Multimedia</th>
                     <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'Nombre', 'e.nombre') }}</th>
                     <th class="col-sm-2">Observaciones</th>
                     <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Fecha Alta', 'e.fechaAlta') }}</th>
@@ -25,23 +25,18 @@
                 {% for elemento in pagination %}
                     <tr{% if(elemento.fechaBaja and is_granted('ROLE_ADMIN')) %} class="danger" {% endif %}>
                         <td>
-                            {% for numero in elemento.multimedia %}
-                                {% if ("image" in numero.getType() ) %}
-                                    <a href="{{ numero.multimedia }}" rel="lightbox[galeria{{ elemento.id }}]"><img src="{{ numero.multimedia }}" class="img-circle" alt="{{ numero.nombre }}"></a>
-                                {%  endif %}
-                                {% if ("video" in numero.getType() ) %}
-                                    <video width="320" height="240" controls controlsList="nodownload">
-                                        <source src="{{ numero.multimedia }}" type="{{ numero.getType() }}">
-                                        Tu navegador no soporta el elemento de video.
-                                    </video>
-                                {%  endif %}
-                                {% if ("audio" in numero.getType() ) %}
-                                    <audio controls controlsList="nodownload">
-                                        <source src="{{ numero.multimedia }}" type="{{ numero.getType() }}">
-                                        Tu navegador no soporta el elemento de audio.
-                                    </audio>
-                                {%  endif %}
-                            {% endfor %}
+                            {% if(is_granted('ROLE_DOCUMENTADOR')) %}
+                                {% if(elemento.multimedia!=null) %}
+                                    {% for numero in elemento.multimedia %}
+                                        <a href="{{ path('visor_Archivo', {'id':numero.id}) }}">{{ numero.observaciones }}</a><br/>
+                                    {% endfor %}
+                                {% else %}
+                                    No Contiene
+                                    {{ dump("hola") }}
+                                {% endif %}
+                            {% else %}
+                                {{ elemento.multimedia|length }}
+                            {% endif %}
                         </td>
                         <td>{{ elemento.nombre }}</td>
                         <td>{{ elemento.observaciones }}</td>

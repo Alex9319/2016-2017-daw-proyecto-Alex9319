@@ -3,9 +3,7 @@
 {% block content %}
     <h1>Listado de Archivos Multimedia</h1>
     {% if is_granted('ROLE_DOCUMENTADOR') %}<a href="{{ path("nuevo_multimedia") }}" class="btn btn-success"><i class="fa fa-plus"></i> Añadir archivo multimedia</a>{% endif %}
-    {% if (pagination.getTotalItemCount != 0) %}
-        {# total items count #}
-        <h5>Total de Articulos Multimedia: {{ pagination.getTotalItemCount }}</h5>
+    <h5>Total de Articulos: {{ pagination.getTotalItemCount }}</h5>
         <p></p>
         <div class="table-responsive col-sm-8">
             <table class="table table-hover table-bordered">
@@ -49,10 +47,7 @@
                     </audio>
                 {%  endif %}
         </div>
-        <div id="paginador">
-            {{ knp_pagination_render(pagination) }}
-        </div>
-    {% else %}
-        <h4 id="error">No hay ningun Archivo Multimedia para mostrar, añada uno nuevo</h4>
-    {% endif %}
+    <div id="botones">
+        <button type="button" name="volver" class="btn btn-info"><a href="{{ app.request.headers.get('referer') }}"><i class="fa fa-reply"></i> Volver</a></button>
+    </div>
 {% endblock %}

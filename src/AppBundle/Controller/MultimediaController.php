@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Elementos;
 use AppBundle\Entity\Multimedia;
 use AppBundle\Form\Type\ModMultimediaType;
 use AppBundle\Form\Type\MultimediaType;
@@ -40,13 +41,42 @@ class MultimediaController extends Controller
      * @Security("is_granted('ROLE_USER')")
      * @Route("/multimedia/{id}", name="visor_Multimedia")
      */
-    public function maticuloAction(Request $request, Multimedia $fichero)
+    public function marticuloAction(Request $request, Multimedia $fichero)
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $multimedia = $em->createQueryBuilder()
             ->select('m')
             ->from('AppBundle:Multimedia', 'm')
+            ->getQuery();
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $multimedia, /* query NOT result */
+            $request->query->getInt('page', 1)/*numero de pagina*/
+        );
+
+        return $this->render('multimedia/visor.html.twig',
+            array('pagination' => $pagination,
+                'archivo'=>'/'.$fichero->getMultimedia(),
+                'contenido'=>$fichero->getNombre(),
+                'tipo'=>$fichero->getType()
+            ));
+    }
+
+    /**
+     * @Security("is_granted('ROLE_USER')")
+     * @Route("/multimedia/visor/{id}", name="visor_Archivo")
+     */
+    public function varticuloAction(Request $request, Multimedia $fichero)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $multimedia = $em->createQueryBuilder()
+            ->select('m')
+            ->from('AppBundle:Multimedia', 'm')
+            ->where('m.id=:id')
+            ->setParameter('id',$fichero)
             ->getQuery();
 
         $paginator  = $this->get('knp_paginator');

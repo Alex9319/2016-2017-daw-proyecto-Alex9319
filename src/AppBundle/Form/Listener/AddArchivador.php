@@ -48,7 +48,7 @@ class AddArchivador implements EventSubscriberInterface
 
         //como $data contiene el armario seleccionado por el usuario al enviar el formulario,
         // usamos el valor de la posicion $data['armario'] para filtrar el sql de los estados
-        $this->addField($event->getForm()->getData(), $data['archivador']);
+        $this->addField($event->getForm(), $data['archivador']);
     }
 
     protected function addField(Form $form, $archivador)

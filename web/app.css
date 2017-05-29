@@ -163,7 +163,9 @@ footer {
     height: 65px;
     background-color:var(--oscuro);
     color: white;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .visor{
     background-color: black;

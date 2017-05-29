@@ -24,11 +24,11 @@ class Armario
     private $nombre;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Elementos", mappedBy="armario")
-     * @var Elementos
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string")
+     * @var string
      */
-    private $elementos;
+    private $ubicacion;
+
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Archivador", mappedBy="armario")
      * @var Archivador
@@ -89,40 +89,6 @@ class Armario
     }
 
     /**
-     * Add elemento
-     *
-     * @param \AppBundle\Entity\Elementos $elemento
-     *
-     * @return Armario
-     */
-    public function addElemento(\AppBundle\Entity\Elementos $elemento)
-    {
-        $this->elementos[] = $elemento;
-
-        return $this;
-    }
-
-    /**
-     * Remove elemento
-     *
-     * @param \AppBundle\Entity\Elementos $elemento
-     */
-    public function removeElemento(\AppBundle\Entity\Elementos $elemento)
-    {
-        $this->elementos->removeElement($elemento);
-    }
-
-    /**
-     * Get elementos
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getElementos()
-    {
-        return $this->elementos;
-    }
-
-    /**
      * Add archivadore
      *
      * @param \AppBundle\Entity\Archivador $archivadore
@@ -154,5 +120,29 @@ class Armario
     public function getArchivadores()
     {
         return $this->archivadores;
+    }
+
+    /**
+     * Set ubicacion
+     *
+     * @param string $ubicacion
+     *
+     * @return Armario
+     */
+    public function setUbicacion($ubicacion)
+    {
+        $this->ubicacion = $ubicacion;
+
+        return $this;
+    }
+
+    /**
+     * Get ubicacion
+     *
+     * @return string
+     */
+    public function getUbicacion()
+    {
+        return $this->ubicacion;
     }
 }

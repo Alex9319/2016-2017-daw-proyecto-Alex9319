@@ -49,16 +49,9 @@ class Elementos
     private $fechaBaja;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Armario", inversedBy="elementos")
-     * @var Armario
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $armario;
-
-    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Archivador", inversedBy="elementos")
      * @var Archivador
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $archivador;
 
@@ -221,30 +214,6 @@ class Elementos
     public function getFechaBaja()
     {
         return $this->fechaBaja;
-    }
-
-    /**
-     * Set armario
-     *
-     * @param \AppBundle\Entity\Armario $armario
-     *
-     * @return Elementos
-     */
-    public function setArmario(\AppBundle\Entity\Armario $armario = null)
-    {
-        $this->armario = $armario;
-
-        return $this;
-    }
-
-    /**
-     * Get armario
-     *
-     * @return \AppBundle\Entity\Armario
-     */
-    public function getArmario()
-    {
-        return $this->armario;
     }
 
     /**

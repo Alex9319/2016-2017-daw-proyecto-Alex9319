@@ -65,13 +65,13 @@ class ElementosController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-//            try{
+            try{
                 $em->flush();
                 $this->addFlash('estado', 'Cambios guardados con éxito');
                 return $this->redirectToRoute('listadoArticulos');
-//            }catch (\Exception $e){
-//                    $this->addFlash('error', 'No se ha guardado el articulo ya que existe un articulo con el mismo nombre');
-//            }
+            }catch (\Exception $e){
+                    $this->addFlash('error', 'No se ha guardado el articulo ya que existe un articulo con el mismo nombre');
+            }
         }
 
         return $this->render('elementos/form.html.twig', [

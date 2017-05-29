@@ -21,7 +21,19 @@
                 <tbody>
                 {% for elemento in pagination %}
                     <tr{% if(elemento.fechaBaja and is_granted('ROLE_ADMIN')) %} class="danger" {% endif %}>
-                        <td>{{ elemento.multimedia|length }}</td>
+                        <td>
+                            {% if(is_granted('ROLE_DOCUMENTADOR')) %}
+                                {% if(elemento.multimedia|length!=0) %}
+                                    {% for numero in elemento.multimedia %}
+                                        <a href="{{ path('visor_Archivo', {'id':numero.id}) }}">{{ numero.nombre }}</a><br/>
+                                    {% endfor %}
+                                {% else %}
+                                    {{ elemento.multimedia|length }}
+                                {% endif %}
+                            {% else %}
+                                {{ elemento.multimedia|length }}
+                            {% endif %}
+                        </td>
                         <td>{{ elemento.nombre }}</td>
                         <td>{{ elemento.observaciones }}</td>
                         <td>{{ elemento.fechaAlta | date("d/m/Y") }}</td>

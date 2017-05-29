@@ -58,6 +58,7 @@ class CategoriaController extends Controller
             ->andWhere('e.categoria = :id')
             ->setParameter('roles', $rol)
             ->setParameter('id', $categoria)
+            ->orderBy('e.nombre','asc')
             ->getQuery();
 
         $paginator  = $this->get('knp_paginator');

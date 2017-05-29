@@ -60,6 +60,7 @@ class ArchivadorController extends Controller
             ->andWhere('e.archivador = :id')
             ->setParameter('roles', $rol)
             ->setParameter('id', $archivador)
+            ->orderBy('e.nombre', 'asc')
             ->getQuery();
 
         $paginator  = $this->get('knp_paginator');

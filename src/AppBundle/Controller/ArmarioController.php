@@ -85,6 +85,7 @@ class ArmarioController extends Controller
             ->leftJoin('arc.armario','arm')
             ->andWhere('arc.armario=:id')
             ->setParameter('id', $armario)
+            ->orderBy('arc.numero','asc')
             ->getQuery();
 
         $paginator  = $this->get('knp_paginator');

@@ -30,6 +30,12 @@ class Archivador
     private $color;
 
     /**
+     * @ORM\Column(type="string")
+     * @var string
+     */
+    private $descripcion;
+
+    /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Elementos", mappedBy="archivador")
      * @var Elementos
      * @ORM\JoinColumn(nullable=false)
@@ -187,5 +193,29 @@ class Archivador
     public function getArmario()
     {
         return $this->armario;
+    }
+
+    /**
+     * Set descripcion
+     *
+     * @param string $descripcion
+     *
+     * @return Archivador
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get descripcion
+     *
+     * @return string
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
     }
 }

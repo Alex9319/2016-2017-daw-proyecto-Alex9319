@@ -13,8 +13,9 @@
                 <thead>
                 <tr>
                     <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'Numero', 'a.numero') }}</th>
-                    <th class="col-sm-4">{{ knp_pagination_sortable(pagination, 'Color', 'a.color') }}</th>
-                    <th class="col-sm-5">{{ knp_pagination_sortable(pagination, 'Armario', 'ar.nombre') }}</th>
+                    <th class="col-sm-3">{{ knp_pagination_sortable(pagination, 'Color', 'a.color') }}</th>
+                    <th class="col-sm-3">Descripción del Archivador</th>
+                    <th class="col-sm-3">{{ knp_pagination_sortable(pagination, 'Armario', 'ar.nombre') }}</th>
                     {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
                 </tr>
                 </thead>
@@ -23,6 +24,7 @@
                     <tr>
                         <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Archivador', {'id': archivador.id}) }}">{{ archivador.numero }}</a>{% else %}{{ archivador.numero }}{% endif %}</td>
                         <td>{{ archivador.color }}</td>
+                        <td>{{ archivador.descripcion }}</td>
                         <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Armario', {'id': archivador.armario.id}) }}">{{ archivador.armario }}</a>{% else %}{{ archivador.armario }}{% endif %}</td>
                         {% if is_granted('ROLE_DOCUMENTADOR') %}
                             <td>

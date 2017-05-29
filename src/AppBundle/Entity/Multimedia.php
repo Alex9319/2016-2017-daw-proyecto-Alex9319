@@ -24,12 +24,12 @@ class Multimedia
     private $nombre;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", nullable=false)
      * @var string
      */
     private $multimedia;
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", nullable=false)
      * @var string
      */
     private $type;

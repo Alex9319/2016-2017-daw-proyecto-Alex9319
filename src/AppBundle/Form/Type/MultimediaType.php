@@ -5,6 +5,7 @@ namespace AppBundle\Form\Type;
 use AppBundle\Entity\Multimedia;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,7 +17,7 @@ class MultimediaType extends AbstractType
             ->add('nombre',null,array(
                 'label' => 'Nombre del articulo',
             ))
-            ->add('observaciones',null,array(
+            ->add('observaciones',TextareaType::class,array(
                 'label' => 'Descripción del articulo',
             ))
             ->add('multimedia', FileType::class ,array(

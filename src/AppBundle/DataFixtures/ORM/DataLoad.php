@@ -4,6 +4,9 @@ namespace AppBundle\DataFixtures\ORM;
 use AppBundle\Entity\Archivador;
 use AppBundle\Entity\Armario;
 use AppBundle\Entity\Categoria;
+use AppBundle\Entity\Elementos;
+use AppBundle\Entity\Multimedia;
+use AppBundle\Form\Type\MultimediaType;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -36,28 +39,24 @@ class dataLoad implements FixtureInterface, ContainerAwareInterface
         $manager->persist($user);
 
         $armario=new Armario();
-        $armario->setNombre('1. Derecha');
+        $armario->setNombre('Armario de ejemplo de la sala 1')->setUbicacion("Armario localizado en la sala 5");
         $manager->persist($armario);
 
-        $armario1=new Armario();
-        $armario1->setNombre('1. Izquierda');
-        $manager->persist($armario1);
-
         $archivador=new Archivador();
-        $archivador->setNumero(1)->setColor('Verde')->setArmario($armario);
+        $archivador->setNumero(1)->setColor('Verde')->setArmario($armario)->setDescripcion("Archivador que contiene partituras");
         $manager->persist($archivador);
-
-        $archivador1=new Archivador();
-        $archivador1->setNumero(2)->setColor('Rojo')->setArmario($armario1);
-        $manager->persist($archivador1);
 
         $categoria=new Categoria();
         $categoria->setNumero(1)->setNombre('Principal');
         $manager->persist($categoria);
 
-        $categoria1=new Categoria();
-        $categoria1->setNumero(2)->setNombre('Hija')->setPadre($categoria);
-        $manager->persist($categoria1);
+        $articulo=new Elementos();
+        $articulo->setNombre("Imagen del Maestro")->setObservaciones("En la imagen podemos ver una foto del maestro con una de sus guitarras")->setNivelDeAcceso(1200)->setFechaAlta(new \DateTime("now"))->setArchivador($archivador)->setCategoria($categoria);
+        $manager->persist($articulo);
+
+        $multimedia=new Multimedia();
+        $multimedia->setNombre('Ejemplo')->setMultimedia("uploads/image/ejemplo.jpg")->setType("image/jpg")->setElementos($articulo)->setObservaciones("Imagen del maestro");
+        $manager->persist($multimedia);
 
         $manager->flush();
     }

@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Elementos;
 use AppBundle\Entity\Multimedia;
 use AppBundle\Form\Type\ModMultimediaType;
 use AppBundle\Form\Type\MultimediaType;

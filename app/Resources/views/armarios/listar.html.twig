@@ -11,7 +11,8 @@
             <table class="table table-hover table-bordered">
                 <thead>
                 <tr>
-                    <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Nombre', 'a.nombre') }}</th>
+                    <th class="col-sm-4">{{ knp_pagination_sortable(pagination, 'Nombre', 'a.nombre') }}</th>
+                    <th class="col-sm-4">Ubicación</th>
                     {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
                 </tr>
                 </thead>
@@ -19,6 +20,7 @@
                 {% for armario in pagination %}
                     <tr>
                         <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Armario', {'id': armario.id}) }}">{{ armario.nombre }}</a>{% else %}{{ armario.nombre }}{% endif %}</td>
+                        <td>{{ armario.ubicacion }}</td>
                         {% if is_granted('ROLE_DOCUMENTADOR') %}
                             <td>
                                 <a href="{{ path('modificar_arm', {'id': armario.id}) }}" class="btn btn-sm btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>

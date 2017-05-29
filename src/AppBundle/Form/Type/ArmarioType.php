@@ -4,6 +4,7 @@ namespace AppBundle\Form\Type;
 
 use AppBundle\Entity\Armario;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,7 +19,14 @@ class ArmarioType extends AbstractType
                 'attr' => array(
                     'placeholder' => 'Introduzca el nombre del Armario'
                 )
-            ]);
+            ])
+        ->add('ubicacion',TextareaType::class,[
+            'label' => 'Ubicación del Armario',
+            'required' => false,
+            'attr' => array(
+                'placeholder' => 'Introduzca la ubicación del Armario'
+            )
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

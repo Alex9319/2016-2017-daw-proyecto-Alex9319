@@ -25,12 +25,10 @@ class ElementosController extends Controller
         $query = $em->createQueryBuilder()
             ->select('e')
             ->addSelect('m')
-            ->addSelect('arm')
             ->addSelect('arc')
             ->addSelect('cat')
             ->from('AppBundle:Elementos', 'e')
             ->leftJoin('e.multimedia','m')
-            ->leftJoin('e.armario','arm')
             ->leftJoin('e.archivador','arc')
             ->join('e.categoria','cat')
             ->where('e.NivelDeAcceso <= :roles')
@@ -67,13 +65,13 @@ class ElementosController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            try{
+//            try{
                 $em->flush();
                 $this->addFlash('estado', 'Cambios guardados con éxito');
                 return $this->redirectToRoute('listadoArticulos');
-            }catch (\Exception $e){
-                    $this->addFlash('error', 'No se ha guardado el articulo ya que existe un articulo con el mismo nombre');
-            }
+//            }catch (\Exception $e){
+//                    $this->addFlash('error', 'No se ha guardado el articulo ya que existe un articulo con el mismo nombre');
+//            }
         }
 
         return $this->render('elementos/form.html.twig', [

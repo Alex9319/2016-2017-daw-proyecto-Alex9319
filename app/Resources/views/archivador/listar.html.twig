@@ -13,9 +13,9 @@
                 <thead>
                 <tr>
                     <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'Numero', 'a.numero') }}</th>
-                    <th class="col-sm-3">{{ knp_pagination_sortable(pagination, 'Color', 'a.color') }}</th>
-                    <th class="col-sm-3">Descripción del Archivador</th>
-                    <th class="col-sm-3">{{ knp_pagination_sortable(pagination, 'Armario', 'ar.nombre') }}</th>
+                    <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'Color', 'a.color') }}</th>
+                    <th class="col-sm-5">Descripción del Archivador</th>
+                    <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'Armario', 'ar.nombre') }}</th>
                     {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
                 </tr>
                 </thead>

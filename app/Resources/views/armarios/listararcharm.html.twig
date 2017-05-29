@@ -11,8 +11,9 @@
             <table class="table table-hover table-bordered">
                 <thead>
                 <tr>
-                    <th class="col-sm-4">{{ knp_pagination_sortable(pagination, 'Numero', 'e.numero') }}</th>
-                    <th class="col-sm-7">{{ knp_pagination_sortable(pagination, 'Color', 'e.color') }}</th>
+                    <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'Numero', 'e.numero') }}</th>
+                    <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'Color', 'e.color') }}</th>
+                    <th class="col-sm-7">Descripción del Archivador</th>
                     {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
                 </tr>
                 </thead>
@@ -21,6 +22,7 @@
                     <tr>
                         <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Archivador', {'id': archivador.id}) }}">{{ archivador.numero }}</a>{% else %}{{ archivador.numero }}{% endif %}</td>
                         <td>{{ archivador.color }}</td>
+                        <td>{{ archivador.descripcion }}</td>
                         {% if is_granted('ROLE_DOCUMENTADOR') %}
                             <td>
                                 <a href="{{ path('modificar_arch', {'id': archivador.id}) }}" class="btn btn-sm btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>

@@ -1,13 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1>
-        {% if multimedia.id %}
-            Modificar Archivo Multimedia {{ multimedia }}
-        {% else %}
-            Nuevo Archivo Multimedia
-        {% endif %}
-    </h1>
+    <h1>Nuevo Archivo Multimedia</h1>
     {{ form_start(form) }}
     {{ form_widget(form) }}
     <div class="form-group" id="envio">

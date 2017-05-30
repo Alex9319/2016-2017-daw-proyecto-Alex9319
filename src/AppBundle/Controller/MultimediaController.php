@@ -39,33 +39,6 @@ class MultimediaController extends Controller
 
     /**
      * @Security("is_granted('ROLE_USER')")
-     * @Route("/multimedia/{id}", name="visor_Multimedia")
-     */
-    public function marticuloAction(Request $request, Multimedia $fichero)
-    {
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-        $multimedia = $em->createQueryBuilder()
-            ->select('m')
-            ->from('AppBundle:Multimedia', 'm')
-            ->getQuery();
-
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $multimedia, /* query NOT result */
-            $request->query->getInt('page', 1)/*numero de pagina*/
-        );
-
-        return $this->render('multimedia/visor.html.twig',
-            array('pagination' => $pagination,
-                'archivo'=>'/'.$fichero->getMultimedia(),
-                'contenido'=>$fichero->getNombre(),
-                'tipo'=>$fichero->getType()
-            ));
-    }
-
-    /**
-     * @Security("is_granted('ROLE_USER')")
      * @Route("/multimedia/visor/{id}", name="visor_Archivo")
      */
     public function varticuloAction(Request $request, Multimedia $fichero)
@@ -97,13 +70,15 @@ class MultimediaController extends Controller
      * @Security("is_granted('ROLE_DOCUMENTADOR')")
      * @Route("/multimedia/nuevo", name="nuevo_multimedia")
      */
-    public function nuevoAction(Request $request, Multimedia $multimedia = null)
+    public function nuevoAction(Request $request)
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
         $multimedia = new Multimedia();
         $em->persist($multimedia);
+
+        dump($multimedia);
 
         $form = $this->createForm(MultimediaType::class, $multimedia);
 
@@ -120,60 +95,87 @@ class MultimediaController extends Controller
                 // Le ponemos un nombre al fichero
                 $file_name = $file->getClientOriginalName();
 
-            if(substr($ext, 0,6 )=='image/'){
-                // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
-                $file->move("uploads/image", $file_name);
-                // Establecemos el nombre de fichero en el atributo de la entidad
-                $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/image/'.$file_name)->setObservaciones($form['observaciones']->getData());
-                $em->persist($multimedia);
-                try{
-                    $em->flush();
-                    $this->addFlash('estado', 'Cambios guardados con éxito');
-                    return $this->redirectToRoute('listadoMultimedia');
-                }catch (\Exception $e){
-                    $this->addFlash('error', 'No se ha guardado el archivo multimedia por que ya existe un archivo con este nombre');
+                if(substr($ext, 0,6 )=='image/'){
+                    // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
+                    $file->move("uploads/image", $file_name);
+                    // Establecemos el nombre de fichero en el atributo de la entidad
+                    $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/image/'.$file_name)->setObservaciones($form['observaciones']->getData());
+                    $em->persist($multimedia);
+                    try{
+                        $em->flush();
+                        $this->addFlash('estado', 'Cambios guardados con éxito');
+                        return $this->redirectToRoute('listadoMultimedia');
+                    }catch (\Exception $e){
+                        $this->addFlash('error', 'No se ha guardado el archivo multimedia por que ya existe un archivo con este nombre');
+                    }
                 }
-            }
-            elseif (substr($ext, 0,6 )=='video/'){
-                // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
-                $file->move("uploads/video", $file_name);
-                // Establecemos el nombre de fichero en el atributo de la entidad
-                $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/video/'.$file_name)->setObservaciones($form['observaciones']->getData());
-                $em->persist($multimedia);
-                try{
-                    $em->flush();
-                    $this->addFlash('estado', 'Cambios guardados con éxito');
-                    return $this->redirectToRoute('listadoMultimedia');
-                }catch (\Exception $e){
-                    $this->addFlash('error', 'No se ha guardado el archivo multimedia por que ya existe un archivo con este nombre');
+                elseif (substr($ext, 0,6 )=='video/'){
+                    // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
+                    $file->move("uploads/video", $file_name);
+                    // Establecemos el nombre de fichero en el atributo de la entidad
+                    $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/video/'.$file_name)->setObservaciones($form['observaciones']->getData());
+                    $em->persist($multimedia);
+                    try{
+                        $em->flush();
+                        $this->addFlash('estado', 'Cambios guardados con éxito');
+                        return $this->redirectToRoute('listadoMultimedia');
+                    }catch (\Exception $e){
+                        $this->addFlash('error', 'No se ha guardado el archivo multimedia por que ya existe un archivo con este nombre');
+                    }
                 }
-            }
-            elseif (substr($ext, 0,6 )=='audio/'){
-                // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
-                $file->move("uploads/audio", $file_name);
-                // Establecemos el nombre de fichero en el atributo de la entidad
-                $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/audio/'.$file_name)->setObservaciones($form['observaciones']->getData());
-                $em->persist($multimedia);
-                try{
-                    $em->flush();
-                    $this->addFlash('estado', 'Cambios guardados con éxito');
-                    return $this->redirectToRoute('listadoMultimedia');
-                }catch (\Exception $e){
-                    $this->addFlash('error', 'No se ha guardado el archivo multimedia por que ya existe un archivo con este nombre');
+                elseif (substr($ext, 0,6 )=='audio/'){
+                    // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
+                    $file->move("uploads/audio", $file_name);
+                    // Establecemos el nombre de fichero en el atributo de la entidad
+                    $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/audio/'.$file_name)->setObservaciones($form['observaciones']->getData());
+                    $em->persist($multimedia);
+                    try{
+                        $em->flush();
+                        $this->addFlash('estado', 'Cambios guardados con éxito');
+                        return $this->redirectToRoute('listadoMultimedia');
+                    }catch (\Exception $e){
+                        $this->addFlash('error', 'No se ha guardado el archivo multimedia por que ya existe un archivo con este nombre');
+                    }
+                }else{
+                    $this->addFlash('error', 'El archivo multimedia debe de ser un audio, un video o una imagen');
                 }
-            }else{
-                $this->addFlash('error', 'El archivo multimedia debe de ser un audio, un video o una imagen');
-            }
             }catch (\Exception $e){
                 $this->addFlash('error', 'El archivo multimedia es demasiado grande');
             }
         }
 
         return $this->render('multimedia/form.html.twig', [
-            'multimedia' => $multimedia,
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Security("is_granted('ROLE_USER')")
+     * @Route("/multimedia/{id}", name="visor_Multimedia")
+     */
+    public function marticuloAction(Request $request, Multimedia $fichero)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $multimedia = $em->createQueryBuilder()
+            ->select('m')
+            ->from('AppBundle:Multimedia', 'm')
+            ->getQuery();
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $multimedia, /* query NOT result */
+            $request->query->getInt('page', 1)/*numero de pagina*/
+        );
+
+        return $this->render('multimedia/visor.html.twig',
+            array('pagination' => $pagination,
+                'archivo'=>'/'.$fichero->getMultimedia(),
+                'contenido'=>$fichero->getNombre(),
+                'tipo'=>$fichero->getType()
+            ));
+    }
+
     /**
      * @Security("is_granted('ROLE_DOCUMENTADOR')")
      * @Route("/multimedia/modificar/{id}", name="modificar_multimedia")

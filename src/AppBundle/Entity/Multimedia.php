@@ -18,18 +18,18 @@ class Multimedia
     private $id;
 
     /**
-     * @ORM\Column(type="string", nullable=true, unique=true)
+     * @ORM\Column(type="string", nullable=false, unique=true)
      * @var string
      */
     private $nombre;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string")
      * @var string
      */
     private $multimedia;
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string")
      * @var string
      */
     private $type;

@@ -97,15 +97,13 @@ class MultimediaController extends Controller
      * @Security("is_granted('ROLE_DOCUMENTADOR')")
      * @Route("/multimedia/nuevo", name="nuevo_multimedia")
      */
-    public function formularioAction(Request $request, Multimedia $multimedia = null)
+    public function nuevoAction(Request $request, Multimedia $multimedia = null)
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        if (null == $multimedia) {
-            $multimedia = new Multimedia();
-            $em->persist($multimedia);
-        }
+        $multimedia = new Multimedia();
+        $em->persist($multimedia);
 
         $form = $this->createForm(MultimediaType::class, $multimedia);
 
@@ -126,7 +124,7 @@ class MultimediaController extends Controller
                 // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
                 $file->move("uploads/image", $file_name);
                 // Establecemos el nombre de fichero en el atributo de la entidad
-                $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/image/'.$file_name);
+                $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/image/'.$file_name)->setObservaciones($form['observaciones']->getData());
                 $em->persist($multimedia);
                 try{
                     $em->flush();
@@ -140,7 +138,7 @@ class MultimediaController extends Controller
                 // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
                 $file->move("uploads/video", $file_name);
                 // Establecemos el nombre de fichero en el atributo de la entidad
-                $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/video/'.$file_name);
+                $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/video/'.$file_name)->setObservaciones($form['observaciones']->getData());
                 $em->persist($multimedia);
                 try{
                     $em->flush();
@@ -154,7 +152,7 @@ class MultimediaController extends Controller
                 // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
                 $file->move("uploads/audio", $file_name);
                 // Establecemos el nombre de fichero en el atributo de la entidad
-                $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/audio/'.$file_name);
+                $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/audio/'.$file_name)->setObservaciones($form['observaciones']->getData());
                 $em->persist($multimedia);
                 try{
                     $em->flush();
@@ -208,7 +206,7 @@ class MultimediaController extends Controller
                         // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
                         $file->move("uploads/image", $file_name);
                         // Establecemos el nombre de fichero en el atributo de la entidad
-                        $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/image/'.$file_name);
+                        $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/image/'.$file_name)->setObservaciones($form['observaciones']->getData());
                         //Borramos el fichero antiguo
                         unlink($img);
                         $em->persist($multimedia);
@@ -225,7 +223,7 @@ class MultimediaController extends Controller
                         // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
                         $file->move("uploads/video", $file_name);
                         // Establecemos el nombre de fichero en el atributo de la entidad
-                        $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/video/'.$file_name);
+                        $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/video/'.$file_name)->setObservaciones($form['observaciones']->getData());
                         //Borramos el fichero antiguo
                         unlink($img);
                         $em->persist($multimedia);
@@ -242,7 +240,7 @@ class MultimediaController extends Controller
                         // Guardamos el fichero en el directorio uploads que estará en el directorio /web/uploads del framework
                         $file->move("uploads/audio", $file_name);
                         // Establecemos el nombre de fichero en el atributo de la entidad
-                        $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/audio/'.$file_name);
+                        $multimedia->setNombre($form['nombre']->getData())->setType($ext)->setMultimedia('uploads/audio/'.$file_name)->setObservaciones($form['observaciones']->getData());
                         //Borramos el fichero antiguo
                         unlink($img);
                         $em->persist($multimedia);

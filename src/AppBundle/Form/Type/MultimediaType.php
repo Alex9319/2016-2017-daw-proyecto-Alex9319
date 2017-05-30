@@ -16,12 +16,15 @@ class MultimediaType extends AbstractType
         $builder
             ->add('nombre',null,array(
                 'label' => 'Nombre del articulo',
+                'required' => true
             ))
             ->add('observaciones',TextareaType::class,array(
                 'label' => 'Descripción del articulo',
+                'required' => false
             ))
             ->add('multimedia', FileType::class ,array(
-                'label' => 'Fichero multimedia del articulo'
+                'label' => 'Fichero multimedia del articulo',
+                'required' => true
             ))
             ->add('elementos',null,[
                 'label'=>'Id de elemento',

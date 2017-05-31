@@ -4,7 +4,7 @@
     <h1>Confirmar eliminación de {{ armario }}</h1>
     <form method="post" action="{{ path('confirmar_borrar_armario', {'id': armario.id}) }}" name="confirmar">
         <button type="submit" name="eliminar" class="btn btn-danger"><i class="fa fa-trash"></i> Sí, quiero eliminarlo</button>
-        <a href="{{ path('listadoArmarios') }}" class="btn btn-info">No, quiero volver</a>
+        <a href="javascript:history.go(-1);" class="btn btn-info"><i class="fa fa-reply"></i> No, quiero volver</a>
     </form>
 {% endblock %}
 

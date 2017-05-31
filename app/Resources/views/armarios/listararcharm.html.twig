@@ -38,7 +38,7 @@
             {{ knp_pagination_render(pagination) }}
         </div>
         <div id="botones">
-            <a href="{{ app.request.headers.get('referer') }}" class="btn btn-info"><i class="fa fa-reply"></i> Volver</a>
+            <a href="javascript:history.go(-1);" class="btn btn-info"><i class="fa fa-reply"></i> Volver</a>
         </div>
     {% else %}
         <h4 id="error">Este Armario está vacío</h4>

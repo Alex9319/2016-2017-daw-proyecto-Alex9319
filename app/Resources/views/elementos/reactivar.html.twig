@@ -4,7 +4,7 @@
     <h1>Confirmar reactivación de {{ articulo }}</h1>
     <form method="post" action="{{ path('confirmar_activar_articulo', {'id': articulo.id}) }}" name="confirmar">
         <button type="submit" name="activar" class="btn btn-success"><i class="fa fa-upload"></i> Sí, quiero activarlo</button>
-        <a href="{{ path('listadoArticulos') }}" class="btn btn-danger">No, quiero volver</a>
+        <a href="javascript:history.go(-1);" class="btn btn-info"><i class="fa fa-reply"></i> No, quiero volver</a>
     </form>
 {% endblock %}
 

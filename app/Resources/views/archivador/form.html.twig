@@ -12,7 +12,7 @@
     {{ form_widget(form) }}
     <div class="form-group" id="envio">
         <button type="submit" name="enviar" class="btn btn-success"><i class="fa fa-check"></i> Guardar</button>
-        <button type="button" name="volver" class="btn btn-info"><a href="{{ path('listadoArchivadores') }}"><i class="fa fa-reply"></i> Volver</a></button>
+        <a href="{{ app.request.headers.get('referer') }}" class="btn btn-info"><i class="fa fa-reply"></i> Volver</a>
     </div>
     {{ form_end(form) }}
 {% endblock %}

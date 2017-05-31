@@ -38,7 +38,7 @@
                 <td>{{ elemento.observaciones }}</td>
                 <td>{{ elemento.fechaAlta | date("d/m/Y") }}</td>
                 <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Archivador', {'id': elemento.archivador.id}) }}">{{ elemento.archivador }}</a>{% else %}{{ elemento.archivador }}{% endif %}</td>
-                <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Armario', {'id': elemento.armario.id}) }}">{{ elemento.armario }}</a>{% else %}{{ elemento.armario }}{% endif %}</td>
+                <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Armario', {'id': elemento.archivador.armario.id}) }}">{{ elemento.archivador.armario }}</a>{% else %}{{ elemento.archivador.armario }}{% endif %}</td>
                 <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Categoria', {'id': elemento.categoria.id}) }}">{{ elemento.categoria }}</a>{% else %}{{ elemento.categoria }}{% endif %}</td>
                 {% if is_granted('ROLE_DOCUMENTADOR') %}
                     <td>

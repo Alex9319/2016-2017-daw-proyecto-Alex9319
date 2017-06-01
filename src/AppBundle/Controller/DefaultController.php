@@ -153,13 +153,13 @@ class DefaultController extends Controller
                     ->setParameter('nombre', '%' . $request->get('busco') . '%')
                     ->setParameter('roles', $rol)
                     ->orderBy('e.fechaAlta', 'desc')
-                    ->getQuery()
-                    ->getResult();
+                    ->getQuery();
 
                 $paginator  = $this->get('knp_paginator');
                 $pagination = $paginator->paginate(
                     $query, /* query NOT result */
-                    $request->query->getInt('page', 1)/*numero de pagina*/
+                    $request->query->getInt('page', 1)/*page number*/,
+                    12/*limit per page*/
                 );
             }
 

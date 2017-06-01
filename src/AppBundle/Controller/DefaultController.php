@@ -21,15 +21,28 @@ class DefaultController extends Controller
         }
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        $query = $em->createQueryBuilder()
-            ->select('e')
-            ->addSelect('m')
-            ->from('AppBundle:Elementos', 'e')
-            ->leftJoin('e.multimedia','m')
-            ->where('e.NivelDeAcceso <= :roles')
-            ->setParameter('roles', $rol)
-            ->orderBy( 'e.fechaAlta','desc')
-            ->getQuery();
+        if($rol==2000){
+            $query = $em->createQueryBuilder()
+                ->select('e')
+                ->addSelect('m')
+                ->from('AppBundle:Elementos', 'e')
+                ->leftJoin('e.multimedia', 'm')
+                ->where('e.NivelDeAcceso <= :roles')
+                ->setParameter('roles', $rol)
+                ->orderBy('e.fechaAlta', 'desc')
+                ->getQuery();
+        }else {
+            $query = $em->createQueryBuilder()
+                ->select('e')
+                ->addSelect('m')
+                ->from('AppBundle:Elementos', 'e')
+                ->leftJoin('e.multimedia', 'm')
+                ->where('e.NivelDeAcceso <= :roles')
+                ->andWhere('e.fechaBaja is null')
+                ->setParameter('roles', $rol)
+                ->orderBy('e.fechaAlta', 'desc')
+                ->getQuery();
+        }
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -105,24 +118,51 @@ class DefaultController extends Controller
             }
             /** @var EntityManager $em */
             $em = $this->getDoctrine()->getManager();
-            $query = $em->createQueryBuilder()
-                ->select('e')
-                ->addSelect('m')
-                ->addSelect('arc')
-                ->addSelect('cat')
-                ->from('AppBundle:Elementos', 'e')
-                ->leftJoin('e.multimedia','m')
-                ->join('e.archivador','arc')
-                ->join('e.categoria','cat')
-                ->where('e.NivelDeAcceso <= :roles')
-                ->setParameter('roles', $rol)
-                ->andWhere('e.nombre LIKE :nombre')
-                ->orWhere('e.observaciones LIKE :nombre')
-                ->setParameter('nombre', '%' . $request->get('busco') . '%')
-                ->setParameter('roles', $rol)
-                ->getQuery()
-                ->getResult();
-//
+            if($rol===2000){
+                $pagination = $em->createQueryBuilder()
+                    ->select('e')
+                    ->addSelect('m')
+                    ->addSelect('arc')
+                    ->addSelect('cat')
+                    ->from('AppBundle:Elementos', 'e')
+                    ->leftJoin('e.multimedia', 'm')
+                    ->leftJoin('e.archivador', 'arc')
+                    ->join('e.categoria', 'cat')
+                    ->where('e.NivelDeAcceso <= :roles')
+                    ->andWhere('e.nombre LIKE :nombre')
+                    ->orWhere('e.observaciones LIKE :nombre')
+                    ->setParameter('nombre', '%' . $request->get('busco') . '%')
+                    ->setParameter('roles', $rol)
+                    ->orderBy('e.fechaAlta', 'desc')
+                    ->getQuery()
+                    ->getResult();
+            }else {
+                $query = $em->createQueryBuilder()
+                    ->select('e')
+                    ->addSelect('m')
+                    ->addSelect('arc')
+                    ->addSelect('cat')
+                    ->from('AppBundle:Elementos', 'e')
+                    ->leftJoin('e.multimedia', 'm')
+                    ->leftJoin('e.archivador', 'arc')
+                    ->join('e.categoria', 'cat')
+                    ->Where('e.nombre LIKE :nombre')
+                    ->orWhere('e.observaciones LIKE :nombre')
+                    ->andwhere('e.NivelDeAcceso <= :roles')
+                    ->andWhere('e.fechaBaja is null')
+                    ->setParameter('nombre', '%' . $request->get('busco') . '%')
+                    ->setParameter('roles', $rol)
+                    ->orderBy('e.fechaAlta', 'desc')
+                    ->getQuery()
+                    ->getResult();
+
+                $paginator  = $this->get('knp_paginator');
+                $pagination = $paginator->paginate(
+                    $query, /* query NOT result */
+                    $request->query->getInt('page', 1)/*numero de pagina*/
+                );
+            }
+
             /** @var EntityManager $em */
             $em = $this->getDoctrine()->getManager();
             $query1 = $em->createQueryBuilder()
@@ -154,7 +194,7 @@ class DefaultController extends Controller
                 ->getQuery()
                 ->getResult();
 
-            return $this->render('aplicacion/buscar.html.twig', array('pagination' => $query, 'pagination1' => $query1, 'pagination2' => $query2, 'pagination3' => $query3, 'variable' => $request->get('busco')));
+            return $this->render('aplicacion/buscar.html.twig', array('pagination' => $pagination, 'pagination1' => $query1, 'pagination2' => $query2, 'pagination3' => $query3, 'variable' => $request->get('busco')));
         }
     }
 }

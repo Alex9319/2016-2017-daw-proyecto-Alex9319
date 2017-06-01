@@ -1,64 +1,132 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
+    {% if pagination|length==0 %}
+        <h4 id="error">No hay ningun Articulo que se llame o que contenga {{ variable }} en sus observaciones</h4>
+    {% endif %}
+     {% if is_granted('ROLE_DOCUMENTADOR') %}
+        {% if pagination1|length==0 %}
+            <h4 id="error">No hay ninguna Categoria que se llame o que contenga {{ variable }}</h4>
+        {% endif %}
+        {% if pagination2|length==0 %}
+            <h4 id="error">No hay ningun Armario que se llame o que contenga {{ variable }}</h4>
+        {% endif %}
+        {% if pagination3|length==0 %}
+            <h4 id="error">No hay ningun Archivador que contenga en su color o número {{ variable }}</h4>
+        {% endif %}
+    {% endif %}
     {% if( pagination|length !=0) %}
     <h1>Elementos que contienen {{ variable }}</h1>
-    <h5>Total de Articulos: {{ pagination|length }}</h5>
-    <p></p>
-    <table class="table table-responsive table-hover table-bordered">
-        <thead>
-        <tr>
-            <th class="col-sm-1">Archivos Multimedia</th>
-            <th class="col-sm-2">Nombre</th>
-            <th class="col-sm-2">Observaciones</th>
-            <th class="col-sm-1">Fecha de Alta</th>
-            <th class="col-sm-1">Archivador</th>
-            <th class="col-sm-1">Armario</th>
-            <th class="col-sm-2">Categoria</th>
-            {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-2">Acciones</th>{% endif %}
-        </tr>
-        </thead>
-        <tbody>
-        {% for elemento in pagination %}
-            <tr{% if(elemento.fechaBaja and is_granted('ROLE_ADMIN')) %} class="danger" {% endif %}>
-                <td>
-                    {% if(is_granted('ROLE_DOCUMENTADOR')) %}
-                        {% if(elemento.multimedia|length!=0) %}
-                            {% for numero in elemento.multimedia %}
-                                <a href="{{ path('visor_Archivo', {'id':numero.id}) }}">{{ numero.observaciones }}</a><br/>
-                            {% endfor %}
-                        {% else %}
-                            {{ elemento.multimedia|length }}
+        {% if is_granted('ROLE_DOCUMENTADOR') %}
+        <p></p>
+            <table class="table table-responsive table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th class="col-sm-1">Archivos Multimedia</th>
+                    <th class="col-sm-2">Nombre</th>
+                    <th class="col-sm-2">Observaciones</th>
+                    <th class="col-sm-1">Fecha de Alta</th>
+                    <th class="col-sm-1">Archivador</th>
+                    <th class="col-sm-1">Armario</th>
+                    <th class="col-sm-2">Categoria</th>
+                    {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-2">Acciones</th>{% endif %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for elemento in pagination %}
+                    <tr{% if(elemento.fechaBaja and is_granted('ROLE_ADMIN')) %} class="danger" {% endif %}>
+                        <td>
+                            {% if(is_granted('ROLE_DOCUMENTADOR')) %}
+                                {% if(elemento.multimedia|length!=0) %}
+                                    {% for numero in elemento.multimedia %}
+                                        <a href="{{ path('visor_Archivo', {'id':numero.id}) }}">{{ numero.observaciones }}</a><br/>
+                                    {% endfor %}
+                                {% else %}
+                                    {{ elemento.multimedia|length }}
+                                {% endif %}
+                            {% else %}
+                                {{ elemento.multimedia|length }}
+                            {% endif %}
+                        </td>
+                        <td>{{ elemento.nombre }}</td>
+                        <td>{{ elemento.observaciones }}</td>
+                        <td>{{ elemento.fechaAlta | date("d/m/Y") }}</td>
+                        <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Archivador', {'id': elemento.archivador.id}) }}">{{ elemento.archivador }}</a>{% else %}{{ elemento.archivador }}{% endif %}</td>
+                        <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Armario', {'id': elemento.archivador.armario.id}) }}">{{ elemento.archivador.armario }}</a>{% else %}{{ elemento.archivador.armario }}{% endif %}</td>
+                        <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Categoria', {'id': elemento.categoria.id}) }}">{{ elemento.categoria }}</a>{% else %}{{ elemento.categoria }}{% endif %}</td>
+                        {% if is_granted('ROLE_DOCUMENTADOR') %}
+                            <td>
+                                {% if elemento.fechaBaja is null %}<a href="{{ path('modificar_articulo', {'id': elemento.id}) }}" class="btn btn-sm btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>{% endif %}
+                                {% if is_granted('ROLE_ADMIN') %}{% if elemento.fechaBaja is null %}<a href="{{ path('desactivar_articulo', {'id': elemento.id}) }}" class="btn btn-sm btn-danger" title="Desactivar"><i class="fa fa-download"></i></a>{% endif %}{% endif %}
+                                {% if is_granted('ROLE_ADMIN') %}{% if elemento.fechaBaja is not null %}<a href="{{ path('reactivar_articulo', {'id': elemento.id}) }}" class="btn btn-sm btn-success" title="Reactivar"><i class="fa fa-upload"></i></a>{% endif %}{% endif %}
+                            </td>
                         {% endif %}
-                    {% else %}
-                        {{ elemento.multimedia|length }}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="articulos">
+                {% for articulos in pagination %}
+                    {% if  articulos.nombre %}
+                        <div class="contenido-articulo col-md-4" >
+
+                            <h2>{{ articulos.nombre|title }}</h2>
+                            <p class="col-md-12">{{ articulos.observaciones|capitalize }}</p>
+                            <!-- Trigger the modal with a button -->
+                            <button type="button" class="btn btn-info btn-lg-4 col-md-4 col-xs-6 col-sm-6 col-md-offset-4" data-toggle="modal" data-target="#{{ articulos.id }}">Ver</button>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="{{ articulos.id }}" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">{{ articulos.nombre|title }}</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="multimedia">
+                                        {% for numero in articulos.multimedia %}
+                                            {% if ("image" in numero.getType() ) %}
+                                                <a href="{{ numero.multimedia }}" rel="lightbox[galeria{{ articulos.id }}]"><img src="{{ numero.multimedia }}" class="col-md-6" alt="{{ numero.nombre }}"></a>
+                                            {%  endif %}
+                                            {% if ("video" in numero.getType() ) %}
+                                                <video class="col-md-6" width="320" height="240" controls controlsList="nodownload">
+                                                    <source src="{{ numero.multimedia }}" type="{{ numero.getType() }}">
+                                                    Tu navegador no soporta el elemento de video.
+                                                </video>
+                                            {%  endif %}
+                                            {% if ("audio" in numero.getType() ) %}
+                                                <audio class="col-md-6" controls controlsList="nodownload">
+                                                    <source src="{{ numero.multimedia }}" type="{{ numero.getType() }}">
+                                                    Tu navegador no soporta el elemento de audio.
+                                                </audio>
+                                            {%  endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <hr />
+                                    <p>{{ articulos.observaciones|capitalize }}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default cerrar" data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                     {% endif %}
-                </td>
-                <td>{{ elemento.nombre }}</td>
-                <td>{{ elemento.observaciones }}</td>
-                <td>{{ elemento.fechaAlta | date("d/m/Y") }}</td>
-                <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Archivador', {'id': elemento.archivador.id}) }}">{{ elemento.archivador }}</a>{% else %}{{ elemento.archivador }}{% endif %}</td>
-                <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Armario', {'id': elemento.archivador.armario.id}) }}">{{ elemento.archivador.armario }}</a>{% else %}{{ elemento.archivador.armario }}{% endif %}</td>
-                <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Categoria', {'id': elemento.categoria.id}) }}">{{ elemento.categoria }}</a>{% else %}{{ elemento.categoria }}{% endif %}</td>
-                {% if is_granted('ROLE_DOCUMENTADOR') %}
-                    <td>
-                        {% if elemento.fechaBaja is null %}<a href="{{ path('modificar_articulo', {'id': elemento.id}) }}" class="btn btn-ms btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>{% endif %}
-                        {% if is_granted('ROLE_ADMIN') %}{% if elemento.fechaBaja is null %}<a href="{{ path('desactivar_articulo', {'id': elemento.id}) }}" class="btn btn-sm btn-danger" title="Desactivar"><i class="fa fa-download"></i></a>{% endif %}{% endif %}
-                        {% if is_granted('ROLE_ADMIN') %}{% if elemento.fechaBaja is not null %}<a href="{{ path('reactivar_articulo', {'id': elemento.id}) }}" class="btn btn-sm btn-success" title="Reactivar"><i class="fa fa-upload"></i></a>{% endif %}{% endif %}
-                    </td>
-                {% endif %}
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-        <h4 id="error">No hay ninguna Elemento que se llame o que contenga {{ variable }} en sus observaciones</h4>
+                {% endfor %}
+            </div>
+            <div id="paginador">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        {% endif %}
     {% endif %}
     {% if app.user and is_granted('ROLE_DOCUMENTADOR') %}
         {% if( pagination1|length !=0) %}
         <h1>Categorias que contienen {{ variable }}</h1>
-         total items count
-        <h5>Total de Categorias: {{ pagination1|length }}</h5>
         <p></p>
         <table class="table table-responsive table-hover">
             <thead>
@@ -81,12 +149,9 @@
             {% endfor %}
             </tbody>
         </table>
-            {% else %}
-            <h4 id="error">No hay ninguna categoria que se llame o que contenga {{ variable }}</h4>
     {% endif %}
         {% if( pagination2|length !=0) %}
             <h1>Listado de Armarios que contienen {{ variable }}</h1>
-            <h5>Total de Armarios: {{ pagination2|length }}</h5>
             <p></p>
             <div class="table-responsive">
                 <table class="table table-hover table-bordered">
@@ -111,13 +176,9 @@
                     </tbody>
                 </table>
             </div>
-        {% else %}
-            <h4 id="error">No hay ningun Armario que se llame o que contenga {{ variable }}</h4>
         {% endif %}
         {% if( pagination3|length !=0) %}
             <h1>Listado de Archivadores que contienen {{ variable }}</h1>
-             total items count
-            <h5>Total de Archivadores: {{ pagination3|length }}</h5>
             <p></p>
             <div class="table-responsive">
                 <table class="table table-hover table-bordered">
@@ -146,8 +207,6 @@
                     </tbody>
                 </table>
             </div>
-        {% else %}
-            <h4 id="error">No hay ningun Archivador que contenga en su color o numero {{ variable }}</h4>
         {% endif %}
     {% endif %}
 {% endblock %}

@@ -22,19 +22,36 @@ class ElementosController extends Controller
         $rol = $this->getUser()->getNiveldeacceso();
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        $query = $em->createQueryBuilder()
-            ->select('e')
-            ->addSelect('m')
-            ->addSelect('arc')
-            ->addSelect('cat')
-            ->from('AppBundle:Elementos', 'e')
-            ->leftJoin('e.multimedia','m')
-            ->leftJoin('e.archivador','arc')
-            ->join('e.categoria','cat')
-            ->where('e.NivelDeAcceso <= :roles')
-            ->setParameter('roles', $rol)
-            ->orderBy( 'e.fechaAlta','desc')
-            ->getQuery();
+        if($rol==2000){
+            $query = $em->createQueryBuilder()
+                ->select('e')
+                ->addSelect('m')
+                ->addSelect('arc')
+                ->addSelect('cat')
+                ->from('AppBundle:Elementos', 'e')
+                ->leftJoin('e.multimedia', 'm')
+                ->leftJoin('e.archivador', 'arc')
+                ->join('e.categoria', 'cat')
+                ->where('e.NivelDeAcceso <= :roles')
+                ->setParameter('roles', $rol)
+                ->orderBy('e.fechaAlta', 'desc')
+                ->getQuery();
+        }else {
+            $query = $em->createQueryBuilder()
+                ->select('e')
+                ->addSelect('m')
+                ->addSelect('arc')
+                ->addSelect('cat')
+                ->from('AppBundle:Elementos', 'e')
+                ->leftJoin('e.multimedia', 'm')
+                ->leftJoin('e.archivador', 'arc')
+                ->join('e.categoria', 'cat')
+                ->where('e.NivelDeAcceso <= :roles')
+                ->andWhere('e.fechaBaja is null')
+                ->setParameter('roles', $rol)
+                ->orderBy('e.fechaAlta', 'desc')
+                ->getQuery();
+        }
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(

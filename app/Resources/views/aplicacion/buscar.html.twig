@@ -128,27 +128,29 @@
         {% if( pagination1|length !=0) %}
         <h1>Categorias que contienen {{ variable }}</h1>
         <p></p>
-        <table class="table table-responsive table-hover">
-            <thead>
-            <tr>
-                <th class="col-sm-5">Nombre</th>
-                <th class="col-sm-5">Padre</th>
-                <th class="col-sm-1">Acciones</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for categoria in pagination1 %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
                 <tr>
-                    <td>{{ categoria }}</td>
-                    <td>{{ categoria.padre }}</td>
-                    <td>
-                        <a href="{{ path('modificar_cat', {'id': categoria.id}) }}" class="btn btn-sm btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
-                        {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_categoria', {'id': categoria.id}) }}" class="btn btn-sm btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
-                    </td>
+                    <th class="col-sm-5">Nombre</th>
+                    <th class="col-sm-5">Padre</th>
+                    <th class="col-sm-1">Acciones</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {% for categoria in pagination1 %}
+                    <tr>
+                        <td>{{ categoria }}</td>
+                        <td>{{ categoria.padre }}</td>
+                        <td>
+                            <a href="{{ path('modificar_cat', {'id': categoria.id}) }}" class="btn btn-sm btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>
+                            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('borrar_categoria', {'id': categoria.id}) }}" class="btn btn-sm btn-danger" title="Borrar"><i class="fa fa-trash"></i></a>{% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     {% endif %}
         {% if( pagination2|length !=0) %}
             <h1>Listado de Armarios que contienen {{ variable }}</h1>

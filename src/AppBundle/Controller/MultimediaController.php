@@ -39,7 +39,7 @@ class MultimediaController extends Controller
 
     /**
      * @Security("is_granted('ROLE_USER')")
-     * @Route("/multimedia/visor/{id}", name="visor_Archivo")
+     * @Route("/multimedia/visor/articulo/{id}", name="visor_Archivo")
      */
     public function varticuloAction(Request $request, Multimedia $fichero)
     {
@@ -151,7 +151,7 @@ class MultimediaController extends Controller
 
     /**
      * @Security("is_granted('ROLE_USER')")
-     * @Route("/multimedia/{id}", requirements={"id" = "\d+"}, name="visor_Multimedia")
+     * @Route("/multimedia/visor/{id}", name="visor_Multimedia")
      */
     public function marticuloAction(Request $request, Multimedia $fichero)
     {

@@ -151,7 +151,7 @@ class MultimediaController extends Controller
 
     /**
      * @Security("is_granted('ROLE_USER')")
-     * @Route("/multimedia/{id}", name="visor_Multimedia")
+     * @Route("/multimedia/{id}", requirements={"id" = "\d+"}, name="visor_Multimedia")
      */
     public function marticuloAction(Request $request, Multimedia $fichero)
     {

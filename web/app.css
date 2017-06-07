@@ -250,4 +250,7 @@ footer {
     #visor{
         flex-direction: column;
     }
+    .visor{
+        margin: 10px;
+    }
 }

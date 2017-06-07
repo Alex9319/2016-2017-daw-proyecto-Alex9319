@@ -175,6 +175,10 @@ footer {
     justify-content: center;
     align-items: flex-end;
 }
+#visor{
+    display: flex;
+    justify-content: center;
+}
 .visor img,.visor video{
     width: 300px;
     height: 250px;
@@ -242,5 +246,8 @@ footer {
     }
     table td img, table td video{
         width: 100px;
+    }
+    #visor{
+        flex-direction: column;
     }
 }

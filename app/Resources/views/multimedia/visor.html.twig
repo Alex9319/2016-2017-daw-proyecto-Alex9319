@@ -4,6 +4,7 @@
     <h1>Listado de Archivos Multimedia</h1>
     <h5>Total de Articulos: {{ pagination.getTotalItemCount }}</h5>
         <p></p>
+    <div id="visor">
         <div class="table-responsive col-sm-8">
             <table class="table table-hover table-bordered">
                 <thead>
@@ -46,6 +47,7 @@
                     </audio>
                 {%  endif %}
         </div>
+    </div>
     <div id="botones">
         <a href="javascript:history.go(-1);" class="btn btn-info"><i class="fa fa-reply"></i> Volver</a>
     </div>

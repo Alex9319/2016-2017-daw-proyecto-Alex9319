@@ -247,6 +247,9 @@ footer {
     table td img, table td video{
         width: 100px;
     }
+    .contenido-articulo>p{
+       white-space: pre-wrap;
+    }
     #visor{
         flex-direction: column;
     }

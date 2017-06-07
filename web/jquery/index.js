@@ -14,16 +14,16 @@ $(document).ready(function() {
             $(".desplegable").hide();
         });
         $('select').select2();
+
+        $(window).resize(function () {
+            $('select').select2();
+        });
     }
     else {
         $("#usuario").click(function () {
             $(".desplegable").toggle();
         });
     }
-
-    $(window).resize(function () {
-        $('select').select2();
-    });
 
     $('.cerrar').click(function () {
         fina = $("audio").length;

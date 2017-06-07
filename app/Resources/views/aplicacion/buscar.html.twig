@@ -19,52 +19,54 @@
     <h1>Elementos que contienen {{ variable }}</h1>
         {% if is_granted('ROLE_DOCUMENTADOR') %}
         <p></p>
-            <table class="table table-responsive table-hover table-bordered">
-                <thead>
-                <tr>
-                    <th class="col-sm-1">Archivos Multimedia</th>
-                    <th class="col-sm-2">Nombre</th>
-                    <th class="col-sm-2">Observaciones</th>
-                    <th class="col-sm-1">Fecha de Alta</th>
-                    <th class="col-sm-1">Archivador</th>
-                    <th class="col-sm-1">Armario</th>
-                    <th class="col-sm-2">Categoria</th>
-                    {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-2">Acciones</th>{% endif %}
-                </tr>
-                </thead>
-                <tbody>
-                {% for elemento in pagination %}
-                    <tr{% if(elemento.fechaBaja and is_granted('ROLE_ADMIN')) %} class="danger" {% endif %}>
-                        <td>
-                            {% if(is_granted('ROLE_DOCUMENTADOR')) %}
-                                {% if(elemento.multimedia|length!=0) %}
-                                    {% for numero in elemento.multimedia %}
-                                        <a href="{{ path('visor_Archivo', {'id':numero.id}) }}">{{ numero.observaciones }}</a><br/>
-                                    {% endfor %}
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                    <thead>
+                    <tr>
+                        <th class="col-sm-1">Archivos Multimedia</th>
+                        <th class="col-sm-2">Nombre</th>
+                        <th class="col-sm-2">Observaciones</th>
+                        <th class="col-sm-1">Fecha de Alta</th>
+                        <th class="col-sm-1">Archivador</th>
+                        <th class="col-sm-1">Armario</th>
+                        <th class="col-sm-2">Categoria</th>
+                        {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-2">Acciones</th>{% endif %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for elemento in pagination %}
+                        <tr{% if(elemento.fechaBaja and is_granted('ROLE_ADMIN')) %} class="danger" {% endif %}>
+                            <td>
+                                {% if(is_granted('ROLE_DOCUMENTADOR')) %}
+                                    {% if(elemento.multimedia|length!=0) %}
+                                        {% for numero in elemento.multimedia %}
+                                            <a href="{{ path('visor_Archivo', {'id':numero.id}) }}">{{ numero.observaciones }}</a><br/>
+                                        {% endfor %}
+                                    {% else %}
+                                        {{ elemento.multimedia|length }}
+                                    {% endif %}
                                 {% else %}
                                     {{ elemento.multimedia|length }}
                                 {% endif %}
-                            {% else %}
-                                {{ elemento.multimedia|length }}
-                            {% endif %}
-                        </td>
-                        <td>{{ elemento.nombre }}</td>
-                        <td>{{ elemento.observaciones }}</td>
-                        <td>{{ elemento.fechaAlta | date("d/m/Y") }}</td>
-                        <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Archivador', {'id': elemento.archivador.id}) }}">{{ elemento.archivador }}</a>{% else %}{{ elemento.archivador }}{% endif %}</td>
-                        <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Armario', {'id': elemento.archivador.armario.id}) }}">{{ elemento.archivador.armario }}</a>{% else %}{{ elemento.archivador.armario }}{% endif %}</td>
-                        <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Categoria', {'id': elemento.categoria.id}) }}">{{ elemento.categoria }}</a>{% else %}{{ elemento.categoria }}{% endif %}</td>
-                        {% if is_granted('ROLE_DOCUMENTADOR') %}
-                            <td>
-                                {% if elemento.fechaBaja is null %}<a href="{{ path('modificar_articulo', {'id': elemento.id}) }}" class="btn btn-sm btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>{% endif %}
-                                {% if is_granted('ROLE_ADMIN') %}{% if elemento.fechaBaja is null %}<a href="{{ path('desactivar_articulo', {'id': elemento.id}) }}" class="btn btn-sm btn-danger" title="Desactivar"><i class="fa fa-download"></i></a>{% endif %}{% endif %}
-                                {% if is_granted('ROLE_ADMIN') %}{% if elemento.fechaBaja is not null %}<a href="{{ path('reactivar_articulo', {'id': elemento.id}) }}" class="btn btn-sm btn-success" title="Reactivar"><i class="fa fa-upload"></i></a>{% endif %}{% endif %}
                             </td>
-                        {% endif %}
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                            <td>{{ elemento.nombre }}</td>
+                            <td>{{ elemento.observaciones }}</td>
+                            <td>{{ elemento.fechaAlta | date("d/m/Y") }}</td>
+                            <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Archivador', {'id': elemento.archivador.id}) }}">{{ elemento.archivador }}</a>{% else %}{{ elemento.archivador }}{% endif %}</td>
+                            <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Armario', {'id': elemento.archivador.armario.id}) }}">{{ elemento.archivador.armario }}</a>{% else %}{{ elemento.archivador.armario }}{% endif %}</td>
+                            <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Categoria', {'id': elemento.categoria.id}) }}">{{ elemento.categoria }}</a>{% else %}{{ elemento.categoria }}{% endif %}</td>
+                            {% if is_granted('ROLE_DOCUMENTADOR') %}
+                                <td>
+                                    {% if elemento.fechaBaja is null %}<a href="{{ path('modificar_articulo', {'id': elemento.id}) }}" class="btn btn-sm btn-info" title="Modificar"><i class="fa fa-pencil"></i></a>{% endif %}
+                                    {% if is_granted('ROLE_ADMIN') %}{% if elemento.fechaBaja is null %}<a href="{{ path('desactivar_articulo', {'id': elemento.id}) }}" class="btn btn-sm btn-danger" title="Desactivar"><i class="fa fa-download"></i></a>{% endif %}{% endif %}
+                                    {% if is_granted('ROLE_ADMIN') %}{% if elemento.fechaBaja is not null %}<a href="{{ path('reactivar_articulo', {'id': elemento.id}) }}" class="btn btn-sm btn-success" title="Reactivar"><i class="fa fa-upload"></i></a>{% endif %}{% endif %}
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         {% else %}
             <div class="articulos">
                 {% for articulos in pagination %}

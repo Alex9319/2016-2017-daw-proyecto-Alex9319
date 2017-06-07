@@ -13,16 +13,16 @@ $(document).ready(function() {
         }).mouseleave(function () {
             $(".desplegable").hide();
         });
+        $(window).resize(function () {
+            $('select').select2();
+        });
+        $('select').select2();
     }
     else {
         $("#usuario").click(function () {
             $(".desplegable").toggle();
         });
     }
-    $(window).resize(function () {
-        $('select').select2();
-    });
-    $('select').select2();
 
     $('.cerrar').click(function () {
         fina = $("audio").length;

@@ -87,10 +87,10 @@
                 {% if  articulos.nombre %}
                             <div class="contenido-articulo col-md-4" >
 
-                            <h2>{{ articulos.nombre|title }}</h2>
-                            <p class="col-md-12">{{ articulos.observaciones|capitalize }}</p>
-                            <!-- Trigger the modal with a button -->
-                             <button type="button" class="btn btn-info btn-lg-4 col-md-4 col-xs-6 col-sm-6 col-md-offset-4" data-toggle="modal" data-target="#{{ articulos.id }}">Ver</button>
+                                <h2>{{ articulos.nombre|title }}</h2>
+                                <p class="acortar">{{ articulos.observaciones|capitalize }}</p>
+                                <!-- Trigger the modal with a button -->
+                                <button type="button" class="btn btn-info btn-lg-4 col-md-4 col-xs-6 col-sm-6 col-md-offset-4" data-toggle="modal" data-target="#{{ articulos.id }}">Ver</button>
                             </div>
                         <!-- Modal -->
                         <div class="modal fade" id="{{ articulos.id }}" role="dialog">

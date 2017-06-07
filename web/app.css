@@ -59,7 +59,7 @@ ul.navbar-nav{
     border: solid 1px var(--remarcado);
     padding-bottom: 1em;
 }
-.contenido-articulo>p{
+.acortar{
     overflow:hidden;
     white-space:nowrap;
     text-overflow: ellipsis;
@@ -247,8 +247,8 @@ footer {
     table td img, table td video{
         width: 100px;
     }
-    .contenido-articulo>p{
-       white-space: pre-wrap;
+    .acortar{
+        width: 250px;
     }
     #visor{
         flex-direction: column;

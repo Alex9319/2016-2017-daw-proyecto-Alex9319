@@ -32,7 +32,7 @@ security:
             form_login:
               login_path: login
               check_path: comprobar
-              default_target_path: listadoArticulos
+              default_target_path: homepage
 
             logout:
               path: salir

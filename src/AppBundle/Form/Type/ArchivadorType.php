@@ -17,7 +17,9 @@ class ArchivadorType extends AbstractType
                 'label'=> 'Numero del Archivador',
                 'required' => true,
                 'attr' => array(
-                    'placeholder' => 'Introduzca el número del Archivador'
+                    'placeholder' => 'Introduzca el número del Archivador',
+                    'min' =>1,
+                    'max' =>99999
                 )
             ])
             ->add('color',null,[
@@ -29,7 +31,7 @@ class ArchivadorType extends AbstractType
             ])
             ->add('descripcion',TextareaType::class,[
                 'label'=> 'Descripción del Archivador',
-                'required' => false,
+                'required' => true,
                 'attr' => array(
                     'placeholder' => 'Introduzca la descripción del Archivador'
                 )

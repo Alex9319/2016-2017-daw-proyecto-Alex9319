@@ -22,7 +22,7 @@ class ArmarioType extends AbstractType
             ])
         ->add('ubicacion',TextareaType::class,[
             'label' => 'Ubicación del Armario',
-            'required' => false,
+            'required' => true,
             'attr' => array(
                 'placeholder' => 'Introduzca la ubicación del Armario'
             )

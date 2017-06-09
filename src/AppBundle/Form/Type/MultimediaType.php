@@ -20,7 +20,7 @@ class MultimediaType extends AbstractType
             ))
             ->add('observaciones',TextareaType::class,array(
                 'label' => 'Descripción del articulo',
-                'required' => false
+                'required' => true
             ))
             ->add('multimedia', FileType::class ,array(
                 'label' => 'Fichero multimedia del articulo',

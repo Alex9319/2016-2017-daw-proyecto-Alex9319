@@ -24,7 +24,7 @@ class Armario
     private $nombre;
 
     /**
-     * @ORM\Column(type="string", nullable=false, length=25)
+     * @ORM\Column(type="string", nullable=false, length=50)
      * @var string
      */
     private $ubicacion;

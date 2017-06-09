@@ -15,10 +15,12 @@ class ModMultimediaType extends AbstractType
     {
         $builder
             ->add('nombre',null,array(
-                'label' => 'Nombre del articulo'
+                'label' => 'Nombre del articulo',
+                'required' => true
             ))
             ->add('observaciones',TextareaType::class,array(
                 'label' => 'Descripción del articulo',
+                'required' => true
             ))
             ->add('nuevo_multimedia', FileType::class ,array(
                 'label' => 'Fichero multimedia nuevo del articulo',

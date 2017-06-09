@@ -77,7 +77,8 @@ class UsuarioType extends AbstractType
                 'first_options' => [
                     'label' => 'Clave Nueva',
                     'attr' => array(
-                        'placeholder' => 'Introduzca su nueva Clave'
+                        'placeholder' => 'Introduzca su nueva Clave',
+                        'min' =>'6'
                     ),
                     'constraints' => [
                         new NotBlank([
@@ -88,7 +89,8 @@ class UsuarioType extends AbstractType
                 'second_options' => [
                     'label' => 'Repetir Clave Nueva',
                     'attr' => array(
-                        'placeholder' => 'Repita su nueva Clave'
+                        'placeholder' => 'Repita su nueva Clave',
+                        'min' =>'6'
                     ),
                     'constraints' => [
                         new NotBlank([

@@ -34,7 +34,7 @@ class Multimedia
      */
     private $type;
     /**
-     * @ORM\Column(type="string", nullable=true, length=25)
+     * @ORM\Column(type="string", nullable=true, length=100)
      * @var string
      */
     private $observaciones;

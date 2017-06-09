@@ -19,31 +19,31 @@ class Usuario implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", unique=true, nullable=false)
+     * @ORM\Column(type="string", unique=true, nullable=false, length=25)
      * @var string
      */
     private $usuario;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=false)
      * @var string
      */
     private $clave;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", nullable=false, length=25)
      * @var string
      */
     private $nombre;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", nullable=false, length=50)
      * @var string
      */
     private $apellidos;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=false, length=4)
      * @var int
      */
     private $NivelDeAcceso;

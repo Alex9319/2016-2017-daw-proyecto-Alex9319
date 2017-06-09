@@ -18,23 +18,23 @@ class Multimedia
     private $id;
 
     /**
-     * @ORM\Column(type="string", nullable=false, unique=true)
+     * @ORM\Column(type="string", nullable=false, unique=true, length=25)
      * @var string
      */
     private $nombre;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=false, length=100)
      * @var string
      */
     private $multimedia;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=false, length=25)
      * @var string
      */
     private $type;
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", nullable=true, length=25)
      * @var string
      */
     private $observaciones;

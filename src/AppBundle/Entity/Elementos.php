@@ -19,38 +19,38 @@ class Elementos
     private $id;
 
     /**
-     * @ORM\Column(type="string", unique=true, nullable=false)
+     * @ORM\Column(type="string", unique=true, nullable=false, length=25)
      * @var string
      */
     private $nombre;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", nullable=false, length=25)
      * @var string
      */
     private $observaciones;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=false, length=4)
      * @var int
      */
     private $NivelDeAcceso;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", nullable=false, length=25)
      * @var string
      */
     private $localizacion;
 
     /**
      * @var \DateTime
-     * @ORM\Column(name="fecha_alta", type="date",nullable=false)
+     * @ORM\Column(name="fecha_alta", type="date", nullable=false)
      */
     private $fechaAlta;
 
     /**
      * @var \DateTime
-     * @ORM\Column(name="fecha_baja", type="date",nullable=true)
+     * @ORM\Column(name="fecha_baja", type="date", nullable=true)
      */
     private $fechaBaja;
 

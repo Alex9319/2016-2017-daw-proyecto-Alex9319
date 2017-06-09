@@ -18,13 +18,13 @@ class Categoria
     private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=false, length=25)
      * @var string
      */
     private $nombre;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=false, length=5)
      * @var int
      */
     private $numero;

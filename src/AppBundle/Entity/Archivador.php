@@ -18,19 +18,19 @@ class Archivador
     private $id;
 
     /**
-     * @ORM\Column(type="integer", unique=true)
+     * @ORM\Column(type="integer", unique=true, nullable=false, length=1)
      * @var int
      */
     private $numero;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=false, length=25)
      * @var string
      */
     private $color;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=false, length=250)
      * @var string
      */
     private $descripcion;

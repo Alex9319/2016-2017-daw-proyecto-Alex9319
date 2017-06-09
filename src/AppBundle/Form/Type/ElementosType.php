@@ -32,7 +32,7 @@ class ElementosType extends AbstractType
                 'label' => 'Localización',
                 'required' => true,
                 'attr' => array(
-                    'placeholder' => 'Introduzca la localización del articulo'
+                    'placeholder' => 'Introduzca la localización de donde procede el articulo'
                 )
             ])
             ->add('nivelDeAcceso', IntegerType::class, [

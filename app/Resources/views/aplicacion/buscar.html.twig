@@ -26,6 +26,7 @@
                         <th class="col-sm-1">Archivos Multimedia</th>
                         <th class="col-sm-2">Nombre</th>
                         <th class="col-sm-2">Observaciones</th>
+                        <th class="col-sm-2">Localización</th>
                         <th class="col-sm-1">Fecha de Alta</th>
                         <th class="col-sm-1">Archivador</th>
                         <th class="col-sm-1">Armario</th>
@@ -51,6 +52,7 @@
                             </td>
                             <td>{{ elemento.nombre }}</td>
                             <td>{{ elemento.observaciones }}</td>
+                            <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('listadoLocalizacion', {'nombre': elemento.localizacion}) }}">{{ elemento.localizacion }}</a>{% else %}{{ elemento.localizacion }}{% endif %}</td>
                             <td>{{ elemento.fechaAlta | date("d/m/Y") }}</td>
                             <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Archivador', {'id': elemento.archivador.id}) }}">{{ elemento.archivador }}</a>{% else %}{{ elemento.archivador }}{% endif %}</td>
                             <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Armario', {'id': elemento.archivador.armario.id}) }}">{{ elemento.archivador.armario }}</a>{% else %}{{ elemento.archivador.armario }}{% endif %}</td>

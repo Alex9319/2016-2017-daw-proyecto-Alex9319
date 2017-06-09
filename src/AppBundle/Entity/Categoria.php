@@ -194,4 +194,3 @@ class Categoria
         $this->elementos->removeElement($elemento);
     }
 }
-

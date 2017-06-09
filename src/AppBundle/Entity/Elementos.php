@@ -37,6 +37,12 @@ class Elementos
     private $NivelDeAcceso;
 
     /**
+     * @ORM\Column(type="string", nullable=false)
+     * @var string
+     */
+    private $localizacion;
+
+    /**
      * @var \DateTime
      * @ORM\Column(name="fecha_alta", type="date",nullable=false)
      */
@@ -296,5 +302,29 @@ class Elementos
     public function getMultimedia()
     {
         return $this->multimedia;
+    }
+
+    /**
+     * Set localizacion
+     *
+     * @param string $localizacion
+     *
+     * @return Elementos
+     */
+    public function setLocalizacion($localizacion)
+    {
+        $this->localizacion = $localizacion;
+
+        return $this;
+    }
+
+    /**
+     * Get localizacion
+     *
+     * @return string
+     */
+    public function getLocalizacion()
+    {
+        return $this->localizacion;
     }
 }

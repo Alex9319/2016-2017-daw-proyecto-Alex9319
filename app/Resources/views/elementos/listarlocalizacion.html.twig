@@ -1,7 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1>Listado de Articulos</h1>
+    <h1>Listado de Articulos de {{ nombre }}</h1>
     {% if is_granted('ROLE_DOCUMENTADOR') %}<a href="{{ path("nuevo_articulo") }}" class="btn btn-success"><i class="fa fa-plus"></i> Añadir articulo</a>{% endif %}
     {% if (pagination.getTotalItemCount != 0) %}
         {# total items count #}
@@ -14,7 +14,6 @@
                     <th class="col-sm-1">Ficheros Multimedia</th>
                     <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'Nombre', 'e.nombre') }}</th>
                     <th class="col-sm-2">Observaciones</th>
-                    <th class="col-sm-2">Localización</th>
                     <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Fecha Alta', 'e.fechaAlta') }}</th>
                     <th class="col-sm-1">Archivador</th>
                     <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Armario', 'arm.nombre') }}</th>
@@ -40,7 +39,6 @@
                         </td>
                         <td>{{ elemento.nombre }}</td>
                         <td>{{ elemento.observaciones }}</td>
-                        <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('listadoLocalizacion', {'nombre': elemento.localizacion}) }}">{{ elemento.localizacion }}</a>{% else %}{{ elemento.localizacion }}{% endif %}</td>
                         <td>{{ elemento.fechaAlta | date("d/m/Y") }}</td>
                         <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Archivador', {'id': elemento.archivador.id}) }}">{{ elemento.archivador }}</a>{% else %}{{ elemento.archivador }}{% endif %}</td>
                         <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('contenido_Armario', {'id': elemento.archivador.armario.id}) }}">{{ elemento.archivador.armario }}</a>{% else %}{{ elemento.archivador.armario }}{% endif %}</td>

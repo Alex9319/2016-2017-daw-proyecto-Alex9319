@@ -51,7 +51,7 @@ class dataLoad implements FixtureInterface, ContainerAwareInterface
         $manager->persist($categoria);
 
         $articulo=new Elementos();
-        $articulo->setNombre("Imagen del Maestro")->setObservaciones("En la imagen podemos ver una foto del maestro con una de sus guitarras")->setNivelDeAcceso(1200)->setFechaAlta(new \DateTime("now"))->setArchivador($archivador)->setCategoria($categoria);
+        $articulo->setNombre("Imagen del Maestro")->setObservaciones("En la imagen podemos ver una foto del maestro con una de sus guitarras")->setLocalización("Linares")->setNivelDeAcceso(1200)->setFechaAlta(new \DateTime("now"))->setArchivador($archivador)->setCategoria($categoria);
         $manager->persist($articulo);
 
         $multimedia=new Multimedia();

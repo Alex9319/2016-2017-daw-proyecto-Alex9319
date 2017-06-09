@@ -28,6 +28,13 @@ class ElementosType extends AbstractType
                     'placeholder' => 'Introduzca la descripcion del articulo'
                 )
             ])
+            ->add('localizacion', null, [
+                'label' => 'Localización',
+                'required' => true,
+                'attr' => array(
+                    'placeholder' => 'Introduzca la localización del articulo'
+                )
+            ])
             ->add('nivelDeAcceso', IntegerType::class, [
                 'label' => 'Nivel de acceso del Articulo',
                 'required' => true,

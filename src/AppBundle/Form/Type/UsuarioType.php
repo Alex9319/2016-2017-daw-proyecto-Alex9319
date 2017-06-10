@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 class UsuarioType extends AbstractType
@@ -77,8 +78,7 @@ class UsuarioType extends AbstractType
                 'first_options' => [
                     'label' => 'Clave Nueva',
                     'attr' => array(
-                        'placeholder' => 'Introduzca su nueva Clave',
-                        'min' =>'6'
+                        'placeholder' => 'Introduzca su nueva Clave'
                     ),
                     'constraints' => [
                         new NotBlank([
@@ -89,14 +89,21 @@ class UsuarioType extends AbstractType
                 'second_options' => [
                     'label' => 'Repetir Clave Nueva',
                     'attr' => array(
-                        'placeholder' => 'Repita su nueva Clave',
-                        'min' =>'6'
+                        'placeholder' => 'Repita su nueva Clave'
                     ),
                     'constraints' => [
                         new NotBlank([
                             'groups'=>['password']
                         ])
                     ]
+                ],
+                'constraints' => [
+                    new Assert\Regex(array(
+                            'pattern' =>"/^[A-Z a-z 0-9]{6}/",
+                            'message'=>"La longitud mínima es de 6 carácteres"
+                        )
+                    )
+
                 ]
             ])
             ->add('cambiarContrasenas', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [

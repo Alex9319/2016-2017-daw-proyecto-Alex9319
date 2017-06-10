@@ -33,7 +33,7 @@ class dataLoad implements FixtureInterface, ContainerAwareInterface
 
         // the 'security.password_encoder' service requires Symfony 2.6 or higher
         $encoder = $this->container->get('security.password_encoder');
-        $password = $encoder->encodePassword($user, '1234');
+        $password = $encoder->encodePassword($user, '123456');
         $user->setClave($password);
 
         $manager->persist($user);

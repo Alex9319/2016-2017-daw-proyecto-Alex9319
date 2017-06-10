@@ -3,11 +3,12 @@
 {% block content %}
     <h1>
         {% if elementos.id %}
-            Modificar Articulo {{ elementos.nombre }}
+            Modificar Artículo {{ elementos.nombre }}
         {% else %}
-            Nuevo Articulo
+            Nuevo Artículo
         {% endif %}
     </h1>
+    <h6>* Campos obligatorios</h6>
     {{ form_start(form) }}
     {{ form_widget(form) }}
     <div class="form-group" id="envio">

@@ -14,7 +14,7 @@ class ArchivadorType extends AbstractType
     {
         $builder
             ->add('numero',null,[
-                'label'=> 'Numero del Archivador',
+                'label'=> 'Numero del Archivador *',
                 'required' => true,
                 'attr' => array(
                     'placeholder' => 'Introduzca el número del Archivador',
@@ -23,21 +23,21 @@ class ArchivadorType extends AbstractType
                 )
             ])
             ->add('color',null,[
-                'label'=> 'Color del Archivador',
+                'label'=> 'Color del Archivador *',
                 'required' => true,
                 'attr' => array(
                     'placeholder' => 'Introduzca el color de la etiqueta del Archivador'
                 )
             ])
             ->add('descripcion',TextareaType::class,[
-                'label'=> 'Descripción del Archivador',
+                'label'=> 'Descripción del Archivador *',
                 'required' => true,
                 'attr' => array(
                     'placeholder' => 'Introduzca la descripción del Archivador'
                 )
             ])
             ->add('armario',null,[
-                'label'=> 'Armario',
+                'label'=> 'Armario *',
                 'required' => true,
                 'placeholder' => 'Seleccione el Armario en el que se encuentra'
             ]);

@@ -15,19 +15,19 @@ class MultimediaType extends AbstractType
     {
         $builder
             ->add('nombre',null,array(
-                'label' => 'Nombre del articulo',
+                'label' => 'Nombre del articulo *',
                 'required' => true
             ))
             ->add('observaciones',TextareaType::class,array(
-                'label' => 'Descripción del articulo',
+                'label' => 'Descripción del articulo *',
                 'required' => true
             ))
             ->add('multimedia', FileType::class ,array(
-                'label' => 'Fichero multimedia del articulo',
+                'label' => 'Fichero multimedia del articulo *',
                 'required' => true
             ))
             ->add('elementos',null,[
-                'label'=>'Id de elemento',
+                'label'=>'Artículo al que pertenece el archivo multimedia *',
                 'required' => true,
                 'placeholder' => 'Seleccione el articulo al que pertenece'
             ]);

@@ -1,11 +1,11 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1>Listado de Articulos</h1>
-    {% if is_granted('ROLE_DOCUMENTADOR') %}<a href="{{ path("nuevo_articulo") }}" class="btn btn-success"><i class="fa fa-plus"></i> Añadir articulo</a>{% endif %}
+    <h1>Listado de Artículos</h1>
+    {% if is_granted('ROLE_DOCUMENTADOR') %}<a href="{{ path("nuevo_articulo") }}" class="btn btn-success"><i class="fa fa-plus"></i> Añadir artículo</a>{% endif %}
     {% if (pagination.getTotalItemCount != 0) %}
         {# total items count #}
-        <h5>Total de Articulos: {{ pagination.getTotalItemCount }}</h5>
+        <h5>Total de Artículos: {{ pagination.getTotalItemCount }}</h5>
         <p></p>
         <div class="table-responsive">
             <table class="table table-hover table-bordered">
@@ -15,10 +15,10 @@
                     <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'Nombre', 'e.nombre') }}</th>
                     <th class="col-sm-2">Observaciones</th>
                     <th class="col-sm-2">Localización</th>
-                    <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Fecha Alta', 'e.fechaAlta') }}</th>
+                    <th class="col-sm-2">{{ knp_pagination_sortable(pagination, 'Fecha Alta', 'e.fechaAlta') }}</th>
                     <th class="col-sm-1">Archivador</th>
-                    <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Armario', 'arm.nombre') }}</th>
-                    <th class="col-sm-1">{{ knp_pagination_sortable(pagination, 'Categoria', 'cat.nombre') }}</th>
+                    <th class="col-sm-1">Armario</th>
+                    <th class="col-sm-1">Categoria</th>
                     {% if is_granted('ROLE_DOCUMENTADOR') %}<th class="col-sm-1">Acciones</th>{% endif %}
                 </tr>
                 </thead>
@@ -61,6 +61,6 @@
             {{ knp_pagination_render(pagination) }}
         </div>
     {% else %}
-        <h4 id="error">No hay ningun Articulo para mostrar, añada uno nuevo</h4>
+        <h4 id="error">No hay ningun Artículo para mostrar, añada uno nuevo</h4>
     {% endif %}
 {% endblock %}

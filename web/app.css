@@ -88,7 +88,7 @@ ul.navbar-nav{
 .desplegable{
     margin-top: -3px;
 }
-#error{
+#error,.container>h6{
     color:red;
 }
 table a, table th{

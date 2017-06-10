@@ -18,21 +18,21 @@ class NewUsuarioType extends AbstractType
     {
         $builder
             ->add('nombre', null, [
-                'label' => 'Nombre',
+                'label' => 'Nombre *',
                 'required' => true,
                 'attr' => array(
                     'placeholder' => 'Introduzca el Nombre'
                 )
             ])
             ->add('apellidos', null, [
-                'label' => 'Apellidos',
+                'label' => 'Apellidos *',
                 'required' => true,
                 'attr' => array(
                     'placeholder' => 'Introduzca el Apellido'
                 )
             ])
             ->add('usuario', null, [
-                'label' => 'Nombre de Usuario',
+                'label' => 'Nombre de Usuario *',
                 'disabled' => !$options['es_admin'],
                 'required' => true,
                 'attr' => array(
@@ -40,7 +40,7 @@ class NewUsuarioType extends AbstractType
                 )
             ])
             ->add('nivelDeAcceso', null, [
-                'label' => 'Nivel de Acceso',
+                'label' => 'Nivel de Acceso *',
                 'disabled' => !$options['es_admin'],
                 'required' => true,
                 'attr' => array(
@@ -52,7 +52,7 @@ class NewUsuarioType extends AbstractType
                 'type' => PasswordType::class,
                 'required' => false,
                 'first_options' => [
-                    'label' => 'Clave Nueva',
+                    'label' => 'Clave Nueva *',
                     'attr' => array(
                         'placeholder' => 'Introduzca su nueva Clave'
                     ),
@@ -63,7 +63,7 @@ class NewUsuarioType extends AbstractType
                     ]
                 ],
                 'second_options' => [
-                    'label' => 'Repetir Clave Nueva',
+                    'label' => 'Repetir Clave Nueva *',
                     'attr' => array(
                         'placeholder' => 'Repita su nueva Clave'
                     ),

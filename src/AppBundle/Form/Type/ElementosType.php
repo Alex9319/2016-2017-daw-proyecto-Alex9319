@@ -15,28 +15,28 @@ class ElementosType extends AbstractType
     {
         $builder
             ->add('nombre', null, [
-                'label' => 'Nombre del Articulo',
+                'label' => 'Nombre del Artículo *',
                 'required' => true,
                 'attr' => array(
-                    'placeholder' => 'Introduzca el nombre del Articulo'
+                    'placeholder' => 'Introduzca el nombre del Artículo'
                 )
             ])
             ->add('observaciones', TextareaType::class, [
-                'label' => 'Observaciones del Articulo',
+                'label' => 'Observaciones del Artículo *',
                 'required' => true,
                 'attr' => array(
-                    'placeholder' => 'Introduzca la descripcion del articulo'
+                    'placeholder' => 'Introduzca la descripcion del artículo'
                 )
             ])
             ->add('localizacion', null, [
-                'label' => 'Localización',
+                'label' => 'Localización *',
                 'required' => true,
                 'attr' => array(
                     'placeholder' => 'Introduzca la localización de donde procede el articulo'
                 )
             ])
             ->add('nivelDeAcceso', IntegerType::class, [
-                'label' => 'Nivel de acceso del Articulo',
+                'label' => 'Nivel de acceso del Artículo *',
                 'required' => true,
                 'attr'=>array(
                     'placeholder' =>'Introduzca el Nivel de Acceso (MENOR de 1200 PÚBLICO, MAYOR de 1200 hasta 1999 PRIVADO)',
@@ -45,19 +45,19 @@ class ElementosType extends AbstractType
                 ),
             ])
             ->add('fechaAlta', null, [
-                'label' => 'Fecha de Alta',
+                'label' => 'Fecha de Alta *',
                 'widget' => 'single_text',
                 'required' => true,
                 'placeholder'=>'dd/mm/aaaa'
             ])
             ->add('archivador', null, [
-                'label' => 'Archivador donde se encuentra el Articulo',
+                'label' => 'Archivador donde se encuentra el Artículo *',
                 'placeholder'=>'Seleccione el Archivador',
                 'class'=>'AppBundle\Entity\Archivador',
                 'required' => true
             ])
             ->add('categoria', null, [
-                'label' => 'Categoria del Articulo',
+                'label' => 'Categoria del Artículo *',
                 'required' => true,
                 'placeholder'=>'Seleccione la Categoria'
             ]);

@@ -14,14 +14,14 @@ class ArmarioType extends AbstractType
     {
         $builder
             ->add('nombre', null, [
-                'label' => 'Nombre del Armario',
+                'label' => 'Nombre del Armario *',
                 'required' => true,
                 'attr' => array(
                     'placeholder' => 'Introduzca el nombre del Armario'
                 )
             ])
         ->add('ubicacion',TextareaType::class,[
-            'label' => 'Ubicación del Armario',
+            'label' => 'Ubicación del Armario *',
             'required' => true,
             'attr' => array(
                 'placeholder' => 'Introduzca la ubicación del Armario'

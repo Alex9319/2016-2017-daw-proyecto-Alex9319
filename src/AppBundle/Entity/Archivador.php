@@ -30,7 +30,7 @@ class Archivador
     private $color;
 
     /**
-     * @ORM\Column(type="string", nullable=false, length=250)
+     * @ORM\Column(type="string", nullable=false)
      * @var string
      */
     private $descripcion;

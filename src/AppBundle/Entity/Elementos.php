@@ -25,7 +25,7 @@ class Elementos
     private $nombre;
 
     /**
-     * @ORM\Column(type="string", nullable=false, length=100)
+     * @ORM\Column(type="string", nullable=false)
      * @var string
      */
     private $observaciones;

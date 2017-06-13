@@ -52,7 +52,7 @@ class UsuarioController extends Controller
             try{
                 $em->flush();
                 $this->addFlash('estado', 'Cambios guardados con éxito');
-                return $this->redirectToRoute('listadoUsuarios');
+                return $this->redirectToRoute('perfil');
             }catch (\Exception $e){
                 $this->addFlash('error', 'Los cambios no se han podido actualizar el nombre de usuario ya existe');
             }

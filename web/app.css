@@ -94,9 +94,12 @@ ul.navbar-nav{
 table a, table th{
     color: black;
 }
+table td a, table td a:hover{
+    text-decoration: underline;
+}
 table a:hover{
     color:white;
-    text-decoration:none;
+    text-decoration: none;
 }
 td, th{
     text-align: center;

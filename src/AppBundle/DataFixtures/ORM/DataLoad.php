@@ -39,7 +39,7 @@ class dataLoad implements FixtureInterface, ContainerAwareInterface
         $manager->persist($user);
 
         $armario=new Armario();
-        $armario->setNombre('Armario de ejemplo de la sala 1')->setUbicacion("Armario localizado en la sala 5");
+        $armario->setNombre('Armario de la sala 1')->setUbicacion("Armario localizado en la sala 5");
         $manager->persist($armario);
 
         $archivador=new Archivador();

@@ -29,9 +29,9 @@ class CategoriaType extends AbstractType
                 )
             ])
             ->add('padre', null, [
-                'label' => 'Categoria padre *',
+                'label' => 'Categoria padre',
                 'required' => false,
-                'placeholder' => 'Seleccione la categoria de la que depende'
+                'placeholder' => 'Seleccione la categoria principal de la que depende'
             ]);
     }
 

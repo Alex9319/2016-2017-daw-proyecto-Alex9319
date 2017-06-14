@@ -47,28 +47,28 @@ class UsuarioType extends AbstractType
                 'attr' => array(
                     'placeholder' => 'Introduzca el Nivel de Acceso (2000 => Administrador, 1500 => Documentador, 1200 => Usuario)'
                 )
-            ])
+            ]);
+            if (!$options['es_admin']) {
+                $builder
+                    ->add('antigua', PasswordType::class, [
+                        'label' => 'Clave Antigua *',
+                        'mapped' => false,
+                        'constraints' => [
+                            new UserPassword([
+                            ])
+                        ],
+                        'attr' => array(
+                            'placeholder' => 'Introduzca su Clave Antigua'
+                        )
+                    ]);
+            }
+        $builder
             ->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [
                 'label' => 'Enviar solo el perfil',
                 'attr' => ['class' => 'btn btn-success'],
                 'validation_groups' => ['Default']
             ]);
 
-        if (!$options['es_admin']) {
-            $builder
-                ->add('antigua', PasswordType::class, [
-                    'label' => 'Clave Antigua *',
-                    'mapped' => false,
-                    'constraints' => [
-                        new UserPassword([
-                            'groups' => ['password']
-                        ]),
-                    ],
-                    'attr' => array(
-                        'placeholder' => 'Introduzca su Clave Antigua'
-                    )
-                 ]);
-        }
 
         $builder
             ->add('nueva', RepeatedType::class, [

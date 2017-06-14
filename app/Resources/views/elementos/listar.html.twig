@@ -26,14 +26,10 @@
                 {% for elemento in pagination %}
                     <tr{% if(elemento.fechaBaja and is_granted('ROLE_ADMIN')) %} class="danger" {% endif %}>
                         <td>
-                            {% if(is_granted('ROLE_DOCUMENTADOR')) %}
-                                {% if(elemento.multimedia|length!=0) %}
-                                    {% for numero in elemento.multimedia %}
-                                        <a href="{{ path('visor_Archivo', {'id':numero.id}) }}">{{ numero.nombre }}</a><br/>
-                                    {% endfor %}
-                                {% else %}
-                                    {{ elemento.multimedia|length }}
-                                {% endif %}
+                            {% if(elemento.multimedia|length!=0) %}
+                                {% for numero in elemento.multimedia %}
+                                    <a href="{{ path('visor_Archivo', {'id':numero.id}) }}">{{ numero.nombre }}</a><br/>
+                                {% endfor %}
                             {% else %}
                                 {{ elemento.multimedia|length }}
                             {% endif %}

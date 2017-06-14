@@ -17,7 +17,7 @@
                 <tbody>
                 {% for ficheros in pagination %}
                     <tr>
-                        <td>{% if(is_granted('ROLE_DOCUMENTADOR')) %}<a href="{{ path('visor_Multimedia',{'id': ficheros.id}) }}" >{{ ficheros.nombre }}</a>{% else %}{{ ficheros.nombre }}{% endif %}</td>
+                        <td><a href="{{ path('visor_Multimedia',{'id': ficheros.id}) }}" >{{ ficheros.nombre }}</a></td>
                         <td>{{ ficheros.observaciones }}</td>
                         {% if is_granted('ROLE_DOCUMENTADOR') %}
                             <td>

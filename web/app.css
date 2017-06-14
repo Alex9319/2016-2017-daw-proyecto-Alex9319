@@ -186,6 +186,12 @@ footer {
     width: 300px;
     height: 250px;
 }
+#contacto {
+   display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 @media (max-width: 992px) {
     body>.container {
         margin-top: 50px;

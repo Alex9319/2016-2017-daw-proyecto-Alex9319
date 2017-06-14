@@ -45,7 +45,7 @@ class UsuarioType extends AbstractType
                 'disabled' => !$options['es_admin'],
                 'required' => true,
                 'attr' => array(
-                    'placeholder' => 'Introduzca el Nivel de Acceso (2000 => Administrador, 1500 => Documentador, 1200 => Usuario)'
+                    'placeholder' => 'Introduzca el Nivel de Acceso (2000 == Administrador, 1500 >= Documentador, 1500 < Usuario)'
                 )
             ])
             ->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [

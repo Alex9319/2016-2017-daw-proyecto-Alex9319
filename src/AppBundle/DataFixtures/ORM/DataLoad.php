@@ -38,6 +38,26 @@ class dataLoad implements FixtureInterface, ContainerAwareInterface
 
         $manager->persist($user);
 
+        $user1 = new Usuario();
+        $user1->setNombre('Documentador')->setNivelDeAcceso(2000)->setUsuario('doc')->setApellidos('Documenta');
+
+        // the 'security.password_encoder' service requires Symfony 2.6 or higher
+        $encoder = $this->container->get('security.password_encoder');
+        $password = $encoder->encodePassword($user1, '123456');
+        $user1->setClave($password);
+
+        $manager->persist($user1);
+
+        $user2 = new Usuario();
+        $user2->setNombre('Usuario')->setNivelDeAcceso(2000)->setUsuario('usuario')->setApellidos('Básico');
+
+        // the 'security.password_encoder' service requires Symfony 2.6 or higher
+        $encoder = $this->container->get('security.password_encoder');
+        $password = $encoder->encodePassword($user2, '123456');
+        $user2->setClave($password);
+
+        $manager->persist($user2);
+
         $armario=new Armario();
         $armario->setNombre('Armario de la sala 1')->setUbicacion("Armario localizado en la sala 5");
         $manager->persist($armario);

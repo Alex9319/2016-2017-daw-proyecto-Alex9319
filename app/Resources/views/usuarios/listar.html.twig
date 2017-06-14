@@ -24,9 +24,9 @@
                         <td>{{ usuario.nombre }}</td>
                         <td>{{ usuario.apellidos }}</td>
                         <td>{{ usuario.usuario }}</td>
-                        <td>{% if(usuario.nivelDeAcceso <= 1200)%}
+                        <td>{% if(usuario.nivelDeAcceso < 1500)%}
                                 Usuario
-                            {% elseif(usuario.nivelDeAcceso <= 1500 ) %}
+                            {% elseif(usuario.nivelDeAcceso <= 1999 ) %}
                                 Documentador
                             {% else %}
                                 Administrador

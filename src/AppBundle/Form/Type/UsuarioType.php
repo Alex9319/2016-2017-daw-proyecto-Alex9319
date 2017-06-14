@@ -57,15 +57,13 @@ class UsuarioType extends AbstractType
         if (!$options['es_admin']) {
             $builder
                 ->add('antigua', PasswordType::class, [
-                    'label' => 'Clave Antigua *',
+                    'label' => 'Clave Actual *',
                     'mapped' => false,
                     'constraints' => [
-                        new UserPassword([
-                            'groups' => ['password']
-                        ]),
+                        new UserPassword()
                     ],
                     'attr' => array(
-                        'placeholder' => 'Introduzca su Clave Antigua'
+                        'placeholder' => 'Introduzca su Clave Actual'
                     )
                  ]);
         }

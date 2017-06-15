@@ -187,7 +187,7 @@ footer {
     height: 250px;
 }
 #contacto {
-   display: flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -264,5 +264,8 @@ footer {
     }
     .visor{
         margin: 10px;
+    }
+    #contacto iframe{
+        width: 100%;
     }
 }

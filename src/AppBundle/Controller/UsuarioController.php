@@ -52,11 +52,16 @@ class UsuarioController extends Controller
             try{
                 $em->flush();
                 $this->addFlash('estado', 'Cambios guardados con éxito');
-                return $this->redirectToRoute('perfil');
+                if($usuario->getNivelDeAcceso()==2000){
+                    return $this->redirectToRoute('listadoUsuarios');
+                }else {
+                    return $this->redirectToRoute('perfil');
+                }
             }catch (\Exception $e){
                 $this->addFlash('error', 'Los cambios no se han podido actualizar el nombre de usuario ya existe');
             }
         }
+
         return $this->render('usuarios/form.html.twig', [
             'usuario'=>$usuario,
             'form' => $form->createView()
